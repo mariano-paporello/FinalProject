@@ -45,8 +45,12 @@ var bcrypt_1 = __importDefault(require("bcrypt"));
 var Schema = mongoose_1.default.Schema;
 var collection = "users";
 var usersSchema = new Schema({
-    username: { type: String, require: true },
+    gmail: { type: String, require: true },
     password: { type: String, require: true, max: 100 },
+    age: { type: String, require: true },
+    username: { type: String, require: true },
+    phoneNumber: { type: String, require: true, max: 15 },
+    image: { type: String, require: true },
 });
 usersSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function () {

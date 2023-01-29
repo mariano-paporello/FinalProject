@@ -5,16 +5,24 @@ import byCript from "bcrypt"
 const Schema = mongoose.Schema
 const collection = "users"
 export interface usuario {
-    username: string;
+    gmail: string;
     password: string;
+    username: String;
+    age:number;
+    phoneNumber:number;
+    image:string;
 }
 
 const usersSchema = new Schema(
     {
-    username: { type: String, require: true},
+    gmail: { type: String, require: true},
     password: { type: String, require: true, max: 100 },
-}
-)
+    age: { type: String, require: true},
+    username: { type: String, require: true},
+    phoneNumber: { type: String, require: true, max:15},
+    image: { type: String, require: true},
+})
+
 usersSchema.pre("save", async function(next){
     const user = this;
     const hash =await byCript.hash(user.password! , 10);

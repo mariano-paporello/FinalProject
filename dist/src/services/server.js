@@ -114,19 +114,19 @@ app.engine('hbs', (0, express_handlebars_1.engine)({
 app.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
-        if (req.session.nombre && exports.logged.islogged && !exports.logged.isDestroyed) {
+        if (req.session.gmail && exports.logged.islogged && !exports.logged.isDestroyed) {
             +products_1.default.find({}).then(function (productos) {
                 messages_1.default.find({}).then(function (mensajes) {
                     res.render('main', {
                         productos: productos.map(function (productoIndv) { return productoIndv.toJSON(); }),
                         mensajes: mensajes.map(function (mensajeIndv) { return mensajeIndv.toJSON(); }),
-                        user: req.session.nombre
+                        user: req.session.username
                     });
                 });
             });
         }
         else {
-            res.redirect("/login");
+            res.redirect("/register");
         }
         return [2 /*return*/];
     });
@@ -138,7 +138,7 @@ app.post('/login', function (req, res, next) { return __awaiter(void 0, void 0, 
             var data, token;
             return __generator(this, function (_a) {
                 data = req.body;
-                if (user.username && user.password) {
+                if (user.gmail && user.password) {
                     token = (0, auth_1.generateAuthToken)(user);
                     exports.logged.nombre = user.username;
                     exports.logged.contraseña = true;
@@ -160,8 +160,8 @@ app.post('/register', function (req, res, next) { return __awaiter(void 0, void 
     return __generator(this, function (_a) {
         loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
         passport_1.default.authenticate('signup', {}, function (err, user, info) {
-            var _a = req.body, username = _a.username, password = _a.password;
-            if (!username || !password) {
+            var _a = req.body, gmail = _a.gmail, username = _a.username, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image, password = _a.password;
+            if (!username || !gmail || !age || !phoneNumber || !image || !password) {
                 res.status(400).json({
                     Error: "Datos ingresados no validos o nulos"
                 });
@@ -170,6 +170,7 @@ app.post('/register', function (req, res, next) { return __awaiter(void 0, void 
             exports.logged.nombre = username;
             exports.logged.contraseña = true;
             exports.logged.islogged = true;
+            console.log(user);
             res.header('x-login-token', token).redirect("/");
         })(req, res, next);
         return [2 /*return*/];
@@ -186,9 +187,9 @@ app.get('/register', function (req, res) {
 });
 app.get("/logout", function (req, res) {
     loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
-    if (req.session.nombre) {
+    if (req.session.username) {
         res.render("Logout", {
-            user: req.session.nombre
+            user: req.session.username
         });
         exports.logged.islogged = false;
         exports.logged.nombre = "";

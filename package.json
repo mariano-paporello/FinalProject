@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/src/index.js ",
+    "startDev": "nodemon src/index.ts",
     "start0x": "0x dist/src/index.js ",
     "start:profilling": "node --prof dist/src/index.js",
     "start:inspect": "node --inspect dist/src/index.js",

@@ -25,8 +25,8 @@ import minimist from 'minimist'
 const args = minimist(process.argv)
 declare module 'express-session' {
     interface SessionData {
-        nombre: String,
-            contador: Number
+        gmail: String,
+        username: String,
         contraseña: any
     }
 }
@@ -100,26 +100,26 @@ export const logged = {
 
     app.get('/', async (req, res) => {
         logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
-        if (req.session.nombre && logged.islogged && !logged.isDestroyed) {
+        if (req.session.gmail && logged.islogged && !logged.isDestroyed) {
             +
             ProductoModel.find({}).then(productos => {
                 menssagesModel.find({}).then(mensajes => {
                     res.render('main', {
                         productos: productos.map(productoIndv => productoIndv.toJSON()),
                         mensajes: mensajes.map(mensajeIndv => mensajeIndv.toJSON()),
-                        user: req.session.nombre
+                        user: req.session.username
                     })
                 })
             })
         } else {
-            res.redirect("/login")
+            res.redirect("/register")
         }
     })
     app.post('/login', async (req, res, next) => {
         logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
         passport.authenticate('login', {}, async (err, user, info) => {
             const data = req.body
-            if (user.username && user.password) {
+            if (user.gmail && user.password) {
                 const token = generateAuthToken(user)
                 logged.nombre = user.username
                 logged.contraseña = true
@@ -139,11 +139,16 @@ export const logged = {
         logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
         passport.authenticate('signup', {}, (err, user, info) => {
             const {
+                gmail,
                 username,
+                age, 
+                phoneNumber,
+                image,
                 password
             } = req.body
+           
 
-            if (!username || !password) {
+            if (!username || !gmail || !age || !phoneNumber || !image || !password) {
                 res.status(400).json({
                     Error: "Datos ingresados no validos o nulos"
                 })
@@ -152,7 +157,7 @@ export const logged = {
             logged.nombre = username
             logged.contraseña = true
             logged.islogged = true
-
+            console.log(user)
             res.header('x-login-token', token).redirect("/")
         })(req, res, next)
     })
@@ -171,9 +176,9 @@ export const logged = {
 
     app.get("/logout", (req, res) => {
         logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
-        if (req.session.nombre) {
+        if (req.session.username) {
             res.render("Logout", {
-                user: req.session.nombre
+                user: req.session.username
             })
             logged.islogged = false
             logged.nombre = ""

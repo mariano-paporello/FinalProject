@@ -85,8 +85,8 @@ var checkAuth = function (req, res, next) { return __awaiter(void 0, void 0, voi
 exports.checkAuth = checkAuth;
 // PASSPORT PART
 var strategyOptions = {
-    username: "username",
     password: "password",
+    username: "username",
     passReqToCallback: true,
 };
 var logIn = function (req, username, password, done) { return __awaiter(void 0, void 0, void 0, function () {
@@ -99,8 +99,9 @@ var logIn = function (req, username, password, done) { return __awaiter(void 0, 
             case 1:
                 user = _a.sent();
                 if (user) {
-                    req.session.nombre = user.username;
+                    req.session.gmail = user.gmail;
                     req.session.contraseña = user.password;
+                    req.session.username = user.username;
                     return [2 /*return*/, done(null, user)];
                 }
                 else {
@@ -111,22 +112,30 @@ var logIn = function (req, username, password, done) { return __awaiter(void 0, 
     });
 }); };
 var signUp = function (req, username, password, done) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, err_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a, gmail, age, phoneNumber, image, user, err_2;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                console.log('SIGNUP!!');
-                _a.label = 1;
+                _a = req.body, gmail = _a.gmail, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image;
+                _b.label = 1;
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, user_1.usersModel.singUp({ username: username, password: password })];
+                _b.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, user_1.usersModel.singUp({
+                        gmail: gmail,
+                        password: password,
+                        age: age,
+                        phoneNumber: phoneNumber,
+                        image: image,
+                        username: username
+                    })];
             case 2:
-                user = _a.sent();
-                req.session.nombre = user.username;
+                user = _b.sent();
+                req.session.gmail = user.gmail;
+                req.session.username = user.username;
                 req.session.contraseña = user.password;
                 return [2 /*return*/, done(null, user)];
             case 3:
-                err_2 = _a.sent();
+                err_2 = _b.sent();
                 console.log('Hubo un error!');
                 console.log(err_2);
                 return [2 /*return*/, done(null, false, { mensaje: 'Error Inesperado', err: err_2 })];

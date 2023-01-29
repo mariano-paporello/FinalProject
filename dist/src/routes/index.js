@@ -42,10 +42,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var normalizeController_1 = require("../Controllers/normalizeController");
 var testController_1 = require("../Controllers/testController");
+var child_process_1 = require("child_process");
 var loggers_1 = require("../middlewares/loggers");
 var path_1 = __importDefault(require("path"));
 var rutaPrincipal = (0, express_1.Router)();
-var controllerPath = path_1.default.resolve(__dirname, '../Controllers/randomsController.js');
+var controllerPath = path_1.default.resolve(__dirname, '../Controllers/randomsController.ts');
 rutaPrincipal.get("/normalize", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, _b;
     return __generator(this, function (_c) {
@@ -91,7 +92,7 @@ rutaPrincipal.get("/test-fake-products", function (req, res) { return __awaiter(
     });
 }); });
 rutaPrincipal.get("/randoms", function (req, res) {
-    // logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
+    loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
     var cantidad;
     if (req.query.cant) {
         (cantidad = Number(req.query.cant));
@@ -100,12 +101,12 @@ rutaPrincipal.get("/randoms", function (req, res) {
         100000000;
     }
     ;
-    // const calculo = fork(controllerPath)
-    // calculo.send(JSON.stringify({msg:"start", cantidad:cantidad}))
-    // calculo.on('message', (result)=>{
-    res.json({
-        Resultado: cantidad
+    var calculo = (0, child_process_1.fork)(controllerPath);
+    calculo.send(JSON.stringify({ msg: "start", cantidad: cantidad }));
+    calculo.on('message', function (result) {
+        res.json({
+            Resultado: result
+        });
     });
 });
-// })
 exports.default = rutaPrincipal;
