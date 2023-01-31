@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -39,111 +62,53 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logged = void 0;
 var express_1 = __importDefault(require("express"));
 var http_1 = __importDefault(require("http"));
 var express_handlebars_1 = require("express-handlebars");
 var compression_1 = __importDefault(require("compression"));
 var index_1 = __importDefault(require("../routes/index"));
-var path_1 = __importDefault(require("path"));
-var products_1 = __importDefault(require("../models/products"));
-var messages_1 = __importDefault(require("../models/messages"));
 var cookie_parser_1 = __importDefault(require("cookie-parser"));
 var express_session_1 = __importDefault(require("express-session"));
-var os_1 = __importDefault(require("os"));
-var connect_mongo_1 = __importDefault(require("connect-mongo"));
-var index_2 = __importDefault(require("../config/index"));
 var passport_1 = __importDefault(require("passport"));
 var loggers_1 = require("../middlewares/loggers");
-var auth_1 = require("./auth");
-var minimist_1 = __importDefault(require("minimist"));
-var args = (0, minimist_1.default)(process.argv);
+var auth_1 = require("../Controllers/auth");
+var mainRoute_1 = __importStar(require("../routes/mainRoute"));
+var storeOptions_1 = require("../api/storeOptions");
 var app = (0, express_1.default)();
 app.use("/api", index_1.default);
+app.use("/", mainRoute_1.default);
 app.use((0, compression_1.default)());
 // Session Part:
-exports.logged = {
-    islogged: false,
-    isDestroyed: false,
-    nombre: '',
-    contraseña: false
-};
-var unSegundo = 1000;
-var unMinuto = unSegundo * 60;
-var unaHora = unMinuto * 60;
-var unDia = unaHora * 24;
-var storeOptions = {
-    store: connect_mongo_1.default.create({
-        mongoUrl: index_2.default.MONGO_ATLAS_URL,
-        crypto: {
-            secret: index_2.default.CRYPTO_SECRET
-        }
-    }),
-    secret: index_2.default.SECRET,
-    resave: false,
-    saveUninitialized: false,
-    rolling: true,
-    cookie: {
-        maxAge: unMinuto
-    }
-};
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({
     extended: true
 }));
 app.use(express_1.default.static('public'));
 app.use((0, cookie_parser_1.default)());
-app.use((0, express_session_1.default)(storeOptions));
+app.use((0, express_session_1.default)(storeOptions_1.storeOptions));
 app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
 passport_1.default.use('login', auth_1.loginFunc);
 passport_1.default.use('signup', auth_1.signUpFunc);
 // HBS PART:
-var viewPath = path_1.default.resolve(__dirname, '../../views');
-var layoutsPath = "".concat(viewPath, "/layouts");
-var partialsPath = "".concat(viewPath, "/partials");
-var defaultLayoutPath = "".concat(layoutsPath, "/index.hbs");
 app.set('view engine', 'hbs');
-app.set('views', viewPath);
-app.engine('hbs', (0, express_handlebars_1.engine)({
-    layoutsDir: layoutsPath,
-    extname: 'hbs',
-    partialsDir: partialsPath,
-    defaultLayout: defaultLayoutPath
-}));
-app.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
-        if (req.session.gmail && exports.logged.islogged && !exports.logged.isDestroyed) {
-            +products_1.default.find({}).then(function (productos) {
-                messages_1.default.find({}).then(function (mensajes) {
-                    res.render('main', {
-                        productos: productos.map(function (productoIndv) { return productoIndv.toJSON(); }),
-                        mensajes: mensajes.map(function (mensajeIndv) { return mensajeIndv.toJSON(); }),
-                        user: req.session.username
-                    });
-                });
-            });
-        }
-        else {
-            res.redirect("/register");
-        }
-        return [2 /*return*/];
-    });
-}); });
+app.set('views', mainRoute_1.viewPath);
+app.engine('hbs', (0, express_handlebars_1.engine)(mainRoute_1.paths));
 app.post('/login', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
+        // remplazar con una ruta
         loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
         passport_1.default.authenticate('login', {}, function (err, user, info) { return __awaiter(void 0, void 0, void 0, function () {
-            var data, token;
+            var token;
             return __generator(this, function (_a) {
-                data = req.body;
+                console.log("DataUser: ", req.session.dataUser);
                 if (user.gmail && user.password) {
+                    mainRoute_1.logged.nombre = user.username;
+                    mainRoute_1.logged.contraseña = true;
+                    mainRoute_1.logged.islogged = true;
                     token = (0, auth_1.generateAuthToken)(user);
-                    exports.logged.nombre = user.username;
-                    exports.logged.contraseña = true;
-                    exports.logged.islogged = true;
-                    res.header('x-login-token', token).redirect("/");
+                    console.log("El Token: ", token);
+                    res.setHeader('x-auth-token', token).redirect("/");
                 }
                 else {
                     res.status(400).json({
@@ -167,56 +132,30 @@ app.post('/register', function (req, res, next) { return __awaiter(void 0, void 
                 });
             }
             var token = (0, auth_1.generateAuthToken)(user);
-            exports.logged.nombre = username;
-            exports.logged.contraseña = true;
-            exports.logged.islogged = true;
+            mainRoute_1.logged.nombre = username;
+            mainRoute_1.logged.contraseña = true;
+            mainRoute_1.logged.islogged = true;
             console.log(user);
-            res.header('x-login-token', token).redirect("/");
+            res.header('x-auth-token', token).redirect("/");
         })(req, res, next);
         return [2 /*return*/];
     });
 }); });
-app.get('/login', function (req, res) {
-    loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
-    exports.logged.isDestroyed = false;
-    res.render("Login");
-});
-app.get('/register', function (req, res) {
-    loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
-    res.render("register");
-});
 app.get("/logout", function (req, res) {
     loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
     if (req.session.username) {
         res.render("Logout", {
             user: req.session.username
         });
-        exports.logged.islogged = false;
-        exports.logged.nombre = "";
-        exports.logged.isDestroyed = true;
-        setTimeout(function () {
-            req.session.destroy(function (err) {
-                loggers_1.logger.error(err);
-            });
-        }, unMinuto);
+        mainRoute_1.logged.islogged = false;
+        mainRoute_1.logged.nombre = "";
+        mainRoute_1.logged.isDestroyed = true;
     }
     else {
         res.redirect("/");
     }
 });
-app.get("/info", function (req, res) {
-    loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
-    res.json({
-        "Directorio actual de trabajo": process.cwd(),
-        "id ID Del proceso actual": process.pid,
-        "Version de NodeJs corriendo": process.version,
-        "Titulo del proceso": process.title,
-        "Sistema Operativo": process.platform,
-        "Uso de memoria": JSON.stringify(process.memoryUsage()),
-        "Cantidad de procesadores": os_1.default.cpus().length,
-        "port": args.port
-    });
-});
+// VIEW DISPLAYS:
 app.get('*', function (req, res) {
     loggers_1.logger.warn("METODO:" + req.method + " RUTA:" + req.url);
     res.status(404).json({ Error: "Inexistent route" });

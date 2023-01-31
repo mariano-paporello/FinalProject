@@ -51,12 +51,10 @@ class UsersMongo{
         if(usersfound&&usersfound.length>0){
             for(let i=0;i<=usersfound.length;i++ ){
             const logUser = await byCript.compare(cadidatePassword, usersfound[i].password)
-            console.log(logUser)
             if(logUser){
                 return usersfound[i]
             }
             else{ 
-                console.log(logUser)
                 return false
             }}   
         }else{

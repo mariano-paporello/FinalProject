@@ -7,10 +7,10 @@ import cluster from "cluster"
 import config from "./config"
 
 const args = minimist(process.argv)
-console.log('🍔🍔🍔 arguments: ', args)
+
 const port = args.port || config.PORT
 const numCPUs = os.cpus().length
-console.log('🍔🍔🍔 CPUs: ', numCPUs)
+
 
 initWsServer(server);
 
@@ -24,6 +24,7 @@ if (args.modo === "CLUSTER" && cluster.isPrimary ) {
         cluster.fork();
     })
 }else{
+    console.log("💩💩💩 TIPO FORK")
         server.listen(port, () => {
             console.log(`Server is up in ${port}`);
         });

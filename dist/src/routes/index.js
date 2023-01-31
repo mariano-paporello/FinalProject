@@ -44,10 +44,13 @@ var normalizeController_1 = require("../Controllers/normalizeController");
 var testController_1 = require("../Controllers/testController");
 var child_process_1 = require("child_process");
 var loggers_1 = require("../middlewares/loggers");
+var os_1 = __importDefault(require("os"));
+var minimist_1 = __importDefault(require("minimist"));
 var path_1 = __importDefault(require("path"));
-var rutaPrincipal = (0, express_1.Router)();
+var sideRoute = (0, express_1.Router)();
 var controllerPath = path_1.default.resolve(__dirname, '../Controllers/randomsController.ts');
-rutaPrincipal.get("/normalize", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var args = (0, minimist_1.default)(process.argv);
+sideRoute.get("/normalize", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
@@ -61,7 +64,7 @@ rutaPrincipal.get("/normalize", function (req, res) { return __awaiter(void 0, v
         }
     });
 }); });
-rutaPrincipal.get("/denormalize", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+sideRoute.get("/denormalize", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
@@ -75,7 +78,7 @@ rutaPrincipal.get("/denormalize", function (req, res) { return __awaiter(void 0,
         }
     });
 }); });
-rutaPrincipal.get("/test-fake-products", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+sideRoute.get("/test-fake-products", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, _b;
     var _c;
     return __generator(this, function (_d) {
@@ -91,7 +94,20 @@ rutaPrincipal.get("/test-fake-products", function (req, res) { return __awaiter(
         }
     });
 }); });
-rutaPrincipal.get("/randoms", function (req, res) {
+sideRoute.get("/info", function (req, res) {
+    loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
+    res.json({
+        "Directorio actual de trabajo": process.cwd(),
+        "id ID Del proceso actual": process.pid,
+        "Version de NodeJs corriendo": process.version,
+        "Titulo del proceso": process.title,
+        "Sistema Operativo": process.platform,
+        "Uso de memoria": JSON.stringify(process.memoryUsage()),
+        "Cantidad de procesadores": os_1.default.cpus().length,
+        "port": args.port
+    });
+});
+sideRoute.get("/randoms", function (req, res) {
     loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
     var cantidad;
     if (req.query.cant) {
@@ -109,4 +125,4 @@ rutaPrincipal.get("/randoms", function (req, res) {
         });
     });
 });
-exports.default = rutaPrincipal;
+exports.default = sideRoute;

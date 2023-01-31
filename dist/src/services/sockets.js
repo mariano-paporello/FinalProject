@@ -55,7 +55,7 @@ var productsController_1 = __importDefault(require("../Controllers/productsContr
 var mensajesController_1 = __importDefault(require("../Controllers/mensajesController"));
 var initWsServer = function (server) {
     var SocketServer = io(server);
-    SocketServer.on('connection', function (socket) {
+    SocketServer.on('connection', function (socket, req) {
         socket.emit('bienvenidaAUsuario', 'Bienvenido Nuevo Usuario');
         socket.emit('bienvenidaAUsuario', {
             Bienvenida: 'hola'

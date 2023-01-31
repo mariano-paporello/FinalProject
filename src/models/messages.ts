@@ -5,11 +5,10 @@ const menssages= 'menssages'
 const messagesSchema = new mongoose.Schema(
     {
     author:{
-    nombre: { type: String, require: true},
-    apellido: { type: String, require: true, max: 100 },
-    edad: { type: Number, require: true, max: 100 },
-    alias: { type: String, default: true },
-    avatar: { type: String, required: true },
+    username: { type: String, require: true},
+    email: {type:String, require:true},
+    age: { type: Number, require: true, max: 100 },
+    image: { type: String, required: true },
     },
     text: {type: String, require: true}
 },

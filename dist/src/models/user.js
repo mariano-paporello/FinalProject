@@ -117,12 +117,10 @@ var UsersMongo = /** @class */ (function () {
                         return [4 /*yield*/, bcrypt_1.default.compare(cadidatePassword, usersfound[i].password)];
                     case 3:
                         logUser = _a.sent();
-                        console.log(logUser);
                         if (logUser) {
                             return [2 /*return*/, usersfound[i]];
                         }
                         else {
-                            console.log(logUser);
                             return [2 /*return*/, false];
                         }
                         _a.label = 4;

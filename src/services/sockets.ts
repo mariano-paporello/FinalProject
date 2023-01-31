@@ -6,7 +6,7 @@ import mjController from "../Controllers/mensajesController"
 const initWsServer =  (server) =>  {
     const SocketServer = io(server)
 
-    SocketServer.on('connection', (socket) => {
+    SocketServer.on('connection', (socket, req) => {
         socket.emit('bienvenidaAUsuario', 'Bienvenido Nuevo Usuario')
         socket.emit('bienvenidaAUsuario', {
             Bienvenida: 'hola'
@@ -22,6 +22,7 @@ const initWsServer =  (server) =>  {
                 id: socket.client.id,
                 ...data
             }
+            
             socket.emit("UsuarioConfirmadoYGuardado", nuevoUser)
         })
         socket.on('enviarMensaje', async(data)=>{

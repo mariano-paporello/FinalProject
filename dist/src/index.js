@@ -11,10 +11,8 @@ var os_1 = __importDefault(require("os"));
 var cluster_1 = __importDefault(require("cluster"));
 var config_1 = __importDefault(require("./config"));
 var args = (0, minimist_1.default)(process.argv);
-console.log('🍔🍔🍔 arguments: ', args);
 var port = args.port || config_1.default.PORT;
 var numCPUs = os_1.default.cpus().length;
-console.log('🍔🍔🍔 CPUs: ', numCPUs);
 initWsServer(server);
 if (args.modo === "CLUSTER" && cluster_1.default.isPrimary) {
     console.log("💡💡💡 TIPO CLUSTER");
@@ -27,6 +25,7 @@ if (args.modo === "CLUSTER" && cluster_1.default.isPrimary) {
     });
 }
 else {
+    console.log("💩💩💩 TIPO FORK");
     server.listen(port, function () {
         console.log("Server is up in ".concat(port));
     });

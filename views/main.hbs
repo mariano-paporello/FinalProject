@@ -1,6 +1,8 @@
+<div>
+    {{> navbar}}
 <div class="container-fluid d-flex justify-content-center importantDiv">
 
-    {{> bienvenida}}
+    
     {{!-- Lo que puedo hacer es que el login pase los datos al front y de ahí crear el cartel de bienvenida con los datos que traemos.
     Despues lo que quedaría sería simplemente hacer que ese cartel tenga el boton con en evento que haga el logout --}}
 
@@ -41,12 +43,11 @@
 <div class="my-5 p-3  text-center bg-secondary  d-flex justify-content-center flex-column rounded">
 
     <div id="chat" class="esconder" >
+        
         {{>chat}}
     </div>
-    <div id="formDeIngreso" class="">
-        <H1>Chat</H1>
-    {{>chatIngreso}}
-    </div>
+    
     
 
+</div>
 </div>

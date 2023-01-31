@@ -1,5 +1,4 @@
 import winston from "winston"
-import { logged } from "../services/server";
 
 const { createLogger, format, transports } = winston;
 const { combine, printf, timestamp, colorize } = format;

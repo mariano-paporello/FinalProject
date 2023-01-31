@@ -3,28 +3,46 @@ import {getAllNorm, getAllDenorm} from "../Controllers/normalizeController"
 import { crear5Productos } from "../Controllers/testController";
 import {fork} from "child_process"
 import {logger} from "../middlewares/loggers"
+import os from "os"
+import minimist from 'minimist'
+
 
 import path from "path"
 
 
-const rutaPrincipal: Router = Router();
+const sideRoute: Router = Router();
 
 const controllerPath = path.resolve(__dirname, '../Controllers/randomsController.ts')
+const args = minimist(process.argv)
 
-rutaPrincipal.get("/normalize", async(req, res)=>{
+sideRoute.get("/normalize", async(req, res)=>{
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
     res.json(await getAllNorm())
 })
-rutaPrincipal.get("/denormalize", async(req, res)=>{
+sideRoute.get("/denormalize", async(req, res)=>{
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
     res.json(await getAllDenorm())
 })
-rutaPrincipal.get("/test-fake-products", async(req, res)=>{
+sideRoute.get("/test-fake-products", async(req, res)=>{
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
     res.json({ProductosFake: await crear5Productos()})
 })
+sideRoute.get("/info", (req, res) => {
+    logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
+    res.json({
+        "Directorio actual de trabajo": process.cwd(),
+        "id ID Del proceso actual": process.pid,
+        "Version de NodeJs corriendo": process.version,
+        "Titulo del proceso": process.title,
+        "Sistema Operativo": process.platform,   
+        "Uso de memoria": JSON.stringify(process.memoryUsage()),
+        "Cantidad de procesadores": os.cpus().length,
+        "port": args.port
+    })
 
-rutaPrincipal.get("/randoms", (req, res)=>{
+})
+
+sideRoute.get("/randoms", (req, res)=>{
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
     let cantidad
     if(req.query.cant){(cantidad = Number(req.query.cant))}else{ 100000000};
@@ -39,4 +57,4 @@ rutaPrincipal.get("/randoms", (req, res)=>{
 })
 
 
-export default rutaPrincipal;
+export default sideRoute;
