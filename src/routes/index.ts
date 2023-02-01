@@ -1,60 +1,82 @@
 import {Router} from "express"
-import {getAllNorm, getAllDenorm} from "../Controllers/normalizeController"
-import { crear5Productos } from "../Controllers/testController";
-import {fork} from "child_process"
-import {logger} from "../middlewares/loggers"
-import os from "os"
-import minimist from 'minimist'
+import {logger} from "../utils/loggers"
+import otherRoute from "./otherRoute";
+import profileRoute from "./profile"
+import { usuario } from "../models/user";
+import { homeview } from "../Controllers/viewController";
+import { isLogged, loggedIsNotDestroyed } from "../middlewares/LoggedVerification";
+import passport from "passport";
+import { loginFunc, signUpFunc, validateToken  } from "../services/auth";
+import cookieParser from "cookie-parser";
+import express from "express";
+import session from 'express-session';
+import { storeOptions } from "../api/storeOptions";
+import { logged } from "../utils/logged";
+import productsRoute from "./products";
+import { logout } from "../Controllers/logout";
+import { logIn } from "../Controllers/loginAndRegister/logIn";
+import { register } from "../Controllers/loginAndRegister/register";
+import cors from "cors"
+import { cart } from "../Controllers/cart";
+import cartRoute from "./cart";
 
 
-import path from "path"
+declare module 'express-session' {
+    interface SessionData {
+        dataUser: usuario
+        gmail: String,
+        username: String,
+        contraseña: any
+    }
+}
+const mainRoute: Router = Router();
+
+mainRoute.use(express.json())
+mainRoute.use(express.urlencoded({extended: true}));
+mainRoute.use(express.static('public'))
+mainRoute.use(cookieParser());
+mainRoute.use(session(storeOptions));
+mainRoute.use(passport.initialize());
+mainRoute.use(passport.session());
+passport.use('login', loginFunc);
+passport.use('signup', signUpFunc);
+mainRoute.use("/other",otherRoute)
+mainRoute.use("/profile", profileRoute)
+mainRoute.use("/products", productsRoute)
+mainRoute.use("/cart", cartRoute)
+
+mainRoute.use(cors());
+
+mainRoute.post('/login', logIn)
+
+mainRoute.post('/register', register)
 
 
-const sideRoute: Router = Router();
+//GET VIEWS 
 
-const controllerPath = path.resolve(__dirname, '../Controllers/randomsController.ts')
-const args = minimist(process.argv)
+mainRoute.get("/logout", logout)
 
-sideRoute.get("/normalize", async(req, res)=>{
-    logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
-    res.json(await getAllNorm())
-})
-sideRoute.get("/denormalize", async(req, res)=>{
-    logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
-    res.json(await getAllDenorm())
-})
-sideRoute.get("/test-fake-products", async(req, res)=>{
-    logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
-    res.json({ProductosFake: await crear5Productos()})
-})
-sideRoute.get("/info", (req, res) => {
-    logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
-    res.json({
-        "Directorio actual de trabajo": process.cwd(),
-        "id ID Del proceso actual": process.pid,
-        "Version de NodeJs corriendo": process.version,
-        "Titulo del proceso": process.title,
-        "Sistema Operativo": process.platform,   
-        "Uso de memoria": JSON.stringify(process.memoryUsage()),
-        "Cantidad de procesadores": os.cpus().length,
-        "port": args.port
-    })
+mainRoute.get('/' ,isLogged, loggedIsNotDestroyed,homeview)
 
-})
+//!DEBUGUEAR mainRoute.get('/isauth', checkAuth, (req, res) => {
+//     res.json({ msg: "estoy en isauth"})
+// })
 
-sideRoute.get("/randoms", (req, res)=>{
-    logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
-    let cantidad
-    if(req.query.cant){(cantidad = Number(req.query.cant))}else{ 100000000};
-    const calculo = fork(controllerPath)
-    calculo.send(JSON.stringify({msg:"start", cantidad:cantidad}))
-    calculo.on('message', (result)=>{
-        res.json({
-            Resultado: result
-        })
-    })
+
     
+
+mainRoute.get('/login', (req, res) => {
+    logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
+    logged.isDestroyed = false
+    res.render("Login")
+})
+
+mainRoute.get('/register', (req, res) => {
+    logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
+    res.render("register")
 })
 
 
-export default sideRoute;
+
+
+export default mainRoute;

@@ -1,11 +1,14 @@
-import { logged } from "../routes/mainRoute"
+
+import { logged } from "../utils/logged";
+import { logger } from "../utils/loggers"
 
 export const isLogged = (req, res, next)=>{
 if(logged&& logged.islogged){
 next()
 }
 else{
-    res.redirect("/register")
+    logger.error("METODO:"+req.method + " RUTA:"+ req.url);
+    res.redirect("/api/register")
     // res.status(400).json({
     //     Error: "Not Logged"
     // })
@@ -15,8 +18,7 @@ else{
     if(logged && !logged.isDestroyed){
         next()
     }else{
-        res.status(400).json({
-            Error: "Session is destroyed"
-        })
+        logger.error("METODO:"+req.method + " RUTA:"+ req.url);
+        res.redirect("/api/login")
     }
  }

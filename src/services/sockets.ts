@@ -1,42 +1,42 @@
 const io = require('socket.io')
-import productsController from "../Controllers/productsController"
-import mjController from "../Controllers/mensajesController"
+// import prodController from "../Controllers/productsController"
+// import mjController from "../Controllers/mensajesController"
 
 
 const initWsServer =  (server) =>  {
     const SocketServer = io(server)
 
-    SocketServer.on('connection', (socket, req) => {
-        socket.emit('bienvenidaAUsuario', 'Bienvenido Nuevo Usuario')
-        socket.emit('bienvenidaAUsuario', {
-            Bienvenida: 'hola'
-        })
-        socket.on("enviarNuevoProducto",async (data)  => {
-            const prodController = new productsController()
-            const nuevoProducto= await prodController.newProduct(data)
-            SocketServer.emit("productosArray", nuevoProducto)
+//     SocketServer.on('connection', (socket, req) => {
+//         socket.emit('bienvenidaAUsuario', 'Bienvenido Nuevo Usuario')
+//         socket.emit('bienvenidaAUsuario', {
+//             Bienvenida: 'hola'
+//         })
+//         socket.on("enviarNuevoProducto",async (data)  => {
             
-        })
-        socket.on('enviarNuevoUser', data=>{
-            const nuevoUser = {
-                id: socket.client.id,
-                ...data
-            }
+//             const nuevoProducto= await prodController.newProduct(data)
+//             SocketServer.emit("productosArray", nuevoProducto)
             
-            socket.emit("UsuarioConfirmadoYGuardado", nuevoUser)
-        })
-        socket.on('enviarMensaje', async(data)=>{
+//         })
+//         socket.on('enviarNuevoUser', data=>{
+//             const nuevoUser = {
+//                 id: socket.client.id,
+//                 ...data
+//             }
             
-                const dataSi = await mjController.nuevomensaje(data)
-            SocketServer.emit('imprimirMensaje', dataSi)
+//             socket.emit("UsuarioConfirmadoYGuardado", nuevoUser)
+//         })
+//         socket.on('enviarMensaje', async(data)=>{
+            
+//                 const dataSi = await mjController.nuevomensaje(data)
+//             SocketServer.emit('imprimirMensaje', dataSi)
             
             
             
-        })
-        socket.on("enviarUserLoginName",  (data)=>{
-            socket.emit("userSaved", data)
-        })
-    })
-    return SocketServer
+//         })
+//         socket.on("enviarUserLoginName",  (data)=>{
+//             socket.emit("userSaved", data)
+//         })
+//     })
+//     return SocketServer
 }  
 module.exports= initWsServer

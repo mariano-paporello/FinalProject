@@ -1,5 +1,5 @@
 import {denormalize, normalize, schema} from 'normalizr';
-import mensajeController from './mensajesController';
+import mensajeController from '../msgAndProd/mensajesController';
 
 const author = new schema.Entity('authors',{})
 const message = new schema.Entity('menssages', {author})

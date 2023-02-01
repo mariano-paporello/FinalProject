@@ -1,9 +1,11 @@
 import ProductoModel from "../models/products"
 import menssagesModel from "../models/messages"
+import { logger } from "../utils/loggers"
+
 
 
 export const homeview =(req, res)=>{
-    console.log(req.session)
+    logger.info( "METODO:"+req.method + " RUTA:"+ req.url ) 
             ProductoModel.find({}).then(productos => {
                 menssagesModel.find({}).then(mensajes => {
                     res.render('main', {

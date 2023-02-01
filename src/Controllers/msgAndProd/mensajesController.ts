@@ -1,6 +1,6 @@
-import { mensaje } from "../../Public/types"
-import menssagesMetodos from "../models/messages"
-import {logger} from "../middlewares/loggers"
+import { mensaje } from "../../../Public/types"
+import menssagesMetodos from "../../models/messages"
+import {logger} from "../../utils/loggers"
 
 class mensajeController{
 

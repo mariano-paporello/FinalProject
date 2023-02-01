@@ -1,17 +1,24 @@
-import { usersModel } from "../models/user";
+import { logger } from "../../utils/loggers";
+import { usersModel } from "../../models/user";
 
 export const searchUser= async(req,username , password,  done)=>{
-    const user = await usersModel.logIn(username, password)
-    if(user){
-      req.session.dataUser= user
-      req.session.gmail= user.gmail;
-      req.session.image= user.image
-      req.session.contraseña= user.password;
-      req.session.username= user.username;
-      return done(null, user);
-  }else{
-  return done(null, false, {msg: "Usuario no encontrado"})
-  } 
+    try{
+        const user = await usersModel.logIn(username, password)
+        if(user){
+            req.session.dataUser= user
+            req.session.gmail= user.gmail;
+            req.session.image= user.image
+            req.session.contraseña= user.password;
+            req.session.username= user.username;
+            return done(null, user);
+        }else{
+        return done(null, false, {msg: "Usuario no encontrado"})
+    } 
+    }
+    catch(err){
+        logger.error("Error: ", err)
+    }
+    
   }
 export const createUser = async( req, username, password, done )=>{
     try {
