@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
+    "@handlebars/allow-prototype-access": "^1.0.5",
     "@jest/types": "^29.3.1",
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.3",

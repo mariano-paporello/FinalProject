@@ -1,7 +1,7 @@
 import {Router} from "express"
 import {logger} from "../utils/loggers"
-import otherRoute from "./otherRoute";
-import profileRoute from "./profile"
+import otherRoute from "./otherRoutes/otherRoute";
+import profileRoute from "./profileAndChat/profile"
 import { usuario } from "../models/user";
 import { homeview } from "../Controllers/viewController";
 import { isLogged, loggedIsNotDestroyed } from "../middlewares/LoggedVerification";
@@ -12,13 +12,12 @@ import express from "express";
 import session from 'express-session';
 import { storeOptions } from "../api/storeOptions";
 import { logged } from "../utils/logged";
-import productsRoute from "./products";
+import productsRoute from "./cartAndProd/products";
 import { logout } from "../Controllers/logout";
 import { logIn } from "../Controllers/loginAndRegister/logIn";
 import { register } from "../Controllers/loginAndRegister/register";
 import cors from "cors"
-import { cart } from "../Controllers/cart";
-import cartRoute from "./cart";
+import cartRoute from "./cartAndProd/cart";
 
 
 declare module 'express-session' {

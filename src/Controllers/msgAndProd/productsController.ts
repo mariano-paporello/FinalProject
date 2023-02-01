@@ -1,4 +1,5 @@
 import { producto } from "../../../Public/types"
+import { añadirProdACart, findProduct } from "../../api/products"
 import productosModels from "../../models/products"
 import {logger} from "../../utils/loggers"
 // class productController{
@@ -35,8 +36,20 @@ export const productsController = async (req, res)=>{
     }catch(err){
         logger.error("Error: ",err)
     }
-    
 } 
+export const productToCart = async(req, res)=>{
+    try{
+        const product = await findProduct(req.params.id)
+        await añadirProdACart(req.session.dataUser, product)
+        res.json({
+            msg:"👍 👍 👍 👍 TODO BIENN ",
+        })
+    }catch(err){
+        logger.error("Error: ",err)
+    }
+}
+
+
 // const productsMethods = new productController()
 
 // export default  productsMethods
