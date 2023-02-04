@@ -1,5 +1,4 @@
 import {Router} from "express"
-import {logger} from "../utils/loggers"
 import otherRoute from "./otherRoutes/otherRoute";
 import profileRoute from "./profileAndChat/profile"
 import { usuario } from "../models/user";
@@ -11,14 +10,12 @@ import cookieParser from "cookie-parser";
 import express from "express";
 import session from 'express-session';
 import { storeOptions } from "../api/storeOptions";
-import { logged } from "../utils/logged";
 import productsRoute from "./cartAndProd/products";
-import { logout } from "../Controllers/logout";
-import { logIn } from "../Controllers/loginAndRegister/logIn";
-import { register } from "../Controllers/loginAndRegister/register";
 import cors from "cors"
 import cartRoute from "./cartAndProd/cart";
-
+import logInRoute from "./logIn-register-logOut/logIn";
+import registerRoute from "./logIn-register-logOut/register";
+import logOutRoute from "./logIn-register-logOut/logOut";
 
 declare module 'express-session' {
     interface SessionData {
@@ -43,39 +40,11 @@ mainRoute.use("/other",otherRoute)
 mainRoute.use("/profile", profileRoute)
 mainRoute.use("/products", productsRoute)
 mainRoute.use("/cart", cartRoute)
-
+mainRoute.use("/login", logInRoute)
+mainRoute.use("/register", registerRoute)
+mainRoute.use("/logout", logOutRoute)
 mainRoute.use(cors());
 
-mainRoute.post('/login', logIn)
-
-mainRoute.post('/register', register)
-
-
-//GET VIEWS 
-
-mainRoute.get("/logout", logout)
-
-mainRoute.get('/' ,isLogged, loggedIsNotDestroyed,homeview)
-
-//!DEBUGUEAR mainRoute.get('/isauth', checkAuth, (req, res) => {
-//     res.json({ msg: "estoy en isauth"})
-// })
-
-
-    
-
-mainRoute.get('/login', (req, res) => {
-    logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
-    logged.isDestroyed = false
-    res.render("Login")
-})
-
-mainRoute.get('/register', (req, res) => {
-    logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
-    res.render("register")
-})
-
-
-
+mainRoute.get('/' ,isLogged, loggedIsNotDestroyed, homeview)
 
 export default mainRoute;

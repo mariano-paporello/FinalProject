@@ -1,4 +1,4 @@
-import { mensaje } from "../../../Public/types"
+// import { mensaje } from "../../../Public/types"
 import menssagesMetodos from "../../models/messages"
 import {logger} from "../../utils/loggers"
 
@@ -15,7 +15,7 @@ class mensajeController{
  
     async nuevomensaje(data){
         try{
-            const dataCompleta: mensaje = {
+            const dataCompleta = {
                 author:{
                     id: data.id,
                     nombre: data.author.nombre,

@@ -8,10 +8,10 @@ next()
 }
 else{
     logger.error("METODO:"+req.method + " RUTA:"+ req.url);
-    res.redirect("/api/register")
-    // res.status(400).json({
-    //     Error: "Not Logged"
-    // })
+    
+    res.status(400).json({
+        Error: "Not Logged"
+    })
 }
 }
  export const loggedIsNotDestroyed =(req, res, next)=>{
@@ -19,6 +19,8 @@ else{
         next()
     }else{
         logger.error("METODO:"+req.method + " RUTA:"+ req.url);
-        res.redirect("/api/login")
+        res.status(400).json({
+            Error: "Session destroyed"
+        })
     }
  }

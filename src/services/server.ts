@@ -29,6 +29,10 @@ app.get('*', (req, res)=>{
     logger.warn( "METODO:"+req.method + " RUTA:"+ req.url )
     res.status(404).json({Error:"Inexistent route"})
 })
+app.post('*', (req, res)=>{
+    logger.warn( "METODO:"+req.method + " RUTA:"+ req.url )
+    res.status(404).json({Error:"Inexistent route"})
+})
 
 const HTTPServer = new http.Server(app);
 

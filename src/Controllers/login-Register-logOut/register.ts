@@ -28,6 +28,13 @@ export const register = async (req, res, next) => {
         
         logged.contraseña = true
         logged.islogged = true
-        res.header('x-auth-token', token).redirect("/api/")
+        res.header('x-auth-token', token).json({
+            msg: `User creado: ${user}`,
+        })
     })(req, res, next)
+}
+
+export const registerGet = (req, res) => {
+    logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
+    res.json({msg:"Estas en la Ruta register"})
 }

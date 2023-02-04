@@ -1,14 +1,9 @@
 import { Router } from "express"
+import { profileGet } from "../../Controllers/cart-profile/profile"
 import { isLogged, loggedIsNotDestroyed } from "../../middlewares/LoggedVerification"
-import { logger } from "../../utils/loggers"
 
 const ProfileRoute = Router()
 
-ProfileRoute.get("/",isLogged, loggedIsNotDestroyed, (req, res)=>{
-    logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
-    res.render("profile",{
-        data: req.session.dataUser
-    })
-})
+ProfileRoute.get("/",isLogged, loggedIsNotDestroyed, profileGet)
 
 export default ProfileRoute

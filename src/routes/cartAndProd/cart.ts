@@ -1,5 +1,5 @@
 import {Router} from "express"
-import { cart } from "../../Controllers/cart"
+import { cart } from "../../Controllers/cart-profile/cart"
 import { isLogged, loggedIsNotDestroyed } from "../../middlewares/LoggedVerification"
 
 const cartRoute = Router()

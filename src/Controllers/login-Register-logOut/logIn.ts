@@ -28,3 +28,8 @@ export const logIn =  async (req, res, next) => {
         }
     })(req, res, next)
 }
+export const logInGet = (req, res)=>{
+    logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
+    logged.isDestroyed = false
+    res.json({msg:"Estas en logIn"})
+}

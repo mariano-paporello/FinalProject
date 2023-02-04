@@ -5,6 +5,7 @@ const config = require("../config/index");
 const initMongoDB = async () => {
   try {
     console.log('CONECTANDO A MI DB');
+    mongoose.set('strictQuery', true)
      mongoose.connect(config.default.MONGO_ATLAS_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
