@@ -37,5 +37,4 @@ export const cartMsgSender = async(dataUser, subject, content, products)=>{
     }catch(err){
         logger.error("Error: ", err)
     }
-
 }
