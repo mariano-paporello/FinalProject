@@ -1,10 +1,12 @@
 import {Router} from "express"
-import { cart } from "../../Controllers/cart-profile/cart"
+import { cart, cartSender } from "../../Controllers/cart-profile/cart"
 import { isLogged, loggedIsNotDestroyed } from "../../middlewares/LoggedVerification"
 
 const cartRoute = Router()
 
 cartRoute.get("/",isLogged, loggedIsNotDestroyed, cart )
+
+cartRoute.post("/",isLogged, loggedIsNotDestroyed, cartSender )
 
 
 export default cartRoute

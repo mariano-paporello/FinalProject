@@ -36,5 +36,6 @@ export const register = async (req, res, next) => {
 
 export const registerGet = (req, res) => {
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
+    logged.isDestroyed = false
     res.json({msg:"Estas en la Ruta register"})
 }

@@ -6,6 +6,7 @@ import {logger }from "../utils/loggers"
 import { usuario } from '../models/user'
 import index from '../routes/index'
 import { paths, viewPath } from '../utils/paths'
+import helmet from 'helmet'
 
 declare module 'express-session' {
     interface SessionData {
@@ -19,7 +20,7 @@ declare module 'express-session' {
 const app = express()
 app.use("/api", index)
 app.use(compression())
-
+app.use(helmet())
 // HBS PART:
 app.set('view engine', 'hbs')
 app.set('views', viewPath)

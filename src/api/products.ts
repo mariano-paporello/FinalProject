@@ -15,17 +15,15 @@ export const getProducts = async()=>{
 
 export const añadirProdACart = async (dataUser,product)=>{
     if(product){
-        
         const userHasCart = await CartModel.findOne({userId: dataUser._id})
-        const productExistInCart = await CartModel.findOne({productId: product.id})
-        const index: any = productExistInCart?.cart.findIndex( obj => {
+        const index: any = userHasCart?.cart.findIndex( obj => {
             return obj.productId === product.id
         })
-        if(userHasCart && productExistInCart && index != -1 && index || index===0){
+        if(userHasCart && index != -1 && index || index===0){
             try{
-                const newCart:any = productExistInCart?.cart
-            newCart[index] = {productId:newCart[index].productId, amount: newCart[index].amount+1}  
-          const caca = await CartModel.updateOne({userId: dataUser._id},{$set:{cart:newCart}})
+                const newCart:any = userHasCart?.cart
+                newCart[index] = {productId:newCart[index].productId, amount: newCart[index].amount+1}  
+                const caca = await CartModel.updateOne({userId: dataUser._id},{$set:{cart:newCart}})
             }catch(err){
                 logger.error("Error: ", err)
             }
@@ -33,23 +31,6 @@ export const añadirProdACart = async (dataUser,product)=>{
             try{
                 const culo = await CartModel.updateOne({userId:dataUser._id},{$push: {cart:{productId: product._id, amount:1}}})
                 return true 
-            }catch(err){
-                logger.error("Error: ", err)
-            }
-            
-        }
-        else {
-            try{
-                await CartModel.create({
-                    userId:dataUser._id,
-                    cart:[
-                        {
-                            productId: product.id,
-                            amount:1
-                        }
-                    ]
-                }   
-            )
             }catch(err){
                 logger.error("Error: ", err)
             }

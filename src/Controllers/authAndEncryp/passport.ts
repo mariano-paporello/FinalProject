@@ -1,10 +1,12 @@
 import { logger } from "../../utils/loggers";
 import { usersModel } from "../../models/user";
+import { ifCartExist } from "../../middlewares/ifCartExist"
 
 export const searchUser= async(req,username , password,  done)=>{
     try{
         const user = await usersModel.logIn(username, password)
         if(user){
+            await ifCartExist(user)
             req.session.dataUser= user
             req.session.gmail= user.gmail;
             req.session.image= user.image
@@ -31,12 +33,11 @@ export const createUser = async( req, username, password, done )=>{
             image,
             username
         })
-
         req.session.image= user.image
         req.session.gmail =  user.gmail
         req.session.username= user.username
         req.session.contraseña= user.password
-      
+        await ifCartExist(user)
         return done(null,  user)
     } catch (err) {
         return done(null, false, { mensaje: 'Error Inesperado', err });
