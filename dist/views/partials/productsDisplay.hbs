@@ -1,0 +1,34 @@
+{{#if productos}}
+        {{#each productos}}
+      <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
+        <div class="card">
+          <div class="card-header">
+            <h2>Id:{{this._id}}</h2>
+          </div>
+          <img src="{{this.thumbnail}}"
+            class="card-img-top" alt="Laptop" />
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <p class="small"><a href="#!" class="text-muted">{{this.category}}</a></p>
+            </div>
+
+            <div class="d-flex justify-content-between mb-3">
+              <h5 class="mb-0">{{this.title}}</h5>
+              <h5 class="text-dark mb-0">${{this.price}}</h5>
+            </div>
+
+            <div class="d-flex justify-content-between mb-2">
+              <p class="text-muted mb-0">Available: <span class="fw-bold">{{this.stock}}</span></p>
+              <div class="ms-auto text-warning">
+                <form action="/api/products/{{this._id}}" method="post">
+                  <button type="submit" class="btn btn-primary" > Añadir al carrito</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    {{else}}
+   <h2 class="text-danger">No se encontraron productos</h2>
+   {{/if}}
