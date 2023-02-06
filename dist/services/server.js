@@ -12,7 +12,7 @@ var index_1 = __importDefault(require("../routes/index"));
 var paths_1 = require("../utils/paths");
 var helmet_1 = __importDefault(require("helmet"));
 var app = (0, express_1.default)();
-app.use("/api", index_1.default);
+app.use("/", index_1.default);
 app.use((0, compression_1.default)());
 app.use((0, helmet_1.default)());
 // HBS PART:
