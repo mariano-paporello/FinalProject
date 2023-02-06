@@ -45,6 +45,6 @@ mainRoute.use("/register", registerRoute)
 mainRoute.use("/logout", logOutRoute)
 mainRoute.use(cors());
 
-mainRoute.get('/' ,isLogged, loggedIsNotDestroyed, homeview)
+mainRoute.get('/', homeview)
 
 export default mainRoute;

@@ -18,7 +18,7 @@ declare module 'express-session' {
 }
 
 const app = express()
-app.use("/api", index)
+app.use("/", index)
 app.use(compression())
 app.use(helmet())
 // HBS PART:
