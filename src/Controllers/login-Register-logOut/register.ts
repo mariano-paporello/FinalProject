@@ -3,7 +3,7 @@ import { logger } from "../../utils/loggers"
 import { generateToken } from "../../services/auth"
 import { logged } from "../../utils/logged"
 
-
+// CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
 export const register = async (req, res, next) => {
     // Esto a un controller
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )

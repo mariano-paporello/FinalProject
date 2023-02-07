@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.cartSender = exports.cart = void 0;
 var cart_1 = require("../../api/cart");
 var loggers_1 = require("../../utils/loggers");
+// CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
 var cart = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var productsInCart;
     return __generator(this, function (_a) {
@@ -54,6 +55,7 @@ var cart = function (req, res) { return __awaiter(void 0, void 0, void 0, functi
     });
 }); };
 exports.cart = cart;
+// CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
 var cartSender = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var dataUser, productsInCart, productsHtml, content, done, err_1;
     return __generator(this, function (_a) {

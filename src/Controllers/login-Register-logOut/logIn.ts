@@ -5,7 +5,7 @@ import { logged } from "../../utils/logged"
 
 
 
-
+// CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
 export const logIn =  async (req, res, next) => {
     passport.authenticate('login', {}, async (err, user, info) => {
     logger.info( "METODO:"+ req.method + " RUTA:"+ req.url )

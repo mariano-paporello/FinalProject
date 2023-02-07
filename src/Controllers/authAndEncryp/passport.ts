@@ -2,6 +2,7 @@ import { logger } from "../../utils/loggers";
 import { usersModel } from "../../models/user";
 import { ifCartExist } from "../../middlewares/ifCartExist"
 
+// CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
 export const searchUser= async(req,username , password,  done)=>{
     try{
         const user = await usersModel.logIn(username, password)
@@ -25,6 +26,7 @@ export const searchUser= async(req,username , password,  done)=>{
 export const createUser = async( req, username, password, done )=>{
     try {
         const {gmail, age, phoneNumber, image } = req.body
+        // LOL
         const user = await usersModel.singUp({
             gmail, 
             password, 

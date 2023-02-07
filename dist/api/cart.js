@@ -43,8 +43,8 @@ exports.cartMsgSender = exports.cartGet = void 0;
 var index_1 = __importDefault(require("../config/index"));
 var email_1 = require("../middlewares/email");
 var twilio_1 = require("../middlewares/twilio");
-var cart_1 = __importDefault(require("../models/cart"));
-var products_1 = __importDefault(require("../models/products"));
+var cart_1 = require("../models/cart");
+var products_1 = require("../models/products");
 var loggers_1 = require("../utils/loggers");
 var cartGet = function (id) { return __awaiter(void 0, void 0, void 0, function () {
     var cartOfUser, productsInCart, err_1;
@@ -52,14 +52,14 @@ var cartGet = function (id) { return __awaiter(void 0, void 0, void 0, function 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 3, , 4]);
-                return [4 /*yield*/, cart_1.default.findOne({ userId: id })];
+                return [4 /*yield*/, cart_1.cartModel.getCartByQuery({ userId: id })];
             case 1:
                 cartOfUser = _a.sent();
                 return [4 /*yield*/, Promise.all(cartOfUser.cart.map(function (product) { return __awaiter(void 0, void 0, void 0, function () {
                         var productFound;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0: return [4 /*yield*/, products_1.default.findOne({ _id: product.productId })];
+                                case 0: return [4 /*yield*/, products_1.productoModel.getProductByQuery({ _id: product.productId })];
                                 case 1:
                                     productFound = _a.sent();
                                     return [2 /*return*/, productFound];
@@ -97,7 +97,7 @@ var cartMsgSender = function (dataUser, subject, content, products) { return __a
                 return [4 /*yield*/, twilio_1.whatsappService.sendWhatsAppMessage("+".concat(dataUser.phoneNumber), message)];
             case 2:
                 whatsapp = _a.sent();
-                return [2 /*return*/, enviarEmail];
+                return [2 /*return*/, true];
             case 3:
                 err_2 = _a.sent();
                 loggers_1.logger.error("Error: ", err_2);

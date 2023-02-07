@@ -44,6 +44,7 @@ var passport_1 = __importDefault(require("passport"));
 var loggers_1 = require("../../utils/loggers");
 var auth_1 = require("../../services/auth");
 var logged_1 = require("../../utils/logged");
+// CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
 var register = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         // Esto a un controller

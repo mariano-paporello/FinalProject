@@ -29,6 +29,7 @@ usersSchema.pre("save", async function(next){
     this.password = hash
     next()
 })
+
 class UsersMongo{
     private users;
     
@@ -45,6 +46,7 @@ class UsersMongo{
       const userfound = await  this.users.find({username:username})
       return userfound
     }
+
     async logIn(username:string,password:string){
         const cadidatePassword = password
         const usersfound: usuario[] =await this.find(username)

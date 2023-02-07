@@ -40,6 +40,7 @@ exports.createUser = exports.searchUser = void 0;
 var loggers_1 = require("../../utils/loggers");
 var user_1 = require("../../models/user");
 var ifCartExist_1 = require("../../middlewares/ifCartExist");
+// CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
 var searchUser = function (req, username, password, done) { return __awaiter(void 0, void 0, void 0, function () {
     var user, err_1;
     return __generator(this, function (_a) {

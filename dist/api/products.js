@@ -35,13 +35,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.añadirProdACart = exports.getProducts = exports.findProduct = void 0;
-var cart_1 = __importDefault(require("../models/cart"));
-var products_1 = __importDefault(require("../models/products"));
+var cart_1 = require("../models/cart");
+var products_1 = require("../models/products");
 var loggers_1 = require("../utils/loggers");
 var findProduct = function (_id) { return __awaiter(void 0, void 0, void 0, function () {
     var product;
@@ -49,7 +46,7 @@ var findProduct = function (_id) { return __awaiter(void 0, void 0, void 0, func
         switch (_a.label) {
             case 0:
                 if (!_id) return [3 /*break*/, 2];
-                return [4 /*yield*/, products_1.default.findById({ _id: _id })];
+                return [4 /*yield*/, products_1.productoModel.getProductById(_id)];
             case 1:
                 product = _a.sent();
                 return [2 /*return*/, product];
@@ -61,19 +58,19 @@ exports.findProduct = findProduct;
 var getProducts = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, products_1.default.find({})];
+            case 0: return [4 /*yield*/, products_1.productoModel.getAllProd()];
             case 1: return [2 /*return*/, _a.sent()];
         }
     });
 }); };
 exports.getProducts = getProducts;
 var añadirProdACart = function (dataUser, product) { return __awaiter(void 0, void 0, void 0, function () {
-    var userHasCart, index, newCart, caca, err_1, culo, err_2;
+    var userHasCart, index, newCart, addAmountToaProduct, err_1, addOneProductToExistingCart, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 if (!product) return [3 /*break*/, 10];
-                return [4 /*yield*/, cart_1.default.findOne({ userId: dataUser._id })];
+                return [4 /*yield*/, cart_1.cartModel.getCartByQuery({ userId: dataUser._id })];
             case 1:
                 userHasCart = _a.sent();
                 index = userHasCart === null || userHasCart === void 0 ? void 0 : userHasCart.cart.findIndex(function (obj) {
@@ -85,10 +82,10 @@ var añadirProdACart = function (dataUser, product) { return __awaiter(void 0, v
                 _a.trys.push([2, 4, , 5]);
                 newCart = userHasCart === null || userHasCart === void 0 ? void 0 : userHasCart.cart;
                 newCart[index] = { productId: newCart[index].productId, amount: newCart[index].amount + 1 };
-                return [4 /*yield*/, cart_1.default.updateOne({ userId: dataUser._id }, { $set: { cart: newCart } })];
+                return [4 /*yield*/, cart_1.cartModel.updateCart({ userId: dataUser._id }, { $set: { cart: newCart } })];
             case 3:
-                caca = _a.sent();
-                return [3 /*break*/, 5];
+                addAmountToaProduct = _a.sent();
+                return [2 /*return*/, true];
             case 4:
                 err_1 = _a.sent();
                 loggers_1.logger.error("Error: ", err_1);
@@ -99,9 +96,9 @@ var añadirProdACart = function (dataUser, product) { return __awaiter(void 0, v
                 _a.label = 7;
             case 7:
                 _a.trys.push([7, 9, , 10]);
-                return [4 /*yield*/, cart_1.default.updateOne({ userId: dataUser._id }, { $push: { cart: { productId: product._id, amount: 1 } } })];
+                return [4 /*yield*/, cart_1.cartModel.updateCart({ userId: dataUser._id }, { $push: { cart: { productId: product._id, amount: 1 } } })];
             case 8:
-                culo = _a.sent();
+                addOneProductToExistingCart = _a.sent();
                 return [2 /*return*/, true];
             case 9:
                 err_2 = _a.sent();

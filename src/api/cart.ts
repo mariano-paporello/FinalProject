@@ -1,17 +1,16 @@
-import { createLogger } from "winston"
 import Config from "../config/index"
 import { EmailService } from "../middlewares/email"
 import { whatsappService } from "../middlewares/twilio"
-import CartModel from "../models/cart"
-import ProductoModel from "../models/products"
+import {cartModel} from "../models/cart"
+import {productoModel} from "../models/products"
 import { logger } from "../utils/loggers"
 
 
 export const cartGet = async(id:string) =>{
     try{
-        const cartOfUser:any = await CartModel.findOne({userId:id})
+        const cartOfUser:any = await cartModel.getCartByQuery({userId:id})
         const productsInCart = await Promise.all(cartOfUser.cart.map(async product=> {
-            const productFound = await ProductoModel.findOne({_id: product.productId})
+            const productFound = await productoModel.getProductByQuery({_id: product.productId})
             return productFound
         })).then(result => {
             return result
@@ -33,7 +32,7 @@ export const cartMsgSender = async(dataUser, subject, content, products)=>{
         -${product.price}`})}`
         console.log(message)
         const whatsapp = await whatsappService.sendWhatsAppMessage(`+${dataUser.phoneNumber}`, message)
-        return enviarEmail
+        return true
     }catch(err){
         logger.error("Error: ", err)
     }
