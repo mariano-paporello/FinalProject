@@ -1,5 +1,5 @@
-import { añadirProdACart, findProduct, getProducts } from "../../api/products"
-import {logger} from "../../utils/loggers"
+import { añadirProdACart, findProduct, getProducts } from "../api/products"
+import {logger} from "../utils/loggers"
 
 // CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
 export const productsController = async (req, res)=>{

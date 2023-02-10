@@ -1,0 +1,1 @@
+// en este controller poner logIn , register y logout ya que es el controller que se va a encargar de los usuarios.

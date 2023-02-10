@@ -6,3 +6,4 @@ export const ifCartExist = async(dataUser) =>{
     console.log("🥼🥼🥼🥼 CartFound", cartFound) 
     return cartFound ? null : createCartOfUser(dataUser) 
 }
+// mover a carrito controller

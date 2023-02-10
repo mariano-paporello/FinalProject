@@ -1,6 +1,6 @@
 import {Router} from "express"
-import { productsController, productToCart } from "../../Controllers/msgAndProd/productsController"
-import { isLogged, loggedIsNotDestroyed } from "../../middlewares/LoggedVerification"
+import { productsController, productToCart } from "../Controllers/productsController"
+import { isLogged, loggedIsNotDestroyed } from "../middlewares/LoggedVerification"
 
 const productsRoute = Router()
 

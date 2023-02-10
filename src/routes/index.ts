@@ -1,6 +1,6 @@
 import {Router} from "express"
-import otherRoute from "./otherRoutes/otherRoute";
-import profileRoute from "./profileAndChat/profile"
+import otherRoute from "./otherRoute";
+import profileRoute from "./profile"
 import { usuario } from "../models/user";
 import { homeview } from "../Controllers/viewController";
 import { isLogged, loggedIsNotDestroyed } from "../middlewares/LoggedVerification";
@@ -10,9 +10,9 @@ import cookieParser from "cookie-parser";
 import express from "express";
 import session from 'express-session';
 import { storeOptions } from "../api/storeOptions";
-import productsRoute from "./cartAndProd/products";
+import productsRoute from "./products";
 import cors from "cors"
-import cartRoute from "./cartAndProd/cart";
+import cartRoute from "./cart";
 import logInRoute from "./logIn-register-logOut/logIn";
 import registerRoute from "./logIn-register-logOut/register";
 import logOutRoute from "./logIn-register-logOut/logOut";

@@ -1,5 +1,5 @@
-import menssagesMetodos from "../../models/messages"
-import {logger} from "../../utils/loggers"
+import menssagesMetodos from "../models/messages"
+import {logger} from "../utils/loggers"
 
 class mensajeController{
 

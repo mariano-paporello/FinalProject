@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { logger } from "../../utils/loggers";
+import { logger } from "../utils/loggers";
 import session from 'express-session';
-import { storeOptions } from "../../api/storeOptions";
+import { storeOptions } from "../api/storeOptions";
 import cookieParser from "cookie-parser";
-import { getAllDenorm, getAllNorm } from "../../Controllers/otherControllers/normalizeController";
-import { crear5Productos } from "../../Controllers/otherControllers/testController";
+import { getAllDenorm, getAllNorm } from "../Controllers/otherControllers/normalizeController";
+import { crear5Productos } from "../Controllers/otherControllers/testController";
 import minimist from "minimist"
 import path from "path"
 import {fork} from "child_process"

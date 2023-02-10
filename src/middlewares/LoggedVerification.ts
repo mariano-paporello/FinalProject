@@ -24,3 +24,4 @@ else{
         })
     }
  }
+//  mover a auth controller donde va a estar login y register

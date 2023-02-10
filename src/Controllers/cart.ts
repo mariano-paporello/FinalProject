@@ -1,5 +1,5 @@
-import { cartMsgSender, cartGet } from "../../api/cart"
-import { logger } from "../../utils/loggers"
+import { cartMsgSender, cartGet } from "../api/cart"
+import { logger } from "../utils/loggers"
 
 // CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
 export const cart = async(req, res)=>{
