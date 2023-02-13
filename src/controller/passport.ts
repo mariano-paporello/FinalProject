@@ -1,6 +1,6 @@
-import { logger } from "../../utils/loggers";
-import { usersModel } from "../../models/user";
-import { ifCartExist } from "../../middlewares/ifCartExist"
+import { logger } from "../utils/loggers";
+import { usersModel } from "../models/user";
+import { ifCartExist } from "./cart";
 
 // CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
 export const searchUser= async(req,username , password,  done)=>{

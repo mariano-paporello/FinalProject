@@ -1,6 +1,6 @@
 import Config from "../config/index"
-import { EmailService } from "../middlewares/email"
-import { whatsappService } from "../middlewares/twilio"
+import { EmailService } from "../services/email"
+import { whatsappService } from "../services/twilio"
 import {cartModel} from "../models/cart"
 import {productoModel} from "../models/products"
 import { logger } from "../utils/loggers"
@@ -16,8 +16,8 @@ export const cartGet = async(id:string) =>{
             return result
         })
         return  productsInCart
-    }catch(err){
-        logger.error("Error: ", err)
+    }catch (error) {
+        logger.error("Error: ", error)
     }
     
 }
@@ -33,7 +33,25 @@ export const cartMsgSender = async(dataUser, subject, content, products)=>{
         console.log(message)
         const whatsapp = await whatsappService.sendWhatsAppMessage(`+${dataUser.phoneNumber}`, message)
         return true
-    }catch(err){
-        logger.error("Error: ", err)
+    }catch(error){
+        logger.error("Error: ", error)
     }
+}
+export const emptyCartCreator =async (id) => {
+    try{
+        const emptyCart =  await cartModel.createCart({userId:id,cart:[]})
+        return  emptyCart
+    }catch (error) {
+        logger.error("Error: ", error)
+    }
+}
+export const checkCart = async (id) =>{
+    try {
+        
+    
+   const cartFound = await  cartModel.getCartByQuery({userId: id})
+   return cartFound
+} catch (error) {
+    logger.error("Error: ", error)
+}
 }

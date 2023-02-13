@@ -1,7 +1,7 @@
 import { añadirProdACart, findProduct, getProducts } from "../api/products"
 import {logger} from "../utils/loggers"
 
-// CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
+
 export const productsController = async (req, res)=>{
     try{
         res.json({
@@ -11,7 +11,7 @@ export const productsController = async (req, res)=>{
         logger.error("Error: ",err)
     }
 } 
-// CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
+
 export const productToCart = async(req, res)=>{
     try{
         const product = await findProduct(req.params.id)
@@ -23,8 +23,3 @@ export const productToCart = async(req, res)=>{
         logger.error("Error: ",err)
     }
 }
-
-
-// const productsMethods = new productController()
-
-// export default  productsMethods

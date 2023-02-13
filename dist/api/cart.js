@@ -39,15 +39,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cartMsgSender = exports.cartGet = void 0;
+exports.checkCart = exports.emptyCartCreator = exports.cartMsgSender = exports.cartGet = void 0;
 var index_1 = __importDefault(require("../config/index"));
-var email_1 = require("../middlewares/email");
-var twilio_1 = require("../middlewares/twilio");
+var email_1 = require("../services/email");
+var twilio_1 = require("../services/twilio");
 var cart_1 = require("../models/cart");
 var products_1 = require("../models/products");
 var loggers_1 = require("../utils/loggers");
 var cartGet = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var cartOfUser, productsInCart, err_1;
+    var cartOfUser, productsInCart, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -72,8 +72,8 @@ var cartGet = function (id) { return __awaiter(void 0, void 0, void 0, function 
                 productsInCart = _a.sent();
                 return [2 /*return*/, productsInCart];
             case 3:
-                err_1 = _a.sent();
-                loggers_1.logger.error("Error: ", err_1);
+                error_1 = _a.sent();
+                loggers_1.logger.error("Error: ", error_1);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
@@ -81,7 +81,7 @@ var cartGet = function (id) { return __awaiter(void 0, void 0, void 0, function 
 }); };
 exports.cartGet = cartGet;
 var cartMsgSender = function (dataUser, subject, content, products) { return __awaiter(void 0, void 0, void 0, function () {
-    var enviarEmail, message, whatsapp, err_2;
+    var enviarEmail, message, whatsapp, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -99,11 +99,49 @@ var cartMsgSender = function (dataUser, subject, content, products) { return __a
                 whatsapp = _a.sent();
                 return [2 /*return*/, true];
             case 3:
-                err_2 = _a.sent();
-                loggers_1.logger.error("Error: ", err_2);
+                error_2 = _a.sent();
+                loggers_1.logger.error("Error: ", error_2);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
     });
 }); };
 exports.cartMsgSender = cartMsgSender;
+var emptyCartCreator = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+    var emptyCart, error_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, cart_1.cartModel.createCart({ userId: id, cart: [] })];
+            case 1:
+                emptyCart = _a.sent();
+                return [2 /*return*/, emptyCart];
+            case 2:
+                error_3 = _a.sent();
+                loggers_1.logger.error("Error: ", error_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.emptyCartCreator = emptyCartCreator;
+var checkCart = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+    var cartFound, error_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, cart_1.cartModel.getCartByQuery({ userId: id })];
+            case 1:
+                cartFound = _a.sent();
+                return [2 /*return*/, cartFound];
+            case 2:
+                error_4 = _a.sent();
+                loggers_1.logger.error("Error: ", error_4);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.checkCart = checkCart;

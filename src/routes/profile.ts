@@ -1,6 +1,6 @@
 import { Router } from "express"
-import { profileGet } from "../Controllers/profile"
-import { isLogged, loggedIsNotDestroyed } from "../middlewares/LoggedVerification"
+import { isLogged, loggedIsNotDestroyed } from "../controller/auth"
+import { profileGet } from "../controller/profile"
 
 const ProfileRoute = Router()
 

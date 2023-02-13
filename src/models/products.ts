@@ -23,6 +23,7 @@ interface data{
 }
 class ProductMongo {
     private product
+    
     constructor(){
         this.product = mongoose.model(collection, productoSchema)
     }

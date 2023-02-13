@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
-import config from '../../config/index';
-import { usersModel } from "../../models/user";
+import config from '../config/index';
+import { usersModel } from "../models/user";
 
 
 export const createAuthToken = async (user)=> {

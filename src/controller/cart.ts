@@ -1,14 +1,14 @@
-import { cartMsgSender, cartGet } from "../api/cart"
+import { cartMsgSender, cartGet, emptyCartCreator, checkCart } from "../api/cart"
 import { logger } from "../utils/loggers"
 
-// CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
+
 export const cart = async(req, res)=>{
     const productsInCart = await cartGet(req.session.dataUser._id)
     res.json({
         productsInCart : productsInCart
     })
 }
-// CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
+
 export const cartSender = async(req, res)=>{
     try {
         const dataUser = req.session.dataUser
@@ -24,4 +24,12 @@ export const cartSender = async(req, res)=>{
     } catch (err) {
         logger.error("Error: ", err)
     }
+}
+
+export const createCartOfUser = async(dataUser) => await emptyCartCreator(dataUser._id) 
+
+
+export const ifCartExist = async(dataUser) =>{
+    const cartFound:any  = await checkCart(dataUser._id)
+   return cartFound ? null : createCartOfUser(dataUser)
 }

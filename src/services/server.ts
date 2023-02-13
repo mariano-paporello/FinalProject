@@ -6,7 +6,10 @@ import {logger }from "../utils/loggers"
 import { usuario } from '../models/user'
 import index from '../routes/index'
 import { paths, viewPath } from '../utils/paths'
-import helmet from 'helmet'
+import cookieParser from "cookie-parser";
+import session from 'express-session';
+import { storeOptions } from "../api/storeOptions";
+import passport from "passport";
 
 declare module 'express-session' {
     interface SessionData {
@@ -18,9 +21,16 @@ declare module 'express-session' {
 }
 
 const app = express()
-app.use("/", index)
+
 app.use(compression())
-app.use(helmet())
+app.use(express.json())
+app.use(express.urlencoded({extended: true}));
+app.use(express.static('public'))
+app.use(cookieParser());
+app.use(session(storeOptions));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use("/", index)
 // HBS PART:
 app.set('view engine', 'hbs')
 app.set('views', viewPath)

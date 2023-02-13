@@ -2,8 +2,8 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import  {usersModel}  from '../models/user';
 import { logger } from '../utils/loggers';
-import { checkAuth, createAuthToken } from '../Controllers/authAndEncryp/jws';
-import { createUser, searchUser } from '../Controllers/authAndEncryp/passport';
+import { checkAuth, createAuthToken } from './jws';
+import { createUser, searchUser } from './passport';
 
 // JWT PART
 export const generateToken = async(user)=>{
