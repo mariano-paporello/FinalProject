@@ -3,7 +3,7 @@ import http from 'http'
 import {engine} from 'express-handlebars'
 import compression from "compression"
 import {logger }from "../utils/loggers"
-import { usuario } from '../models/user'
+// import { usuario } from '../persistence/user'
 import index from '../routes/index'
 import { paths, viewPath } from '../utils/paths'
 import cookieParser from "cookie-parser";
@@ -13,7 +13,7 @@ import passport from "passport";
 
 declare module 'express-session' {
     interface SessionData {
-        dataUser: usuario
+        dataUser: any
         gmail: String,
         username: String,
         contraseña: any

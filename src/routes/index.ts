@@ -1,7 +1,7 @@
 import {Router} from "express"
 import otherRoute from "./otherRoute";
 import profileRoute from "./profile"
-import { usuario } from "../models/user";
+// import { usuario } from '../models/users/user.repository';
 import passport from "passport";
 import { loginFunc, signUpFunc, validateToken  } from "../controller/user";
 import productsRoute from "./products";
@@ -10,14 +10,6 @@ import cartRoute from "./cart";
 import authRoute from "./auth";
 import { homeview } from "../controller/viewController";
 
-declare module 'express-session' {
-    interface SessionData {
-        dataUser: usuario
-        gmail: String,
-        username: String,
-        contraseña: any
-    }
-}
 const mainRoute: Router = Router();
 
 

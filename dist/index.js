@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var server = require('./services/server');
 var initWsServer = require("./services/sockets");
-var databaseMongoose_1 = __importDefault(require("./db/databaseMongoose"));
 var minimist_1 = __importDefault(require("minimist"));
 var os_1 = __importDefault(require("os"));
 var cluster_1 = __importDefault(require("cluster"));
@@ -37,4 +36,3 @@ server.on('error', function (err) {
 process.on('exit', function (code) {
     console.log("Exit ==> El proceso termino con codigo ".concat(code, "\n\n"));
 });
-(0, databaseMongoose_1.default)();

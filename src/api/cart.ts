@@ -1,16 +1,16 @@
 import Config from "../config/index"
 import { EmailService } from "../services/email"
 import { whatsappService } from "../services/twilio"
-import {cartModel} from "../models/cart"
-import {productoModel} from "../models/products"
 import { logger } from "../utils/loggers"
+import { repositoryProduct } from "../models/products/products.repository"
+import { repositoryCart } from "../models/cart/cart.repository"
 
 
 export const cartGet = async(id:string) =>{
     try{
-        const cartOfUser:any = await cartModel.getCartByQuery({userId:id})
+        const cartOfUser:any = await repositoryCart.getCartByQuery({userId:id})
         const productsInCart = await Promise.all(cartOfUser.cart.map(async product=> {
-            const productFound = await productoModel.getProductByQuery({_id: product.productId})
+            const productFound = await repositoryProduct.getProductByQuery({_id: product.productId})
             return productFound
         })).then(result => {
             return result
@@ -39,7 +39,7 @@ export const cartMsgSender = async(dataUser, subject, content, products)=>{
 }
 export const emptyCartCreator =async (id) => {
     try{
-        const emptyCart =  await cartModel.createCart({userId:id,cart:[]})
+        const emptyCart =  await repositoryCart.createCart({userId:id,cart:[]})
         return  emptyCart
     }catch (error) {
         logger.error("Error: ", error)
@@ -49,7 +49,7 @@ export const checkCart = async (id) =>{
     try {
         
     
-   const cartFound = await  cartModel.getCartByQuery({userId: id})
+   const cartFound = await  repositoryCart.getCartByQuery({userId: id})
    return cartFound
 } catch (error) {
     logger.error("Error: ", error)

@@ -41,7 +41,6 @@ var config = require("../config/index");
 var initMongoDB = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         try {
-            console.log('CONECTANDO A MI DB');
             mongoose.set('strictQuery', true);
             mongoose.connect(config.default.MONGO_ATLAS_URL, {
                 useNewUrlParser: true,

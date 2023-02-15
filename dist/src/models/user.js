@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.usersModel = void 0;
+exports.repositoryUser = void 0;
 var mongoose_1 = __importDefault(require("mongoose"));
 var bcrypt_1 = __importDefault(require("bcrypt"));
 var Schema = mongoose_1.default.Schema;
@@ -152,4 +152,4 @@ var UsersMongo = /** @class */ (function () {
     };
     return UsersMongo;
 }());
-exports.usersModel = new UsersMongo();
+exports.repositoryUser = new UsersMongo();

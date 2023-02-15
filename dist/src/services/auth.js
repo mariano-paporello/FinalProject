@@ -69,7 +69,7 @@ var checkAuth = function (req, res, next) { return __awaiter(void 0, void 0, voi
                 _a.trys.push([1, 3, , 4]);
                 decode = jsonwebtoken_1.default.veryify(token, index_1.default.TOKEN_SECRET);
                 console.log(decode);
-                return [4 /*yield*/, user_1.usersModel.findById(decode.userId)];
+                return [4 /*yield*/, user_1.repositoryUser.findById(decode.userId)];
             case 2:
                 user = _a.sent();
                 req.user = user;
@@ -95,7 +95,7 @@ var logIn = function (req, username, password, done) { return __awaiter(void 0, 
         switch (_a.label) {
             case 0:
                 console.log("LOOOGEOOO");
-                return [4 /*yield*/, user_1.usersModel.logIn(username, password)];
+                return [4 /*yield*/, user_1.repositoryUser.logIn(username, password)];
             case 1:
                 user = _a.sent();
                 if (user) {
@@ -120,7 +120,7 @@ var signUp = function (req, username, password, done) { return __awaiter(void 0,
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, user_1.usersModel.singUp({
+                return [4 /*yield*/, user_1.repositoryUser.singUp({
                         gmail: gmail,
                         password: password,
                         age: age,
@@ -150,7 +150,7 @@ passport_1.default.serializeUser(function (user, done) {
 });
 passport_1.default.deserializeUser(function (userId, done) {
     console.log('Se Ejecuta el desserializeUser');
-    user_1.usersModel.findById(userId).then(function (user) {
+    user_1.repositoryUser.findById(userId).then(function (user) {
         return done(null, user);
     });
 });

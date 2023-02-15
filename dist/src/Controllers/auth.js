@@ -72,7 +72,7 @@ var checkAuth = function (req, res, next) { return __awaiter(void 0, void 0, voi
                     return [2 /*return*/, res.status(401).json({ msg: "NO AUTORIZADO" })];
                 }
                 decode = jsonwebtoken_1.default.veryify(token, index_1.default.TOKEN_SECRET);
-                return [4 /*yield*/, user_1.usersModel.findById(decode.userId)];
+                return [4 /*yield*/, user_1.repositoryUser.findById(decode.userId)];
             case 1:
                 user = _a.sent();
                 req.user = user;
@@ -117,7 +117,7 @@ passport_1.default.serializeUser(function (user, done) {
     done(null, user._id);
 });
 passport_1.default.deserializeUser(function (userId, done) {
-    user_1.usersModel.findById(userId).then(function (user) {
+    user_1.repositoryUser.findById(userId).then(function (user) {
         return done(null, user);
     });
 });

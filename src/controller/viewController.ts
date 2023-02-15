@@ -1,11 +1,11 @@
-import {productoModel} from "../models/products"
+import { repositoryProduct } from "../models/products/products.repository"
 import { logger } from "../utils/loggers"
 
 
 
 export const homeview =(req, res)=>{
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url ) 
-    productoModel.getAllProd().then(productos => {
+    repositoryProduct.getAllProd().then((productos:any)  => {
                     res.json({
                         data: req.session.dataUser,
                         productosDisponibles: productos.map(productoIndv => productoIndv.toJSON())

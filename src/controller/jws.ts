@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
 import config from '../config/index';
-import { usersModel } from "../models/user";
+import { repositoryUser } from '../models/users/user.repository';
 
 
 export const createAuthToken = async (user)=> {
@@ -27,7 +27,7 @@ export const createAuthToken = async (user)=> {
           token,
           config.TOKEN_SECRET
         )
-        // const user = await usersModel.findById(decode.userId)
+        // const user = await repositoryUser.findById(decode.userId)
         const user = 'pepe'
         req.user = user
         console.log("🧙 🧙 🧙 Todo piola ", req.user)

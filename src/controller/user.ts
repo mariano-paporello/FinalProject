@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import  {usersModel}  from '../models/user';
+import { repositoryUser } from '../models/users/user.repository';
 import { logger } from '../utils/loggers';
 import { checkAuth, createAuthToken } from './jws';
 import { createUser, searchUser } from './passport';
@@ -47,7 +47,7 @@ passport.serializeUser((user:any, done) => {
   });
 
   passport.deserializeUser((userId, done) => {
-    usersModel.findById(userId).then((user) => {
+    repositoryUser.findById(userId).then((user) => {
       return done(null, user);
     })
   });

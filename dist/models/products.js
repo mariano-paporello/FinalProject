@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.productoModel = void 0;
+exports.repositoryProduct = void 0;
 var mongoose_1 = __importDefault(require("mongoose"));
 var collection = 'productos';
 var productoSchema = new mongoose_1.default.Schema({
@@ -110,4 +110,4 @@ var ProductMongo = /** @class */ (function () {
     };
     return ProductMongo;
 }());
-exports.productoModel = new ProductMongo;
+exports.repositoryProduct = new ProductMongo;

@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var otherRoute_1 = __importDefault(require("./otherRoute"));
 var profile_1 = __importDefault(require("./profile"));
+// import { usuario } from '../models/users/user.repository';
 var passport_1 = __importDefault(require("passport"));
 var user_1 = require("../controller/user");
 var products_1 = __importDefault(require("./products"));

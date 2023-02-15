@@ -43,23 +43,23 @@ exports.checkCart = exports.emptyCartCreator = exports.cartMsgSender = exports.c
 var index_1 = __importDefault(require("../config/index"));
 var email_1 = require("../services/email");
 var twilio_1 = require("../services/twilio");
-var cart_1 = require("../models/cart");
-var products_1 = require("../models/products");
 var loggers_1 = require("../utils/loggers");
+var products_repository_1 = require("../models/products/products.repository");
+var cart_repository_1 = require("../models/cart/cart.repository");
 var cartGet = function (id) { return __awaiter(void 0, void 0, void 0, function () {
     var cartOfUser, productsInCart, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 3, , 4]);
-                return [4 /*yield*/, cart_1.cartModel.getCartByQuery({ userId: id })];
+                return [4 /*yield*/, cart_repository_1.repositoryCart.getCartByQuery({ userId: id })];
             case 1:
                 cartOfUser = _a.sent();
                 return [4 /*yield*/, Promise.all(cartOfUser.cart.map(function (product) { return __awaiter(void 0, void 0, void 0, function () {
                         var productFound;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0: return [4 /*yield*/, products_1.productoModel.getProductByQuery({ _id: product.productId })];
+                                case 0: return [4 /*yield*/, products_repository_1.repositoryProduct.getProductByQuery({ _id: product.productId })];
                                 case 1:
                                     productFound = _a.sent();
                                     return [2 /*return*/, productFound];
@@ -113,7 +113,7 @@ var emptyCartCreator = function (id) { return __awaiter(void 0, void 0, void 0, 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, cart_1.cartModel.createCart({ userId: id, cart: [] })];
+                return [4 /*yield*/, cart_repository_1.repositoryCart.createCart({ userId: id, cart: [] })];
             case 1:
                 emptyCart = _a.sent();
                 return [2 /*return*/, emptyCart];
@@ -132,7 +132,7 @@ var checkCart = function (id) { return __awaiter(void 0, void 0, void 0, functio
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, cart_1.cartModel.getCartByQuery({ userId: id })];
+                return [4 /*yield*/, cart_repository_1.repositoryCart.getCartByQuery({ userId: id })];
             case 1:
                 cartFound = _a.sent();
                 return [2 /*return*/, cartFound];

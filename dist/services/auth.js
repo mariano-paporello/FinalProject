@@ -95,7 +95,7 @@ passport_1.default.serializeUser(function (user, done) {
     done(null, user._id);
 });
 passport_1.default.deserializeUser(function (userId, done) {
-    user_1.usersModel.findById(userId).then(function (user) {
+    user_1.repositoryUser.findById(userId).then(function (user) {
         return done(null, user);
     });
 });

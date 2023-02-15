@@ -47,7 +47,7 @@ var searchUser = function (req, username, password, done) { return __awaiter(voi
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 5, , 6]);
-                return [4 /*yield*/, user_1.usersModel.logIn(username, password)];
+                return [4 /*yield*/, user_1.repositoryUser.logIn(username, password)];
             case 1:
                 user = _a.sent();
                 if (!user) return [3 /*break*/, 3];
@@ -78,7 +78,7 @@ var createUser = function (req, username, password, done) { return __awaiter(voi
             case 0:
                 _b.trys.push([0, 3, , 4]);
                 _a = req.body, gmail = _a.gmail, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image;
-                return [4 /*yield*/, user_1.usersModel.singUp({
+                return [4 /*yield*/, user_1.repositoryUser.singUp({
                         gmail: gmail,
                         password: password,
                         age: age,

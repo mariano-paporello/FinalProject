@@ -42,7 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.signUpFunc = exports.loginFunc = exports.validateToken = exports.generateToken = void 0;
 var passport_1 = __importDefault(require("passport"));
 var passport_local_1 = require("passport-local");
-var user_1 = require("../models/user");
+var user_repository_1 = require("../models/users/user.repository");
 var loggers_1 = require("../utils/loggers");
 var jws_1 = require("./jws");
 var passport_2 = require("./passport");
@@ -95,7 +95,7 @@ passport_1.default.serializeUser(function (user, done) {
     done(null, user._id);
 });
 passport_1.default.deserializeUser(function (userId, done) {
-    user_1.usersModel.findById(userId).then(function (user) {
+    user_repository_1.repositoryUser.findById(userId).then(function (user) {
         return done(null, user);
     });
 });

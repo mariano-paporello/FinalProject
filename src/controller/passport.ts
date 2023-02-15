@@ -1,11 +1,11 @@
 import { logger } from "../utils/loggers";
-import { usersModel } from "../models/user";
+import { repositoryUser } from '../models/users/user.repository';
 import { ifCartExist } from "./cart";
 
 // CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
 export const searchUser= async(req,username , password,  done)=>{
     try{
-        const user = await usersModel.logIn(username, password)
+        const user:any = await repositoryUser.logIn(username, password)
         if(user){
             await ifCartExist(user)
             req.session.dataUser= user
@@ -27,7 +27,7 @@ export const createUser = async( req, username, password, done )=>{
     try {
         const {gmail, age, phoneNumber, image } = req.body
         // LOL
-        const user = await usersModel.singUp({
+        const user:any = await repositoryUser.singUp({
             gmail, 
             password, 
             age, 
@@ -35,10 +35,10 @@ export const createUser = async( req, username, password, done )=>{
             image,
             username
         })
+        console.log(user)
         req.session.image= user.image
         req.session.gmail =  user.gmail
         req.session.username= user.username
-        req.session.contraseña= user.password
         await ifCartExist(user)
         return done(null,  user)
     } catch (err) {

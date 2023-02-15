@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createUser = exports.searchUser = void 0;
 var loggers_1 = require("../utils/loggers");
-var user_1 = require("../models/user");
+var user_repository_1 = require("../models/users/user.repository");
 var cart_1 = require("./cart");
 // CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
 var searchUser = function (req, username, password, done) { return __awaiter(void 0, void 0, void 0, function () {
@@ -47,7 +47,7 @@ var searchUser = function (req, username, password, done) { return __awaiter(voi
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 5, , 6]);
-                return [4 /*yield*/, user_1.usersModel.logIn(username, password)];
+                return [4 /*yield*/, user_repository_1.repositoryUser.logIn(username, password)];
             case 1:
                 user = _a.sent();
                 if (!user) return [3 /*break*/, 3];
@@ -78,7 +78,7 @@ var createUser = function (req, username, password, done) { return __awaiter(voi
             case 0:
                 _b.trys.push([0, 3, , 4]);
                 _a = req.body, gmail = _a.gmail, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image;
-                return [4 /*yield*/, user_1.usersModel.singUp({
+                return [4 /*yield*/, user_repository_1.repositoryUser.singUp({
                         gmail: gmail,
                         password: password,
                         age: age,
@@ -88,10 +88,10 @@ var createUser = function (req, username, password, done) { return __awaiter(voi
                     })];
             case 1:
                 user = _b.sent();
+                console.log(user);
                 req.session.image = user.image;
                 req.session.gmail = user.gmail;
                 req.session.username = user.username;
-                req.session.contraseña = user.password;
                 return [4 /*yield*/, (0, cart_1.ifCartExist)(user)];
             case 2:
                 _b.sent();

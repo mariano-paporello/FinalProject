@@ -10,5 +10,5 @@ var productoSchema = new mongoose_1.default.Schema({
     price: { type: Number, require: true },
     thumbnail: { type: String, require: true, max: 100 },
 }, { timestamps: true });
-var ProductoModel = mongoose_1.default.model(productoColl, productoSchema);
-exports.default = ProductoModel;
+var repositoryProduct = mongoose_1.default.model(productoColl, productoSchema);
+exports.default = repositoryProduct;
