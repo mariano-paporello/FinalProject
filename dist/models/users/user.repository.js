@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.repositoryUser = void 0;
-var users_dto_js_1 = require("./users-dto.js");
+// import { asDto } from "./dto/users-dto";
 var users_factory_1 = require("./users.factory");
 var userRepository = /** @class */ (function () {
     function userRepository() {
@@ -48,10 +48,10 @@ var userRepository = /** @class */ (function () {
             var user, userDto;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.findById(id)];
+                    case 0: return [4 /*yield*/, this.dao.findById(id)];
                     case 1:
                         user = _a.sent();
-                        userDto = (0, users_dto_js_1.asDto)(user);
+                        userDto = (user);
                         return [2 /*return*/, userDto];
                 }
             });
@@ -62,7 +62,7 @@ var userRepository = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.find(username)];
+                    case 0: return [4 /*yield*/, this.dao.find(username)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -74,10 +74,11 @@ var userRepository = /** @class */ (function () {
             var user, userDto;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.logIn(username, password)];
+                    case 0: return [4 /*yield*/, this.dao.logIn(username, password)];
                     case 1:
                         user = _a.sent();
-                        userDto = (0, users_dto_js_1.asDto)(user);
+                        userDto = (user);
+                        console.log(userDto);
                         return [2 /*return*/, userDto];
                 }
             });
@@ -89,10 +90,10 @@ var userRepository = /** @class */ (function () {
             var user, userDto;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.singUp(data)];
+                    case 0: return [4 /*yield*/, this.dao.singUp(data)];
                     case 1:
                         user = _a.sent();
-                        userDto = (0, users_dto_js_1.asDto)(user);
+                        userDto = (user);
                         return [2 /*return*/, userDto];
                 }
             });

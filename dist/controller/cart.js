@@ -46,6 +46,7 @@ var cart = function (req, res) { return __awaiter(void 0, void 0, void 0, functi
             case 0: return [4 /*yield*/, (0, cart_1.cartGet)(req.session.dataUser._id)];
             case 1:
                 productsInCart = _a.sent();
+                console.log(productsInCart, req.session.dataUser._id);
                 res.json({
                     productsInCart: productsInCart
                 });

@@ -37,21 +37,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.repositoryCart = void 0;
-var cart_factory_js_1 = require("./cart.factory.js");
-var cart_dto_js_1 = require("./dto/cart-dto.js");
+var cart_factory_1 = require("./cart.factory");
+// import { asDto } from "./dto/cart-dto";
 var cartRepository = /** @class */ (function () {
     function cartRepository() {
-        this.dao = (0, cart_factory_js_1.getDao)();
+        this.dao = (0, cart_factory_1.getDao)();
     }
     cartRepository.prototype.getCartById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var cart, cartDto;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getCartById(id)];
+                    case 0: return [4 /*yield*/, this.dao.getCartById(id)];
                     case 1:
                         cart = _a.sent();
-                        cartDto = (0, cart_dto_js_1.asDto)(cart);
+                        cartDto = (cart);
                         return [2 /*return*/, cartDto];
                 }
             });
@@ -63,10 +63,10 @@ var cartRepository = /** @class */ (function () {
             var cart, cartDto;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getCartByQuery(query)];
+                    case 0: return [4 /*yield*/, this.dao.getCartByQuery(query)];
                     case 1:
                         cart = _a.sent();
-                        cartDto = (0, cart_dto_js_1.asDto)(cart);
+                        cartDto = (cart);
                         return [2 /*return*/, cartDto];
                 }
             });
@@ -78,10 +78,10 @@ var cartRepository = /** @class */ (function () {
             var cart, cartDto;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.createCart(data)];
+                    case 0: return [4 /*yield*/, this.dao.createCart(data)];
                     case 1:
                         cart = _a.sent();
-                        cartDto = (0, cart_dto_js_1.asDto)(cart);
+                        cartDto = (cart);
                         return [2 /*return*/, cartDto];
                 }
             });
@@ -93,10 +93,10 @@ var cartRepository = /** @class */ (function () {
             var cart, cartDto;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.updateCart(query, update)];
+                    case 0: return [4 /*yield*/, this.dao.updateCart(query, update)];
                     case 1:
                         cart = _a.sent();
-                        cartDto = (0, cart_dto_js_1.asDto)(cart);
+                        cartDto = (cart);
                         return [2 /*return*/, cartDto];
                 }
             });

@@ -37,21 +37,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.repositoryProduct = void 0;
-var products_dto_js_1 = require("./dto/products-dto.js");
-var products_factory_js_1 = require("./products.factory.js");
+// import { asDto } from "./dto/products-dto";
+var products_factory_1 = require("./products.factory");
 var ProductsRepository = /** @class */ (function () {
     function ProductsRepository() {
-        this.dao = (0, products_factory_js_1.getDao)();
+        this.dao = (0, products_factory_1.getDao)();
     }
     ProductsRepository.prototype.getAllProd = function () {
         return __awaiter(this, void 0, void 0, function () {
             var products, productsDto;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getAllProd()];
+                    case 0: return [4 /*yield*/, this.dao.getAllProd()];
                     case 1:
                         products = _a.sent();
-                        productsDto = (0, products_dto_js_1.asDto)(products);
+                        productsDto = (products);
                         return [2 /*return*/, productsDto];
                 }
             });
@@ -63,10 +63,10 @@ var ProductsRepository = /** @class */ (function () {
             var products, productsDto;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getProductById(id)];
+                    case 0: return [4 /*yield*/, this.dao.getProductById(id)];
                     case 1:
                         products = _a.sent();
-                        productsDto = (0, products_dto_js_1.asDto)(products);
+                        productsDto = (products);
                         return [2 /*return*/, productsDto];
                 }
             });
@@ -78,10 +78,10 @@ var ProductsRepository = /** @class */ (function () {
             var products, productsDto;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getProductByQuery(query)];
+                    case 0: return [4 /*yield*/, this.dao.getProductByQuery(query)];
                     case 1:
                         products = _a.sent();
-                        productsDto = (0, products_dto_js_1.asDto)(products);
+                        productsDto = (products);
                         return [2 /*return*/, productsDto];
                 }
             });
@@ -93,10 +93,10 @@ var ProductsRepository = /** @class */ (function () {
             var products, productsDto;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.postProductToCart(data)];
+                    case 0: return [4 /*yield*/, this.dao.postProductToCart(data)];
                     case 1:
                         products = _a.sent();
-                        productsDto = (0, products_dto_js_1.asDto)(products);
+                        productsDto = (products);
                         return [2 /*return*/, productsDto];
                 }
             });

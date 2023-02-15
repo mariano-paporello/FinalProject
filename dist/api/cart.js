@@ -55,6 +55,7 @@ var cartGet = function (id) { return __awaiter(void 0, void 0, void 0, function 
                 return [4 /*yield*/, cart_repository_1.repositoryCart.getCartByQuery({ userId: id })];
             case 1:
                 cartOfUser = _a.sent();
+                console.log("Cart of user: ", cartOfUser);
                 return [4 /*yield*/, Promise.all(cartOfUser.cart.map(function (product) { return __awaiter(void 0, void 0, void 0, function () {
                         var productFound;
                         return __generator(this, function (_a) {
@@ -66,10 +67,12 @@ var cartGet = function (id) { return __awaiter(void 0, void 0, void 0, function 
                             }
                         });
                     }); })).then(function (result) {
+                        console.log("RESULT", result);
                         return result;
                     })];
             case 2:
                 productsInCart = _a.sent();
+                console.log("PRODUCTSINCART", productsInCart);
                 return [2 /*return*/, productsInCart];
             case 3:
                 error_1 = _a.sent();

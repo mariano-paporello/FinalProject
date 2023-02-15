@@ -44,15 +44,14 @@ var minimist_1 = __importDefault(require("minimist"));
 var mongodb_1 = __importDefault(require("./daos/mongodb"));
 var users_schema_1 = __importDefault(require("./schema/users.schema"));
 var dao;
-var argv = process.argv[2];
-console.log(argv);
 var args = (0, minimist_1.default)(process.argv);
+console.log("Los ARGS ", args);
 switch (args.database.toLowerCase()) {
     // agregar mÁs DB
     case 'mongo':
         dao = new mongodb_1.default('users', users_schema_1.default);
         dao.initMongoDB();
-        console.log("BASE DE DATOS MONGOATLAS");
+        console.log("BASE DE DATOS MONGOATLAS users");
         break;
     default:
         console.log("ERRORR", args.database);

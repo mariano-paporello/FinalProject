@@ -54,18 +54,17 @@ var logIn = function (req, res, next) { return __awaiter(void 0, void 0, void 0,
                 switch (_d.label) {
                     case 0:
                         loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
-                        if (!(user.gmail && user.password)) return [3 /*break*/, 3];
+                        if (!(user.gmail && user.id)) return [3 /*break*/, 3];
                         logged_1.logged.nombre = user.username;
                         logged_1.logged.contraseña = true;
                         logged_1.logged.islogged = true;
+                        logged_1.logged.isDestroyed = false;
                         return [4 /*yield*/, (0, user_1.generateToken)(user)];
                     case 1:
                         token = _d.sent();
                         _b = (_a = res.header('Access-Control-Expose-Headers', 'x-auth-token').header('x-auth-token', token).status(200)).json;
                         _c = {
-                            msg: 'login OK',
-                            headers: req.headers,
-                            dato: 'ok'
+                            msg: 'login OK'
                         };
                         return [4 /*yield*/, req.headers['x-auth-token']];
                     case 2:
@@ -103,12 +102,15 @@ var register = function (req, res, next) { return __awaiter(void 0, void 0, void
                     Error: "Datos ingresados no validos o nulos"
                 });
             }
+            console.log("AAAA USER EN REGISTER", user);
             var token = (0, user_1.generateToken)(user);
             logged_1.logged.nombre = username;
             logged_1.logged.contraseña = true;
             logged_1.logged.islogged = true;
+            logged_1.logged.isDestroyed = false;
             res.header('x-auth-token', token).json({
-                msg: "User creado: ".concat(user),
+                msg: "User creado: ",
+                user: user
             });
         })(req, res, next);
         return [2 /*return*/];

@@ -8,7 +8,7 @@ var homeview = function (req, res) {
     products_repository_1.repositoryProduct.getAllProd().then(function (productos) {
         res.json({
             data: req.session.dataUser,
-            productosDisponibles: productos.map(function (productoIndv) { return productoIndv.toJSON(); })
+            productosDisponibles: productos
         });
     });
 };

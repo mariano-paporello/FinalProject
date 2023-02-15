@@ -50,6 +50,7 @@ var searchUser = function (req, username, password, done) { return __awaiter(voi
                 return [4 /*yield*/, user_repository_1.repositoryUser.logIn(username, password)];
             case 1:
                 user = _a.sent();
+                console.log(user);
                 if (!user) return [3 /*break*/, 3];
                 return [4 /*yield*/, (0, cart_1.ifCartExist)(user)];
             case 2:
@@ -57,7 +58,6 @@ var searchUser = function (req, username, password, done) { return __awaiter(voi
                 req.session.dataUser = user;
                 req.session.gmail = user.gmail;
                 req.session.image = user.image;
-                req.session.contraseña = user.password;
                 req.session.username = user.username;
                 return [2 /*return*/, done(null, user)];
             case 3: return [2 /*return*/, done(null, false, { msg: "Usuario no encontrado" })];

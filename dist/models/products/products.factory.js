@@ -50,7 +50,7 @@ switch (args.database.toLowerCase()) {
     case 'mongo':
         dao = new mongodb_1.DaoMongoDB('productos', products_schema_1.productoSchema);
         dao.initMongoDB();
-        console.log("BASE DE DATOS MONGOATLAS");
+        console.log("BASE DE DATOS MONGOATLAS products");
         break;
     default:
         console.log("ERRORR");
