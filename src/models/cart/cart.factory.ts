@@ -5,12 +5,13 @@ import { cartSchema } from "./schema/cart.schema";
 let dao;
 const args = minimist(process.argv)
 
+
 switch(args.database.toLowerCase()) {
     // agregar mÁs DB
     case 'mongo':
         dao = new DaoMongoDB('carts', cartSchema);
         dao.initMongoDB();
-        console.log("BASE DE DATOS MONGOATLAS")
+        console.log("BASE DE DATOS MONGOATLAS cart")
         break;
     default:
         console.log("ERRORR");

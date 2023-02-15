@@ -1,5 +1,5 @@
 import { getDao } from "./cart.factory";
-import { asDto } from "./dto/cart-dto";
+// import { asDto } from "./dto/cart-dto";
 
 
  class cartRepository {
@@ -9,26 +9,26 @@ import { asDto } from "./dto/cart-dto";
     }
 
      async  getCartById(id) {
-        const cart = await this.getCartById(id);
-        const cartDto = asDto(cart)
+        const cart = await this.dao.getCartById(id);
+        const cartDto = (cart)
         return cartDto
     };
     
      async  getCartByQuery(query) {
-        const cart = await this.getCartByQuery(query);
-        const cartDto = asDto(cart)
+        const cart = await this.dao.getCartByQuery(query);
+        const cartDto = (cart)
         return cartDto
     };
     
      async  createCart(data) {
-        const cart = await this.createCart(data);
-        const cartDto = asDto(cart)
+        const cart = await this.dao.createCart(data);
+        const cartDto = (cart)
         return cartDto
     };
     
      async  updateCart(query, update) {
-        const cart = await this.updateCart(query, update);
-        const cartDto = asDto(cart)
+        const cart = await this.dao.updateCart(query, update);
+        const cartDto = (cart)
         return cartDto
     };
 

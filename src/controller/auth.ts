@@ -9,15 +9,14 @@ import { logged } from "../utils/logged"
 export const logIn =  async (req, res, next) => {
     passport.authenticate('login', {}, async (err, user, info) => {
     logger.info( "METODO:"+ req.method + " RUTA:"+ req.url )
-    if (user.gmail && user.password) {
+    if (user.gmail && user.id) {
         logged.nombre = user.username
         logged.contraseña = true
         logged.islogged = true
+        logged.isDestroyed= false
         const token = await generateToken(user)
         res.header('Access-Control-Expose-Headers', 'x-auth-token').header('x-auth-token', token).status(200).json({
                 msg: 'login OK',
-                headers: req.headers,
-                dato: 'ok',
                 header: await req.headers['x-auth-token']
          })  
         } else {
@@ -53,15 +52,17 @@ export const register = async (req, res, next) => {
                 Error: "Datos ingresados no validos o nulos"
             })
         }
+        console.log("AAAA USER EN REGISTER",user)
         const token = generateToken(user)
         logged.nombre = username
-        
         logged.contraseña = true
         logged.islogged = true
+        logged.isDestroyed= false
         res.header('x-auth-token', token).json({
-            msg: `User creado: ${user}`,
-        })
-    })(req, res, next)
+            msg: "User creado: ",
+            user
+        });
+    })(req, res, next);
 }
 
 export const registerGet = (req, res) => {

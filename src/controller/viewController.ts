@@ -8,8 +8,7 @@ export const homeview =(req, res)=>{
     repositoryProduct.getAllProd().then((productos:any)  => {
                     res.json({
                         data: req.session.dataUser,
-                        productosDisponibles: productos.map(productoIndv => productoIndv.toJSON())
-                       
+                        productosDisponibles: productos
                     })
             })
         }

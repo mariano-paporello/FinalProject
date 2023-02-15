@@ -1,6 +1,5 @@
 const server = require('./services/server')
 const initWsServer = require("./services/sockets")
-import initMongo from "./db/databaseMongoose"
 import minimist from "minimist"
 import os from "os"
 import cluster from "cluster"

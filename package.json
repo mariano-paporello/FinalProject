@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node dist/src/index.js ",
     "startDev": "nodemon src/index.ts",
+    "startDevMongo": "nodemon src/index.ts --database=MOngo",
     "start0x": "0x dist/src/index.js ",
     "start:profilling": "node --prof dist/src/index.js",
     "start:inspect": "node --inspect dist/src/index.js",

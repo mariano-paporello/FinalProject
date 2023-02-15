@@ -4,6 +4,7 @@ import { logger } from "../utils/loggers"
 
 export const cart = async(req, res)=>{
     const productsInCart = await cartGet(req.session.dataUser._id)
+    console.log(productsInCart, req.session.dataUser._id)
     res.json({
         productsInCart : productsInCart
     })

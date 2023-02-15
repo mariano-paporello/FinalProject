@@ -1,4 +1,4 @@
-import { asDto } from "./users-dto";
+// import { asDto } from "./dto/users-dto";
 import { getDao } from "./users.factory";
 
 
@@ -11,24 +11,25 @@ import { getDao } from "./users.factory";
     }
 
      async findById(id) {
-        const user = await this.findById(id);
-        const userDto = asDto(user)
+        const user = await this.dao.findById(id);
+        const userDto = (user)
         return userDto
     };
     
      async find(username) {
-        return await this.find(username);
+        return await this.dao.find(username);
     };
     
      async logIn(username:string, password:string) {
-        const user = await this.logIn(username, password);
-        const userDto = asDto(user);
+        const user = await this.dao.logIn(username, password);
+        const userDto = (user);
+        console.log(userDto)
         return userDto
     };
     
      async singUp(data) {
-       const user = await this.singUp(data);
-       const userDto = asDto(user)
+       const user = await this.dao.singUp(data);
+       const userDto = (user)
        return userDto
     };
 }

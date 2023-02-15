@@ -9,12 +9,15 @@ import { repositoryCart } from "../models/cart/cart.repository"
 export const cartGet = async(id:string) =>{
     try{
         const cartOfUser:any = await repositoryCart.getCartByQuery({userId:id})
+        console.log("Cart of user: ",cartOfUser)
         const productsInCart = await Promise.all(cartOfUser.cart.map(async product=> {
             const productFound = await repositoryProduct.getProductByQuery({_id: product.productId})
             return productFound
         })).then(result => {
+            console.log("RESULT",result)
             return result
         })
+        console.log("PRODUCTSINCART",productsInCart)
         return  productsInCart
     }catch (error) {
         logger.error("Error: ", error)

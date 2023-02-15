@@ -4,17 +4,15 @@ import usersSchema  from "./schema/users.schema";
 
 
 let dao;
-let argv = process.argv[2];
-console.log(argv)
 
 const args = minimist(process.argv)
-
+console.log("Los ARGS ",args)
 switch(args.database.toLowerCase()) {
     // agregar mÁs DB
     case 'mongo':
         dao = new DaoMongoDB('users', usersSchema);
         dao.initMongoDB();
-        console.log("BASE DE DATOS MONGOATLAS")
+        console.log("BASE DE DATOS MONGOATLAS users")
         break;
     default:
         console.log("ERRORR", args.database);
