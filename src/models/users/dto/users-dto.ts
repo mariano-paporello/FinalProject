@@ -1,13 +1,17 @@
  class ProductsDTO {
     private gmail
     private username
+    private password
     private image
+    private age
     private id
     private phoneNumber 
-    constructor({id, gmail, username, image, phoneNumber }) {
-        this.id = id
+    constructor({_id, gmail, password,username, age,image, phoneNumber }) {
+        this.id = _id
         this.gmail = gmail
         this.username = username
+        this.password= password
+        this.age= age
         this.image = image
         this.phoneNumber = phoneNumber
     }

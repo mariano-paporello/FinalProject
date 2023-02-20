@@ -4,8 +4,8 @@ class ProductsDTO {
     private price
     private stock
     private thumbnail
-    constructor({ id,title, price, thumbnail, stock }) {
-        this.id = id
+    constructor({ _id,title, price, thumbnail, stock }) {
+        this.id = _id
         this.title = title
         this.price = price
         this.thumbnail = thumbnail

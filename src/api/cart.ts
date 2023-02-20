@@ -9,15 +9,16 @@ import { repositoryCart } from "../models/cart/cart.repository"
 export const cartGet = async(id:string) =>{
     try{
         const cartOfUser:any = await repositoryCart.getCartByQuery({userId:id})
-        console.log("Cart of user: ",cartOfUser)
         const productsInCart = await Promise.all(cartOfUser.cart.map(async product=> {
             const productFound = await repositoryProduct.getProductByQuery({_id: product.productId})
             return productFound
-        })).then(result => {
-            console.log("RESULT",result)
-            return result
-        })
-        console.log("PRODUCTSINCART",productsInCart)
+        })).then(async result => {
+            return result.map(productFromProducts=>{
+                const {title, price, thumbnail}= productFromProducts
+                const productInCart = cartOfUser.cart.filter(productInCart=>productFromProducts.id===productInCart.productId)
+                return {title, price: price*productInCart[0].amount, thumbnail, amount: productInCart[0].amount}
+            })
+    })
         return  productsInCart
     }catch (error) {
         logger.error("Error: ", error)
@@ -58,3 +59,25 @@ export const checkCart = async (id) =>{
     logger.error("Error: ", error)
 }
 }
+
+
+
+
+
+
+// let product:any 
+            // const cartToRetrive = await Promise.all(result.map(async elementOfResult=>{
+            //     console.log("ELEMENT OF RESULT ",elementOfResult)
+                
+            //     const products = await cartOfUser.cart.map( elementOfUser =>{
+            //         console.log("element of user ", elementOfUser)
+            //         if( elementOfResult.id === elementOfUser.productId ){
+            //         product = {title:elementOfResult.title, price: elementOfResult.price * elementOfUser.amount, thumbnail: elementOfResult.thumbnail, amount: elementOfUser.amount}
+            //         return product
+            //     }
+            //     })
+            //     console.log(products)
+            // }))
+            // console.log("CARRITO A DEVOLVER: ", cartToRetrive)
+            // // return cartToRetrive
+            // return "lol"

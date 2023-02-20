@@ -1,7 +1,9 @@
 class ProductsDTO {
     private userId
     private cart
-    constructor({ userId, cart }) {
+    private id
+    constructor({_id, userId, cart }) {
+        this.id= _id
         this.userId = userId
         this.cart = cart
     }
