@@ -3,10 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.asDto = void 0;
 var ProductsDTO = /** @class */ (function () {
     function ProductsDTO(_a) {
-        var id = _a.id, gmail = _a.gmail, username = _a.username, image = _a.image, phoneNumber = _a.phoneNumber;
-        this.id = id;
+        var _id = _a._id, gmail = _a.gmail, password = _a.password, username = _a.username, age = _a.age, image = _a.image, phoneNumber = _a.phoneNumber;
+        this.id = _id;
         this.gmail = gmail;
         this.username = username;
+        this.password = password;
+        this.age = age;
         this.image = image;
         this.phoneNumber = phoneNumber;
     }

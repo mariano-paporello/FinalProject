@@ -47,16 +47,15 @@ var loggers_1 = require("../utils/loggers");
 var products_repository_1 = require("../models/products/products.repository");
 var cart_repository_1 = require("../models/cart/cart.repository");
 var cartGet = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var cartOfUser, productsInCart, error_1;
+    var cartOfUser_1, productsInCart, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 3, , 4]);
                 return [4 /*yield*/, cart_repository_1.repositoryCart.getCartByQuery({ userId: id })];
             case 1:
-                cartOfUser = _a.sent();
-                console.log("Cart of user: ", cartOfUser);
-                return [4 /*yield*/, Promise.all(cartOfUser.cart.map(function (product) { return __awaiter(void 0, void 0, void 0, function () {
+                cartOfUser_1 = _a.sent();
+                return [4 /*yield*/, Promise.all(cartOfUser_1.cart.map(function (product) { return __awaiter(void 0, void 0, void 0, function () {
                         var productFound;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
@@ -66,13 +65,17 @@ var cartGet = function (id) { return __awaiter(void 0, void 0, void 0, function 
                                     return [2 /*return*/, productFound];
                             }
                         });
-                    }); })).then(function (result) {
-                        console.log("RESULT", result);
-                        return result;
-                    })];
+                    }); })).then(function (result) { return __awaiter(void 0, void 0, void 0, function () {
+                        return __generator(this, function (_a) {
+                            return [2 /*return*/, result.map(function (productFromProducts) {
+                                    var title = productFromProducts.title, price = productFromProducts.price, thumbnail = productFromProducts.thumbnail;
+                                    var productInCart = cartOfUser_1.cart.filter(function (productInCart) { return productFromProducts.id === productInCart.productId; });
+                                    return { title: title, price: price * productInCart[0].amount, thumbnail: thumbnail, amount: productInCart[0].amount };
+                                })];
+                        });
+                    }); })];
             case 2:
                 productsInCart = _a.sent();
-                console.log("PRODUCTSINCART", productsInCart);
                 return [2 /*return*/, productsInCart];
             case 3:
                 error_1 = _a.sent();
@@ -148,3 +151,18 @@ var checkCart = function (id) { return __awaiter(void 0, void 0, void 0, functio
     });
 }); };
 exports.checkCart = checkCart;
+// let product:any 
+// const cartToRetrive = await Promise.all(result.map(async elementOfResult=>{
+//     console.log("ELEMENT OF RESULT ",elementOfResult)
+//     const products = await cartOfUser.cart.map( elementOfUser =>{
+//         console.log("element of user ", elementOfUser)
+//         if( elementOfResult.id === elementOfUser.productId ){
+//         product = {title:elementOfResult.title, price: elementOfResult.price * elementOfUser.amount, thumbnail: elementOfResult.thumbnail, amount: elementOfUser.amount}
+//         return product
+//     }
+//     })
+//     console.log(products)
+// }))
+// console.log("CARRITO A DEVOLVER: ", cartToRetrive)
+// // return cartToRetrive
+// return "lol"

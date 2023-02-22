@@ -3,7 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.asDto = void 0;
 var ProductsDTO = /** @class */ (function () {
     function ProductsDTO(_a) {
-        var userId = _a.userId, cart = _a.cart;
+        var _id = _a._id, userId = _a.userId, cart = _a.cart;
+        this.id = _id;
         this.userId = userId;
         this.cart = cart;
     }

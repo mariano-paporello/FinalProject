@@ -38,3 +38,4 @@ server.on('error', (err) => {
     console.log(`Exit ==> El proceso termino con codigo ${code}\n\n`);
   });
 
+  export default  server

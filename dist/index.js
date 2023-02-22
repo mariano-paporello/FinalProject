@@ -36,3 +36,4 @@ server.on('error', function (err) {
 process.on('exit', function (code) {
     console.log("Exit ==> El proceso termino con codigo ".concat(code, "\n\n"));
 });
+exports.default = server;
