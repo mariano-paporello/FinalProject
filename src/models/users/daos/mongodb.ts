@@ -18,7 +18,7 @@ export default class DaoMongoDB {
     private initDB
     constructor(collection, schema){
         this.collection = mongoose.model(collection, schema);
-        this.initDB = mongoose.connect(config.MONGO_ATLAS_URL, () => console.log("Connected to MongoDB"));
+        this.initDB = mongoose.connect(config.MONGO_ATLAS_URL);
     }
 
     async initMongoDB() {
@@ -55,7 +55,6 @@ export default class DaoMongoDB {
     async singUp(data){
         const newUser = this.collection(data);
         await newUser.save();
-        console.log("TODOPERFECTO")
         return newUser
     }
 }

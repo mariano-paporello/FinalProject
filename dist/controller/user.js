@@ -69,7 +69,7 @@ var strategyOptions = {
 var logIn = function (req, username, password, done) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         try {
-            console.log("VAMOS A LOGEARR");
+            "VAMOS A LOGEARR");
             (0, passport_2.searchUser)(req, username, password, done);
         }
         catch (err) {

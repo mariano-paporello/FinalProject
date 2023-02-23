@@ -1,7 +1,7 @@
 // const socket = io()
 
 // socket.on('bienvenidaAUsuario', (data) => {
-//     console.log("Bienvenido Usuario")
+//     "Bienvenido Usuario")
 // })
 
 // // UserLog Form
@@ -81,7 +81,7 @@
 // userForm.addEventListener("submit", (ev)=>{
 //   ev.preventDefault()
 //   if(!nombreUser.value || !apellidoUser.value || !edadUser.value || !aliasUser.value || !avatarUser.value) {
-//     console.log(nombreUser.value, apellidoUser.value, edadUser.value, aliasUser.value, avatarUser.value)
+//     nombreUser.value, apellidoUser.value, edadUser.value, aliasUser.value, avatarUser.value)
   
 //     throw new Error("Campos incompletos , media pila :|")
 //   }else{

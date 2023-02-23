@@ -92,14 +92,14 @@ var cartMsgSender = function (dataUser, subject, content, products) { return __a
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 3, , 4]);
-                console.log(index_1.default.GMAIL_ADDRESS, index_1.default.GMAIL_PASSWORD);
+                index_1.default.GMAIL_ADDRESS, index_1.default.GMAIL_PASSWORD);
                 return [4 /*yield*/, email_1.EmailService.sendEmail(dataUser.gmail, subject, content)];
             case 1:
                 enviarEmail = _a.sent();
                 message = "Nuevo pedido de ".concat(dataUser.username, ". Email: ").concat(dataUser.gmail, ".\n        Productos: \n        ").concat(products.map(function (product) {
                     return "-".concat(product.title, ".\n        -").concat(product.price);
                 }));
-                console.log(message);
+                message);
                 return [4 /*yield*/, twilio_1.whatsappService.sendWhatsAppMessage("+".concat(dataUser.phoneNumber), message)];
             case 2:
                 whatsapp = _a.sent();
@@ -153,16 +153,16 @@ var checkCart = function (id) { return __awaiter(void 0, void 0, void 0, functio
 exports.checkCart = checkCart;
 // let product:any 
 // const cartToRetrive = await Promise.all(result.map(async elementOfResult=>{
-//     console.log("ELEMENT OF RESULT ",elementOfResult)
+//     "ELEMENT OF RESULT ",elementOfResult)
 //     const products = await cartOfUser.cart.map( elementOfUser =>{
-//         console.log("element of user ", elementOfUser)
+//         "element of user ", elementOfUser)
 //         if( elementOfResult.id === elementOfUser.productId ){
 //         product = {title:elementOfResult.title, price: elementOfResult.price * elementOfUser.amount, thumbnail: elementOfResult.thumbnail, amount: elementOfUser.amount}
 //         return product
 //     }
 //     })
-//     console.log(products)
+//     products)
 // }))
-// console.log("CARRITO A DEVOLVER: ", cartToRetrive)
+// "CARRITO A DEVOLVER: ", cartToRetrive)
 // // return cartToRetrive
 // return "lol"

@@ -22,7 +22,6 @@ const strategyOptions = {
 
 const logIn = async (req, username, password, done) => {
   try{
-    console.log("VAMOS A LOGEARR")
     searchUser(req, username, password, done)
   }catch(err){
     logger.error("Error: ",err)

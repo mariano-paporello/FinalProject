@@ -25,12 +25,21 @@ import { getDao } from "./products.factory";
         const productsDto = (products)
         return productsDto
     };
+
+    async postProductToProducts(data){
+        const products = await this.dao.postProductToProducts(data);
+        return products
+    }
     
      async  postProductToCart(data) {
         const products = await this.dao.postProductToCart(data);
         const productsDto = (products)
         return productsDto
     };
+    async deleteAll(){
+        await this.dao.deleteAll()
+        return true
+    }
 
 }
 export const repositoryProduct = new ProductsRepository();

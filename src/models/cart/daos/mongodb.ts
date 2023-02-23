@@ -11,7 +11,7 @@ export class DaoMongoDB {
 
     constructor(collection:string, schema:Schema){
         this.collection = mongoose.model(collection, schema);
-        this.initDB = mongoose.connect(config.MONGO_ATLAS_URL, () => console.log("Connected to MongoDB"));
+        this.initDB = mongoose.connect(config.MONGO_ATLAS_URL);
     }
     async initMongoDB() {
         return this.initDB;

@@ -13,7 +13,6 @@ export const cartSender = async(req, res)=>{
     try {
         const dataUser = req.session.dataUser
         const productsInCart:any = await cartGet(dataUser._id)
-        console.log("AAAAAAAAAAAAAAAAAAA: 🧮🧮🧮🧮🧮", productsInCart) 
         const productsHtml = productsInCart?.map(product=>`<li>Producto:<ul><li>Nombre del Producto:${product.title}</li><li>Precio total: $${product.price}</li><li>Imagen del producto: <img src=${product.thumbnail} alt="Image Not Found"></li><li>Cantidad del producto: ${product.amount}</li></ul></li>`) 
         const content = `<div><h1>Productos:</h1><ul>${productsHtml}</ul></div>`
         const done =  await cartMsgSender(dataUser, `Nuevo pedido de ${dataUser.username}. Email: ${dataUser.gmail}`, content, productsInCart)

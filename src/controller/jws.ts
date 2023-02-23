@@ -10,7 +10,7 @@ export const createAuthToken = async (user)=> {
       image: user.image,
       gmail: user.gmail
     };
-    console.log("🧙🧙🧙 Payload: ",payload) 
+    
     const token = jwt.sign(payload, config.TOKEN_SECRET);
     return token
   }
@@ -19,7 +19,7 @@ export const createAuthToken = async (user)=> {
 
       try{
         const token = await req.headers['x-auth-token'];
-        console.log("🌵🌵🌵", req.get('x-auth-token')) 
+
         if(!token){
           return res.status(401).json({msg:"NO AUTORIZADeee"}) 
         }
@@ -30,10 +30,10 @@ export const createAuthToken = async (user)=> {
         // const user = await repositoryUser.findById(decode.userId)
         const user = 'pepe'
         req.user = user
-        console.log("🧙 🧙 🧙 Todo piola ", req.user)
+       
         next()
       }catch(err){
-        console.log(err)
+        
         return res.status(401).json({msg:' NO AUTORIZADO'})
       }
   }

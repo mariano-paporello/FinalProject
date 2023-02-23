@@ -6,7 +6,6 @@ import { ifCartExist } from "./cart";
 export const searchUser= async(req,username , password,  done)=>{
     try{
         const user:any = await repositoryUser.logIn(username, password)
-        console.log(user)
         if(user){
             await ifCartExist(user)
             req.session.dataUser= user
@@ -35,7 +34,7 @@ export const createUser = async( req, username, password, done )=>{
             image,
             username
         })
-        console.log(user)
+    
         req.session.image= user.image
         req.session.gmail =  user.gmail
         req.session.username= user.username

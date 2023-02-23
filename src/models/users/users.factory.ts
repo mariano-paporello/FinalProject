@@ -1,4 +1,5 @@
 import minimist from "minimist"
+import { logger } from "../../utils/loggers";
 import DaoMongoDB from "./daos/mongodb";
 import usersSchema  from "./schema/users.schema";
 
@@ -6,16 +7,14 @@ import usersSchema  from "./schema/users.schema";
 let dao;
 
 const args = minimist(process.argv)
-console.log("Los ARGS ",args)
 switch(args.database.toLowerCase()) {
     // agregar mÁs DB
     case 'mongo':
         dao = new DaoMongoDB('users', usersSchema);
         dao.initMongoDB();
-        console.log("BASE DE DATOS MONGOATLAS users")
         break;
     default:
-        console.log("ERRORR", args.database);
+        logger.error("Error al querer seleccionar DB en users")
         break;
 };
 

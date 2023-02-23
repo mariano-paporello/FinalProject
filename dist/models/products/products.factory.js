@@ -48,12 +48,20 @@ var args = (0, minimist_1.default)(process.argv);
 switch (args.database.toLowerCase()) {
     // agregar mÁs DB
     case 'mongo':
-        dao = new mongodb_1.DaoMongoDB('productos', products_schema_1.productoSchema);
-        dao.initMongoDB();
-        console.log("BASE DE DATOS MONGOATLAS products");
-        break;
+        if (args.typeData === "test") {
+            dao = new mongodb_1.DaoMongoDB('testing-products', products_schema_1.productoSchema);
+            dao.initMongoDB();
+            "BASE DE DATOS MONGOATLAS testing-products");
+            break;
+        }
+        else {
+            dao = new mongodb_1.DaoMongoDB('productos', products_schema_1.productoSchema);
+            dao.initMongoDB();
+            "BASE DE DATOS MONGOATLAS products");
+            break;
+        }
     default:
-        console.log("ERRORR");
+        "ERRORR");
         break;
 }
 ;

@@ -6,6 +6,7 @@
     "start": "node dist/src/index.js ",
     "startDev": "nodemon src/index.ts",
     "startDevMongo": "nodemon src/index.ts --database=MOngo",
+    "jest": "jest --detectOpenHandles",
     "build": "tsc",
     "watch": "tsc -w",
     "dev": "nodemon ",

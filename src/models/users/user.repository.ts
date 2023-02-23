@@ -23,7 +23,6 @@ import { getDao } from "./users.factory";
      async logIn(username:string, password:string) {
         const user = await this.dao.logIn(username, password);
         const userDto = (user);
-        console.log(userDto)
         return userDto
     };
     

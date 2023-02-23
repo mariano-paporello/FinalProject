@@ -58,7 +58,7 @@ var Email = /** @class */ (function () {
                 pass: config_1.default.GMAIL_PASSWORD,
             },
         });
-        this.transporter.verify().then(function () { return console.log('READY To Send Email'); });
+        this.transporter.verify().then(function () { return 'READY To Send Email'); });
     }
     Email.prototype.sendEmail = function (dest, subject, content) {
         return __awaiter(this, void 0, void 0, function () {

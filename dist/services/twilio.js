@@ -52,7 +52,7 @@ var Twilio = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log(cellphoneNumber);
+                        cellphoneNumber);
                         params = {
                             body: message,
                             from: "whatsapp:".concat(config_1.default.TWILIO_CELLPHONE),

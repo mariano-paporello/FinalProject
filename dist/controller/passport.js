@@ -50,7 +50,7 @@ var searchUser = function (req, username, password, done) { return __awaiter(voi
                 return [4 /*yield*/, user_repository_1.repositoryUser.logIn(username, password)];
             case 1:
                 user = _a.sent();
-                console.log(user);
+                user);
                 if (!user) return [3 /*break*/, 3];
                 return [4 /*yield*/, (0, cart_1.ifCartExist)(user)];
             case 2:
@@ -88,7 +88,7 @@ var createUser = function (req, username, password, done) { return __awaiter(voi
                     })];
             case 1:
                 user = _b.sent();
-                console.log(user);
+                user);
                 req.session.image = user.image;
                 req.session.gmail = user.gmail;
                 req.session.username = user.username;

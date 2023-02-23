@@ -4,6 +4,7 @@ import minimist from "minimist"
 import os from "os"
 import cluster from "cluster"
 import config from "./config"
+import { logger } from "./utils/loggers"
 
 const args = minimist(process.argv)
 
@@ -14,28 +15,28 @@ const numCPUs = os.cpus().length
 initWsServer(server);
 
 if (args.modo === "CLUSTER" && cluster.isPrimary ) {
-    console.log("💡💡💡 TIPO CLUSTER")
+    logger.info("💡💡💡 TIPO CLUSTER")
     for (let i=0;i < numCPUs; i++) {
         cluster.fork()
     }
     cluster.on('exit', (worker, code) => {
-        console.log(`Worker ${worker.process.pid} with code ${code}`);
+        logger.info(`Worker ${worker.process.pid} with code ${code}`);
         cluster.fork();
     })
 }else{
-    console.log("💩💩💩 TIPO FORK")
+    logger.info("💩💩💩 TIPO FORK")
         server.listen(port, () => {
-            console.log(`Server is up in ${port}`);
+            logger.info(`Server is up in ${port}`);
         });
 }
 
 server.on('error', (err) => {
-    console.log('SERVER ERROR: ', err);
+    logger.error('SERVER ERROR: ', err);
   });
   
   // Log on exit
   process.on('exit', (code) => {
-    console.log(`Exit ==> El proceso termino con codigo ${code}\n\n`);
+    logger.error(`Exit ==> El proceso termino con codigo ${code}\n\n`);
   });
 
   export default  server

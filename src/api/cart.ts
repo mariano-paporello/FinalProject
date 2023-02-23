@@ -1,4 +1,3 @@
-import Config from "../config/index"
 import { EmailService } from "../services/email"
 import { whatsappService } from "../services/twilio"
 import { logger } from "../utils/loggers"
@@ -28,13 +27,11 @@ export const cartGet = async(id:string) =>{
 
 export const cartMsgSender = async(dataUser, subject, content, products)=>{
     try{
-        console.log(Config.GMAIL_ADDRESS, Config.GMAIL_PASSWORD)
         const enviarEmail = await EmailService.sendEmail(dataUser.gmail, subject, content)
         const message = `Nuevo pedido de ${dataUser.username}. Email: ${dataUser.gmail}.
         Productos: 
         ${products.map(product =>{return `-${product.title}.
         -${product.price}`})}`
-        console.log(message)
         const whatsapp = await whatsappService.sendWhatsAppMessage(`+${dataUser.phoneNumber}`, message)
         return true
     }catch(error){
@@ -60,24 +57,3 @@ export const checkCart = async (id) =>{
 }
 }
 
-
-
-
-
-
-// let product:any 
-            // const cartToRetrive = await Promise.all(result.map(async elementOfResult=>{
-            //     console.log("ELEMENT OF RESULT ",elementOfResult)
-                
-            //     const products = await cartOfUser.cart.map( elementOfUser =>{
-            //         console.log("element of user ", elementOfUser)
-            //         if( elementOfResult.id === elementOfUser.productId ){
-            //         product = {title:elementOfResult.title, price: elementOfResult.price * elementOfUser.amount, thumbnail: elementOfResult.thumbnail, amount: elementOfUser.amount}
-            //         return product
-            //     }
-            //     })
-            //     console.log(products)
-            // }))
-            // console.log("CARRITO A DEVOLVER: ", cartToRetrive)
-            // // return cartToRetrive
-            // return "lol"

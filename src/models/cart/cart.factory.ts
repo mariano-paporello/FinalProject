@@ -1,6 +1,7 @@
 import { DaoMongoDB } from "./daos/mongodb";
 import minimist from "minimist"
 import { cartSchema } from "./schema/cart.schema";
+import { logger } from "../../utils/loggers";
 
 let dao;
 const args = minimist(process.argv)
@@ -11,10 +12,9 @@ switch(args.database.toLowerCase()) {
     case 'mongo':
         dao = new DaoMongoDB('carts', cartSchema);
         dao.initMongoDB();
-        console.log("BASE DE DATOS MONGOATLAS cart")
         break;
     default:
-        console.log("ERRORR");
+        logger.error("Error al querer seleccionar DB en Carrito")
         break;
 };
 

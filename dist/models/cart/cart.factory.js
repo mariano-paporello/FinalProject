@@ -50,10 +50,10 @@ switch (args.database.toLowerCase()) {
     case 'mongo':
         dao = new mongodb_1.DaoMongoDB('carts', cart_schema_1.cartSchema);
         dao.initMongoDB();
-        console.log("BASE DE DATOS MONGOATLAS cart");
+        "BASE DE DATOS MONGOATLAS cart");
         break;
     default:
-        console.log("ERRORR");
+        "ERRORR");
         break;
 }
 ;

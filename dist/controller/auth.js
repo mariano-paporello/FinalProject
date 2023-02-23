@@ -102,7 +102,7 @@ var register = function (req, res, next) { return __awaiter(void 0, void 0, void
                     Error: "Datos ingresados no validos o nulos"
                 });
             }
-            console.log("AAAA USER EN REGISTER", user);
+            "AAAA USER EN REGISTER", user);
             var token = (0, user_1.generateToken)(user);
             logged_1.logged.nombre = username;
             logged_1.logged.contraseña = true;

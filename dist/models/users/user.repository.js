@@ -78,7 +78,7 @@ var userRepository = /** @class */ (function () {
                     case 1:
                         user = _a.sent();
                         userDto = (user);
-                        console.log(userDto);
+                        userDto);
                         return [2 /*return*/, userDto];
                 }
             });

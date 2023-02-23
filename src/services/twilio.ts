@@ -10,7 +10,7 @@ class Twilio {
   }
 
   async sendWhatsAppMessage(cellphoneNumber: string, message: string, picture?: string) {
-    console.log(cellphoneNumber)
+
     const params: MessageListInstanceCreateOptions = {
       body: message,
       from: `whatsapp:${Config.TWILIO_CELLPHONE}`,

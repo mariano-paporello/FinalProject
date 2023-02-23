@@ -46,7 +46,7 @@ mongoose_1.default.set('strictQuery', false);
 var DaoMongoDB = /** @class */ (function () {
     function DaoMongoDB(collection, schema) {
         this.collection = mongoose_1.default.model(collection, schema);
-        this.initDB = mongoose_1.default.connect(config_1.default.MONGO_ATLAS_URL, function () { return console.log("Connected to MongoDB"); });
+        this.initDB = mongoose_1.default.connect(config_1.default.MONGO_ATLAS_URL, function () { return "Connected to MongoDB"); });
     }
     DaoMongoDB.prototype.initMongoDB = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -126,7 +126,7 @@ var DaoMongoDB = /** @class */ (function () {
                         return [4 /*yield*/, newUser.save()];
                     case 1:
                         _a.sent();
-                        console.log("TODOPERFECTO");
+                        "TODOPERFECTO");
                         return [2 /*return*/, newUser];
                 }
             });

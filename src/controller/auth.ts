@@ -52,7 +52,6 @@ export const register = async (req, res, next) => {
                 Error: "Datos ingresados no validos o nulos"
             })
         }
-        console.log("AAAA USER EN REGISTER",user)
         const token = generateToken(user)
         logged.nombre = username
         logged.contraseña = true

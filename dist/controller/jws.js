@@ -51,7 +51,7 @@ var createAuthToken = function (user) { return __awaiter(void 0, void 0, void 0,
             image: user.image,
             gmail: user.gmail
         };
-        console.log("🧙🧙🧙 Payload: ", payload);
+        "🧙🧙🧙 Payload: ", payload);
         token = jsonwebtoken_1.default.sign(payload, index_1.default.TOKEN_SECRET);
         return [2 /*return*/, token];
     });
@@ -66,19 +66,19 @@ var checkAuth = function (req, res, next) { return __awaiter(void 0, void 0, voi
                 return [4 /*yield*/, req.headers['x-auth-token']];
             case 1:
                 token = _a.sent();
-                console.log("🌵🌵🌵", req.get('x-auth-token'));
+                "🌵🌵🌵", req.get('x-auth-token'));
                 if (!token) {
                     return [2 /*return*/, res.status(401).json({ msg: "NO AUTORIZADeee" })];
                 }
                 decode = jsonwebtoken_1.default.verify(token, index_1.default.TOKEN_SECRET);
                 user = 'pepe';
                 req.user = user;
-                console.log("🧙 🧙 🧙 Todo piola ", req.user);
+                "🧙 🧙 🧙 Todo piola ", req.user);
                 next();
                 return [3 /*break*/, 3];
             case 2:
                 err_1 = _a.sent();
-                console.log(err_1);
+                err_1);
                 return [2 /*return*/, res.status(401).json({ msg: ' NO AUTORIZADO' })];
             case 3: return [2 /*return*/];
         }
