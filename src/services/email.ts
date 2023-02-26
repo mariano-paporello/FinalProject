@@ -1,6 +1,8 @@
 import Config from '../config'
 import nodemailer from 'nodemailer';
-import path from 'path';
+import minimist from "minimist"
+
+const args = minimist(process.argv)
 
 class Email {
     private transporter;
@@ -22,8 +24,10 @@ class Email {
                 pass: Config.GMAIL_PASSWORD,
             },
         })
-
-        this.transporter.verify();
+        if(!args.testing){
+          this.transporter.verify().then(()=>{console.log("emailSenderREADY")})
+        }
+        
     }
   
     async sendEmail(dest: string, subject: string, content: string) {

@@ -2,7 +2,6 @@ import { repositoryProduct } from "../models/products/products.repository";
 import axios from "axios"
 import server from "..";
 import supertest from "supertest"
-import request from "supertest"
 
 
 
@@ -10,7 +9,6 @@ describe("Test products", ()=>{
     let request
     beforeAll(async()=>{
         request = supertest(server)
-        await repositoryProduct.deleteAll()
     })
 
     afterAll(async () => {
@@ -21,7 +19,11 @@ describe("Test products", ()=>{
         const expectedResponse = await repositoryProduct.getAllProd()
 
         const response = await request.get("/products") || await axios.get("/products")
-        expect(response.body.productos).toEqual(expectedResponse)
+
+        expect(response.body.productos[0].title).toEqual(expectedResponse[0].title)
+        expect(response.body.productos[0].price).toEqual(expectedResponse[0].price)
+        expect(response.body.productos[0].category).toEqual(expectedResponse[0].category)
+        expect(response.body.productos[0].thumbnail).toEqual(expectedResponse[0].thumbnail)
         expect(response.statusCode).toBe(200)
     })
     

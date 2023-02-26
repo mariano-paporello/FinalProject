@@ -46,9 +46,12 @@ export class DaoMongoDB {
         await productAdding.save()
         return productAdding 
     }
+    async deleteByQuery(query:any){
+        const deleting = await this.collection.deleteOne(query)
+        return deleting
+    }
     async deleteAll(){
         await this.collection.deleteMany()
         return true
     }
 }
-

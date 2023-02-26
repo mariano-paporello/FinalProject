@@ -40,6 +40,10 @@ import { getDao } from "./products.factory";
         await this.dao.deleteAll()
         return true
     }
+    async deleteByQuery(query){
+        const productDeleted = await this.dao.deleteByQuery(query)
+        return productDeleted
+    }
 
 }
 export const repositoryProduct = new ProductsRepository();
