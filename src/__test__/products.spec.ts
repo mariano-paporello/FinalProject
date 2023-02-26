@@ -24,8 +24,5 @@ describe("Test products", ()=>{
         expect(response.body.productos).toEqual(expectedResponse)
         expect(response.statusCode).toBe(200)
     })
-
-    it("añadir un producto Y devolver mensaje de resultado",async () => {
-        const expectedResponse = 
-    })
+    
 })
