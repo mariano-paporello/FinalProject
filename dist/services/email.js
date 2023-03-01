@@ -42,6 +42,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmailService = void 0;
 var config_1 = __importDefault(require("../config"));
 var nodemailer_1 = __importDefault(require("nodemailer"));
+var minimist_1 = __importDefault(require("minimist"));
+var args = (0, minimist_1.default)(process.argv);
 var Email = /** @class */ (function () {
     function Email() {
         this.owner = {
@@ -58,7 +60,9 @@ var Email = /** @class */ (function () {
                 pass: config_1.default.GMAIL_PASSWORD,
             },
         });
-        this.transporter.verify().then(function () { return 'READY To Send Email'); });
+        if (!args.testing) {
+            this.transporter.verify().then(function () { console.log("emailSenderREADY"); });
+        }
     }
     Email.prototype.sendEmail = function (dest, subject, content) {
         return __awaiter(this, void 0, void 0, function () {

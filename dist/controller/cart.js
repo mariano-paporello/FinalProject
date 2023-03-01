@@ -64,7 +64,6 @@ var cartSender = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 return [4 /*yield*/, (0, cart_1.cartGet)(dataUser._id)];
             case 1:
                 productsInCart = _a.sent();
-                "AAAAAAAAAAAAAAAAAAA: 🧮🧮🧮🧮🧮", productsInCart);
                 productsHtml = productsInCart === null || productsInCart === void 0 ? void 0 : productsInCart.map(function (product) { return "<li>Producto:<ul><li>Nombre del Producto:".concat(product.title, "</li><li>Precio total: $").concat(product.price, "</li><li>Imagen del producto: <img src=").concat(product.thumbnail, " alt=\"Image Not Found\"></li><li>Cantidad del producto: ").concat(product.amount, "</li></ul></li>"); });
                 content = "<div><h1>Productos:</h1><ul>".concat(productsHtml, "</ul></div>");
                 return [4 /*yield*/, (0, cart_1.cartMsgSender)(dataUser, "Nuevo pedido de ".concat(dataUser.username, ". Email: ").concat(dataUser.gmail), content, productsInCart)];

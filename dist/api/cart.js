@@ -35,12 +35,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkCart = exports.emptyCartCreator = exports.cartMsgSender = exports.cartGet = void 0;
-var index_1 = __importDefault(require("../config/index"));
 var email_1 = require("../services/email");
 var twilio_1 = require("../services/twilio");
 var loggers_1 = require("../utils/loggers");
@@ -92,14 +88,12 @@ var cartMsgSender = function (dataUser, subject, content, products) { return __a
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 3, , 4]);
-                index_1.default.GMAIL_ADDRESS, index_1.default.GMAIL_PASSWORD);
                 return [4 /*yield*/, email_1.EmailService.sendEmail(dataUser.gmail, subject, content)];
             case 1:
                 enviarEmail = _a.sent();
                 message = "Nuevo pedido de ".concat(dataUser.username, ". Email: ").concat(dataUser.gmail, ".\n        Productos: \n        ").concat(products.map(function (product) {
                     return "-".concat(product.title, ".\n        -").concat(product.price);
                 }));
-                message);
                 return [4 /*yield*/, twilio_1.whatsappService.sendWhatsAppMessage("+".concat(dataUser.phoneNumber), message)];
             case 2:
                 whatsapp = _a.sent();
@@ -151,18 +145,3 @@ var checkCart = function (id) { return __awaiter(void 0, void 0, void 0, functio
     });
 }); };
 exports.checkCart = checkCart;
-// let product:any 
-// const cartToRetrive = await Promise.all(result.map(async elementOfResult=>{
-//     "ELEMENT OF RESULT ",elementOfResult)
-//     const products = await cartOfUser.cart.map( elementOfUser =>{
-//         "element of user ", elementOfUser)
-//         if( elementOfResult.id === elementOfUser.productId ){
-//         product = {title:elementOfResult.title, price: elementOfResult.price * elementOfUser.amount, thumbnail: elementOfResult.thumbnail, amount: elementOfUser.amount}
-//         return product
-//     }
-//     })
-//     products)
-// }))
-// "CARRITO A DEVOLVER: ", cartToRetrive)
-// // return cartToRetrive
-// return "lol"

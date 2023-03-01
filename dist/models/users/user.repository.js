@@ -37,7 +37,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.repositoryUser = void 0;
-// import { asDto } from "./dto/users-dto";
 var users_factory_1 = require("./users.factory");
 var userRepository = /** @class */ (function () {
     function userRepository() {
@@ -78,7 +77,6 @@ var userRepository = /** @class */ (function () {
                     case 1:
                         user = _a.sent();
                         userDto = (user);
-                        userDto);
                         return [2 /*return*/, userDto];
                 }
             });

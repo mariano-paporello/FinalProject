@@ -88,6 +88,19 @@ var ProductsRepository = /** @class */ (function () {
         });
     };
     ;
+    ProductsRepository.prototype.postProductToProducts = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var products;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dao.postProductToProducts(data)];
+                    case 1:
+                        products = _a.sent();
+                        return [2 /*return*/, products];
+                }
+            });
+        });
+    };
     ProductsRepository.prototype.postProductToCart = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var products, productsDto;
@@ -103,6 +116,31 @@ var ProductsRepository = /** @class */ (function () {
         });
     };
     ;
+    ProductsRepository.prototype.deleteAll = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dao.deleteAll()];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, true];
+                }
+            });
+        });
+    };
+    ProductsRepository.prototype.deleteByQuery = function (query) {
+        return __awaiter(this, void 0, void 0, function () {
+            var productDeleted;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dao.deleteByQuery(query)];
+                    case 1:
+                        productDeleted = _a.sent();
+                        return [2 /*return*/, productDeleted];
+                }
+            });
+        });
+    };
     return ProductsRepository;
 }());
 exports.repositoryProduct = new ProductsRepository();

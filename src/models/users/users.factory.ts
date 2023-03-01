@@ -4,7 +4,7 @@ import DaoMongoDB from "./daos/mongodb";
 import usersSchema  from "./schema/users.schema";
 
 
-let dao;
+let dao:any;
 
 const args = minimist(process.argv)
 switch(args.database.toLowerCase()) {
@@ -18,21 +18,6 @@ switch(args.database.toLowerCase()) {
         break;
 };
 
-export async function findById(id) {
-    return await dao.findById(id);
-};
-
-export async function find(username) {
-    return await dao.find(username);
-};
-
-export async function logIn(username:string, password:string) {
-    return await dao.logIn(username, password);
-};
-
-export async function singUp(data) {
-    return await dao.singUp(data);
-};
 
 export function getDao(){
     return dao;

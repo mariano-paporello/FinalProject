@@ -2,8 +2,9 @@ import { DaoMongoDB } from "./daos/mongodb";
 import { productoSchema } from "./schema/products.schema";
 import minimist from "minimist"
 import { logger } from "../../utils/loggers";
+import { AddProductObject } from "./products.interface";
 
-let dao;
+let dao : any;
 const args = minimist(process.argv)
 
 
@@ -29,19 +30,19 @@ export async function getAllProd() {
     return await dao.getAllProd();
 };
 
-export async function getProductById(id) {
+export async function getProductById(id:string) {
     return await dao.getProductById(id);
 };
 
-export async function getProductByQuery(query) {
+export async function getProductByQuery(query:any) {
     return await dao.getProductByQuery(query);
 };
 
-export async function postProductToProducts(data){
+export async function postProductToProducts(data:AddProductObject){
     return await dao.postProductToProducts(data);
 }
 
-export async function postProductToCart(data) {
+export async function postProductToCart(data:AddProductObject) {
     return await dao.postProductToCart(data);
 };
 

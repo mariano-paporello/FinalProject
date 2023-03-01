@@ -43,6 +43,7 @@ exports.getDao = exports.updateCart = exports.createCart = exports.getCartByQuer
 var mongodb_1 = require("./daos/mongodb");
 var minimist_1 = __importDefault(require("minimist"));
 var cart_schema_1 = require("./schema/cart.schema");
+var loggers_1 = require("../../utils/loggers");
 var dao;
 var args = (0, minimist_1.default)(process.argv);
 switch (args.database.toLowerCase()) {
@@ -50,10 +51,9 @@ switch (args.database.toLowerCase()) {
     case 'mongo':
         dao = new mongodb_1.DaoMongoDB('carts', cart_schema_1.cartSchema);
         dao.initMongoDB();
-        "BASE DE DATOS MONGOATLAS cart");
         break;
     default:
-        "ERRORR");
+        loggers_1.logger.error("Error al querer seleccionar DB en Carrito");
         break;
 }
 ;

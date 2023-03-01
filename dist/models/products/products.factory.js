@@ -39,29 +39,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDao = exports.postProductToCart = exports.getProductByQuery = exports.getProductById = exports.getAllProd = void 0;
+exports.getDao = exports.deleteAll = exports.postProductToCart = exports.postProductToProducts = exports.getProductByQuery = exports.getProductById = exports.getAllProd = void 0;
 var mongodb_1 = require("./daos/mongodb");
 var products_schema_1 = require("./schema/products.schema");
 var minimist_1 = __importDefault(require("minimist"));
+var loggers_1 = require("../../utils/loggers");
 var dao;
 var args = (0, minimist_1.default)(process.argv);
 switch (args.database.toLowerCase()) {
     // agregar mÁs DB
     case 'mongo':
-        if (args.typeData === "test") {
-            dao = new mongodb_1.DaoMongoDB('testing-products', products_schema_1.productoSchema);
+        if (args.testing) {
+            dao = new mongodb_1.DaoMongoDB("testing-products", products_schema_1.productoSchema);
             dao.initMongoDB();
-            "BASE DE DATOS MONGOATLAS testing-products");
             break;
         }
         else {
             dao = new mongodb_1.DaoMongoDB('productos', products_schema_1.productoSchema);
             dao.initMongoDB();
-            "BASE DE DATOS MONGOATLAS products");
             break;
         }
     default:
-        "ERRORR");
+        loggers_1.logger.error("Error en factory al seleccionar Db");
         break;
 }
 ;
@@ -101,6 +100,17 @@ function getProductByQuery(query) {
 }
 exports.getProductByQuery = getProductByQuery;
 ;
+function postProductToProducts(data) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dao.postProductToProducts(data)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+exports.postProductToProducts = postProductToProducts;
 function postProductToCart(data) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -113,6 +123,17 @@ function postProductToCart(data) {
 }
 exports.postProductToCart = postProductToCart;
 ;
+function deleteAll() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dao.deleteAll()];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+exports.deleteAll = deleteAll;
 function getDao() {
     return dao;
 }

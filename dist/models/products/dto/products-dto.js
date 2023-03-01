@@ -2,13 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.asDto = void 0;
 var ProductsDTO = /** @class */ (function () {
-    function ProductsDTO(_a) {
-        var _id = _a._id, title = _a.title, price = _a.price, thumbnail = _a.thumbnail, stock = _a.stock;
-        this.id = _id;
-        this.title = title;
-        this.price = price;
-        this.thumbnail = thumbnail;
-        this.stock = stock;
+    function ProductsDTO(product) {
+        this.id = product._id;
+        this.title = product.title;
+        this.price = product.price;
+        this.thumbnail = product.thumbnail;
+        this.stock = product.stock;
     }
     return ProductsDTO;
 }());

@@ -1,27 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.asDto = void 0;
-var ProductsDTO = /** @class */ (function () {
-    function ProductsDTO(_a) {
-        var _id = _a._id, gmail = _a.gmail, password = _a.password, username = _a.username, age = _a.age, image = _a.image, phoneNumber = _a.phoneNumber;
-        this.id = _id;
-        this.gmail = gmail;
-        this.username = username;
-        this.password = password;
-        this.age = age;
-        this.image = image;
-        this.phoneNumber = phoneNumber;
+var usersDTO = /** @class */ (function () {
+    function usersDTO(user) {
+        this.id = user._id;
+        this.gmail = user.gmail;
+        this.username = user.username;
+        this.password = user.password;
+        this.age = user.age;
+        this.image = user.image;
+        this.phoneNumber = user.phoneNumber;
     }
-    return ProductsDTO;
+    return usersDTO;
 }());
 function asDto(users) {
     if (Array.isArray(users)) {
-        var products = users.map(function (element) { return new ProductsDTO(element); });
-        return products;
+        var newUsers = users.map(function (element) { return new usersDTO(element); });
+        return newUsers;
     }
     else {
-        var product = new ProductsDTO(users);
-        return product;
+        var user = new usersDTO(users);
+        return user;
     }
 }
 exports.asDto = asDto;

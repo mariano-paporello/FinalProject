@@ -1,10 +1,10 @@
 import mongoose, { connect } from "mongoose"
-import { getDao, getProductById } from "../products/products.factory"
-import { repositoryProduct } from "../products/products.repository"
+import { getDao, getProductById } from "../products.factory"
+import { repositoryProduct } from "../products.repository"
 
 
 describe("Product Test", ()=>{
-    let daoTest 
+    let daoTest:any 
     beforeAll(async () => {
         jest.spyOn(mongoose, "connect").mockResolvedValue(mongoose)
         daoTest = await getDao() 
@@ -12,7 +12,7 @@ describe("Product Test", ()=>{
 
     describe("productDao getAll", ()=>{
         it('deberia traer un array vacio si no hay elementos en la db',async () => {
-            const mockResponse = [] 
+            const mockResponse:[] = [] 
             jest.spyOn(repositoryProduct, "getAllProd").mockResolvedValueOnce(mockResponse);
             
             const data = await daoTest.getAllProd()

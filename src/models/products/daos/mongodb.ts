@@ -1,17 +1,11 @@
 import mongoose, { Schema } from 'mongoose';
 import config from '../../../config';
+import { AddProductObject, ProductBaseClass, ProductObject } from '../products.interface';
 
 mongoose.set('strictQuery', true);
 
-interface data{
-    title:string,
-    price: number,
-    thumbnail:string,
-    stock:number,
-    category:string
-}
 
-export class DaoMongoDB {    
+export class DaoMongoDB implements ProductBaseClass{    
     private collection
     private initDB
 
@@ -25,25 +19,23 @@ export class DaoMongoDB {
     }
 
     async getAllProd(){
-        const products = await this.collection.find({})
+        const products:ProductObject[] | [] = await this.collection.find({})
         return products
     }
-    async getProductById(id:string){
-        const productFound = await this.collection.findById(id)
+    async getProductById(id:string) {
+        const productFound: ProductObject| null | undefined = await this.collection.findById(id)
         return productFound
     }
     async getProductByQuery(query:any){
-        const productFound = await this.collection.findOne(query)
+        const productFound: ProductObject | undefined |null = await this.collection.findOne(query)
         return productFound
     }
-    async postProductToProducts(data){
-        const productAdded = await this.collection(data)
-        await productAdded.save()
+    async postProductToProducts(data:AddProductObject): Promise<ProductObject>{
+        const productAdded:any  =  await this.collection.create(data);
         return productAdded
     }
-    async postProductToCart(data:data ){
-        const productAdding = await this.collection(data)
-        await productAdding.save()
+    async postProductToCart(data:AddProductObject ){
+        const productAdding:any = await this.collection.create(data);
         return productAdding 
     }
     async deleteByQuery(query:any){

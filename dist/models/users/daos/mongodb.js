@@ -46,7 +46,7 @@ mongoose_1.default.set('strictQuery', false);
 var DaoMongoDB = /** @class */ (function () {
     function DaoMongoDB(collection, schema) {
         this.collection = mongoose_1.default.model(collection, schema);
-        this.initDB = mongoose_1.default.connect(config_1.default.MONGO_ATLAS_URL, function () { return "Connected to MongoDB"); });
+        this.initDB = mongoose_1.default.connect(config_1.default.MONGO_ATLAS_URL);
     }
     DaoMongoDB.prototype.initMongoDB = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -83,11 +83,11 @@ var DaoMongoDB = /** @class */ (function () {
     };
     DaoMongoDB.prototype.logIn = function (username, password) {
         return __awaiter(this, void 0, void 0, function () {
-            var cadidatePassword, usersfound, i, logUser;
+            var candidatePassword, usersfound, i, logUser;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        cadidatePassword = password;
+                        candidatePassword = password;
                         return [4 /*yield*/, this.find(username)];
                     case 1:
                         usersfound = _a.sent();
@@ -96,7 +96,7 @@ var DaoMongoDB = /** @class */ (function () {
                         _a.label = 2;
                     case 2:
                         if (!(i <= usersfound.length)) return [3 /*break*/, 5];
-                        return [4 /*yield*/, bcrypt_1.default.compare(cadidatePassword, usersfound[i].password)];
+                        return [4 /*yield*/, bcrypt_1.default.compare(candidatePassword, usersfound[i].password)];
                     case 3:
                         logUser = _a.sent();
                         if (logUser) {
@@ -121,12 +121,9 @@ var DaoMongoDB = /** @class */ (function () {
             var newUser;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        newUser = this.collection(data);
-                        return [4 /*yield*/, newUser.save()];
+                    case 0: return [4 /*yield*/, this.collection.create(data)];
                     case 1:
-                        _a.sent();
-                        "TODOPERFECTO");
+                        newUser = _a.sent();
                         return [2 /*return*/, newUser];
                 }
             });

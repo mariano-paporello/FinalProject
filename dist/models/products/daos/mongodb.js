@@ -46,7 +46,7 @@ mongoose_1.default.set('strictQuery', true);
 var DaoMongoDB = /** @class */ (function () {
     function DaoMongoDB(collection, schema) {
         this.collection = mongoose_1.default.model(collection, schema);
-        this.initDB = mongoose_1.default.connect(config_1.default.MONGO_ATLAS_URL, function () { return "Connected to MongoDB"); });
+        this.initDB = mongoose_1.default.connect(config_1.default.MONGO_ATLAS_URL);
     }
     DaoMongoDB.prototype.initMongoDB = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -94,18 +94,53 @@ var DaoMongoDB = /** @class */ (function () {
             });
         });
     };
+    DaoMongoDB.prototype.postProductToProducts = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var productAdded;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.collection.create(data)];
+                    case 1:
+                        productAdded = _a.sent();
+                        return [2 /*return*/, productAdded];
+                }
+            });
+        });
+    };
     DaoMongoDB.prototype.postProductToCart = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var productAdding;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection(data)];
+                    case 0: return [4 /*yield*/, this.collection.create(data)];
                     case 1:
                         productAdding = _a.sent();
-                        return [4 /*yield*/, productAdding.save()];
-                    case 2:
-                        _a.sent();
                         return [2 /*return*/, productAdding];
+                }
+            });
+        });
+    };
+    DaoMongoDB.prototype.deleteByQuery = function (query) {
+        return __awaiter(this, void 0, void 0, function () {
+            var deleting;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.collection.deleteOne(query)];
+                    case 1:
+                        deleting = _a.sent();
+                        return [2 /*return*/, deleting];
+                }
+            });
+        });
+    };
+    DaoMongoDB.prototype.deleteAll = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.collection.deleteMany()];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, true];
                 }
             });
         });

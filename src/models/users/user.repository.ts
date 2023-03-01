@@ -1,32 +1,33 @@
 // import { asDto } from "./dto/users-dto";
+import { AddUserObject, UserBaseClass, UserObject } from "./user.interface";
 import { getDao } from "./users.factory";
 
 
 
 
- class userRepository {
+ class userRepository implements UserBaseClass{
     private dao
     constructor() {
         this.dao = getDao();
     }
 
-     async findById(id) {
+     async findById(id:string): Promise<UserObject>{
         const user = await this.dao.findById(id);
         const userDto = (user)
         return userDto
     };
     
-     async find(username) {
+     async find(username:string): Promise<UserObject[]> {
         return await this.dao.find(username);
     };
     
-     async logIn(username:string, password:string) {
+     async logIn(username:string, password:string): Promise<UserObject| false |undefined>{
         const user = await this.dao.logIn(username, password);
         const userDto = (user);
         return userDto
     };
     
-     async singUp(data) {
+     async singUp(data:AddUserObject): Promise<UserObject>{
        const user = await this.dao.singUp(data);
        const userDto = (user)
        return userDto
