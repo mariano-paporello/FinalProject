@@ -4,7 +4,7 @@ import DaoMongoDB from "./daos/mongodb";
 import usersSchema  from "./schema/users.schema";
 
 
-let dao:any;
+let dao:DaoMongoDB;
 
 const args = minimist(process.argv)
 switch(args.database.toLowerCase()) {

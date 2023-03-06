@@ -10,13 +10,14 @@ import cookieParser from "cookie-parser";
 import session from 'express-session';
 import { storeOptions } from "../api/storeOptions";
 import passport from "passport";
+import { User } from '../../Public/types'
 
 declare module 'express-session' {
     interface SessionData {
-        dataUser: any
+        dataUser: User
         gmail: String,
         username: String,
-        contraseña: any
+        contraseña: String
     }
 }
 

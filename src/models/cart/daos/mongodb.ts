@@ -1,11 +1,12 @@
 import mongoose, { Schema } from 'mongoose';
 import dotenv from 'dotenv';
 import config from '../../../config';
+import { BaseCartClass, CartObject, CreateCartObject, DocumentMongoPost } from '../cart.interface';
 dotenv.config();
 
 mongoose.set('strictQuery', false);
 
-export class DaoMongoDB {    
+export class DaoMongoDB implements BaseCartClass{    
     private collection
     private initDB
 
@@ -16,21 +17,20 @@ export class DaoMongoDB {
     async initMongoDB() {
         return this.initDB;
     }
-    async getCartById(id){
-        const cart = await this.collection.findById(id)
+    async getCartById(id:string){
+        const cart: CartObject| null = await this.collection.findById(id)
         return cart
     }
-    async getCartByQuery(query){
-        const cart = await this.collection.findOne(query)
+    async getCartByQuery(query:any){
+        const cart:  CartObject| null = await this.collection.findOne(query)
         return cart
     }
-    async createCart(data){
-        const cart = await this.collection.create(data)
+    async createCart(data:CreateCartObject){
+        const cart: DocumentMongoPost = await this.collection.create(data)
         return cart
     }
-    async updateCart(query, update){
+    async updateCart(query:any, update:any){
         const cartUpdate= await this.collection.updateOne(query, update)
         return cartUpdate
     }
-   
 }

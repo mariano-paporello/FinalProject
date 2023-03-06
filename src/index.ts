@@ -30,7 +30,7 @@ if (args.modo === "CLUSTER" && cluster.isPrimary ) {
         });
 }
 
-server.on('error', (err) => {
+server.on('error', (err:Error) => {
     logger.error('SERVER ERROR: ', err);
   });
   

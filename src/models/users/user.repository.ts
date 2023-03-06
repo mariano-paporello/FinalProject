@@ -17,11 +17,11 @@ import { getDao } from "./users.factory";
         return userDto
     };
     
-     async find(username:string): Promise<UserObject[]> {
+     async find(username:string): Promise<UserObject[] | null> {
         return await this.dao.find(username);
     };
     
-     async logIn(username:string, password:string): Promise<UserObject| false |undefined>{
+     async logIn(username:string, password:string): Promise<UserObject| null |undefined>{
         const user = await this.dao.logIn(username, password);
         const userDto = (user);
         return userDto

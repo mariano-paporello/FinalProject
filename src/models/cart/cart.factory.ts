@@ -3,7 +3,7 @@ import minimist from "minimist"
 import { cartSchema } from "./schema/cart.schema";
 import { logger } from "../../utils/loggers";
 
-let dao;
+let dao:DaoMongoDB;
 const args = minimist(process.argv)
 
 
@@ -18,21 +18,6 @@ switch(args.database.toLowerCase()) {
         break;
 };
 
-export async function getCartById(id) {
-    return await dao.getCartById(id);
-};
-
-export async function getCartByQuery(query) {
-    return await dao.getProductByQuery(query);
-};
-
-export async function createCart(data) {
-    return await dao.createCart(data);
-};
-
-export async function updateCart(query, update) {
-    return await dao.updateCart(query, update);
-};
 
 export function getDao(){
     return dao;

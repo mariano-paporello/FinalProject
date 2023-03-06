@@ -1,9 +1,9 @@
 import mongoose from "mongoose"
 import byCript from "bcrypt"
 
-const Schema = mongoose.Schema
 
-const usersSchema = new Schema(
+
+const usersSchema = new mongoose.Schema(
     {
     gmail: { type: String, require: true},
     password: { type: String, require: true, max: 100 },

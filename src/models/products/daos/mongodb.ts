@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import config from '../../../config';
-import { AddProductObject, ProductBaseClass, ProductObject } from '../products.interface';
+import { AddProductObject, ProductBaseClass, ProductObject, DocumentMongoGet, DocumentMongoPost } from '../products.interface';
 
 mongoose.set('strictQuery', true);
 
@@ -23,19 +23,19 @@ export class DaoMongoDB implements ProductBaseClass{
         return products
     }
     async getProductById(id:string) {
-        const productFound: ProductObject| null | undefined = await this.collection.findById(id)
+        const productFound: ProductObject | DocumentMongoGet  = await this.collection.findById(id)
         return productFound
     }
     async getProductByQuery(query:any){
-        const productFound: ProductObject | undefined |null = await this.collection.findOne(query)
+        const productFound: ProductObject | DocumentMongoGet   = await this.collection.findOne(query)
         return productFound
     }
-    async postProductToProducts(data:AddProductObject): Promise<ProductObject>{
-        const productAdded:any  =  await this.collection.create(data);
+    async postProductToProducts(data:AddProductObject){
+        const productAdded: ProductObject | DocumentMongoPost  =  await this.collection.create(data);
         return productAdded
     }
     async postProductToCart(data:AddProductObject ){
-        const productAdding:any = await this.collection.create(data);
+        const productAdding: ProductObject | DocumentMongoPost = await this.collection.create(data);
         return productAdding 
     }
     async deleteByQuery(query:any){

@@ -17,30 +17,35 @@ export default class DaoMongoDB implements UserBaseClass {
         return this.initDB;
     }
 
-    async findById(id:string):Promise<UserObject>{
+    async findById(id:string){
         const user= await this.collection.findById(id)
         return user
     }
 
-    async find(username:string): Promise<UserObject[]> {
-      const userfound = await  this.collection.find({username:username})
+    async find(usernameIngresed:string):Promise<UserObject[] | null>{
+        console.log(usernameIngresed)
+      const userfound = await this.collection.find({username: usernameIngresed}) 
+      if(userfound.length === 0){
+        return null
+      }
       return userfound
     }
 
-    async logIn(username:string,password:string):Promise<UserObject| false |undefined>{
+    async logIn(username: string,password: string){
         const candidatePassword = password
-        const usersfound = await this.find(username)
-        if(usersfound&&usersfound.length>0){
+        const usersfound:UserObject[] | null = await this.find(username)
+        if(usersfound != null &&usersfound.length>0 ){
             for(let i=0;i<=usersfound.length;i++ ){
             const logUser = await byCript.compare(candidatePassword, usersfound[i].password)
             if(logUser){
+                
                 return usersfound[i]
             }
             else{ 
-                return false
+                return null
             }}   
         }else{
-            return false
+            return null
         }
         
     }

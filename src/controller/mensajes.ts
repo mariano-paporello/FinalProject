@@ -1,3 +1,4 @@
+import { NewMessage } from "../../Public/types"
 import menssagesMetodos from "../models/messages"
 import {logger} from "../utils/loggers"
 
@@ -12,7 +13,7 @@ class mensajeController{
      }}
  
  
-    async nuevomensaje(data){
+    async nuevomensaje(data:NewMessage){
         try{
             const dataCompleta = {
                 author:{

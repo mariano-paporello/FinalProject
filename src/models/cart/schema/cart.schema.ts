@@ -9,6 +9,5 @@ export const cartSchema= new mongoose.Schema(
                 amount: { type: Number, require: true},
             }
         ]
-    },
-    {timestamps: true}
+    }
 )

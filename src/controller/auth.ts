@@ -2,14 +2,17 @@ import passport from "passport"
 import { logger } from "../utils/loggers"
 import { generateToken } from "./user"
 import { logged } from "../utils/logged"
+import { Response, Request, NextFunction } from "express"
+import { User } from "../../Public/types"
 
 
 
 // LOGIN LOGIC
-export const logIn =  async (req, res, next) => {
-    passport.authenticate('login', {}, async (err, user, info) => {
+export const logIn =  async (req:Request, res:Response, next:NextFunction) => {
+    passport.authenticate('login', {}, async (err, user:User, info) => {
     logger.info( "METODO:"+ req.method + " RUTA:"+ req.url )
-    if (user.gmail && user.id) {
+    
+    if (user.gmail && user._id) {
         logged.nombre = user.username
         logged.contraseña = true
         logged.islogged = true
@@ -27,14 +30,14 @@ export const logIn =  async (req, res, next) => {
         }
     })(req, res, next)
 }
-export const logInGet = (req, res)=>{
+export const logInGet = (req:Request, res:Response)=>{
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
     logged.isDestroyed = false
     res.json({msg:"Estas en logIn"})
 }
 
 // REGISTER LOGIC
-export const register = async (req, res, next) => {
+export const register = async (req:Request, res:Response, next:NextFunction) => {
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
     passport.authenticate('signup', {}, (err, user, info) => {
         const {
@@ -52,7 +55,9 @@ export const register = async (req, res, next) => {
                 Error: "Datos ingresados no validos o nulos"
             })
         }
-        const token = generateToken(user)
+        // Ver que onda con el type de esto:
+        const token:any = generateToken(user) 
+        
         logged.nombre = username
         logged.contraseña = true
         logged.islogged = true
@@ -64,7 +69,7 @@ export const register = async (req, res, next) => {
     })(req, res, next);
 }
 
-export const registerGet = (req, res) => {
+export const registerGet = (req:Request, res:Response) => {
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
     logged.isDestroyed = false
     res.json({msg:"Estas en la Ruta register"})
@@ -72,7 +77,7 @@ export const registerGet = (req, res) => {
 
 // LOGOUT LOGIC
 
-export const logout = (req, res) => {
+export const logout = (req:Request, res:Response) => {
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
     if (req.session.username) {
         res.json({
@@ -89,7 +94,7 @@ export const logout = (req, res) => {
 
 // Auth middlewares
 
-export const isLogged = (req, res, next)=>{
+export const isLogged = (req:Request, res:Response, next:NextFunction)=>{
 if(logged&& logged.islogged){
 next()
 }
@@ -101,7 +106,7 @@ else{
     })
 }
 }
- export const loggedIsNotDestroyed =(req, res, next)=>{
+ export const loggedIsNotDestroyed =(req:Request, res:Response, next:NextFunction)=>{
     if(logged && !logged.isDestroyed){
         next()
     }else{

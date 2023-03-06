@@ -1,15 +1,17 @@
+import { CartObject } from "../cart.interface"
+
 class ProductsDTO {
     private userId
     private cart
     private id
-    constructor({_id, userId, cart }) {
-        this.id= _id
-        this.userId = userId
-        this.cart = cart
+    constructor(cartOfUser:CartObject) {
+        this.id= cartOfUser._id
+        this.userId = cartOfUser.userId
+        this.cart = cartOfUser.cart
     }
 }
 
-export function asDto(cart) {
+export function asDto(cart:CartObject[] | CartObject) {
     if(Array.isArray(cart))
         return cart.map(element => new ProductsDTO(element))
     else

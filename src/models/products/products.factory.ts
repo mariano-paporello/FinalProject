@@ -4,7 +4,7 @@ import minimist from "minimist"
 import { logger } from "../../utils/loggers";
 import { AddProductObject } from "./products.interface";
 
-let dao : any;
+let dao : DaoMongoDB;
 const args = minimist(process.argv)
 
 

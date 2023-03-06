@@ -13,7 +13,7 @@ export interface UserObject extends AddUserObject{
 
 export interface UserBaseClass{
     findById(id:string):Promise<UserObject>
-    find(username:string):Promise<UserObject[]>
-    logIn(username:string,password:string):Promise<UserObject| false |undefined>
+    find(username:string):Promise<UserObject[] | null>
+    logIn(username:string,password:string):Promise<UserObject| null |undefined>
     singUp(data:AddUserObject):Promise<UserObject>
 }
