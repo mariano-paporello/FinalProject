@@ -26,30 +26,6 @@ switch(args.database.toLowerCase()) {
         break;
 };
 
-export async function getAllProd() {
-    return await dao.getAllProd();
-};
-
-export async function getProductById(id:string) {
-    return await dao.getProductById(id);
-};
-
-export async function getProductByQuery(query:any) {
-    return await dao.getProductByQuery(query);
-};
-
-export async function postProductToProducts(data:AddProductObject){
-    return await dao.postProductToProducts(data);
-}
-
-export async function postProductToCart(data:AddProductObject) {
-    return await dao.postProductToCart(data);
-};
-
-export async function deleteAll(){
-    return await dao.deleteAll()
-}
-
 export function getDao(){
     return dao;
 };

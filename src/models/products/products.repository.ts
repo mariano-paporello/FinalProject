@@ -1,4 +1,5 @@
 // import { asDto } from "./dto/products-dto";
+import { composeWithMongoose } from "graphql-compose-mongoose";
 import { getDao } from "./products.factory";
 import { AddProductObject } from "./products.interface";
 
@@ -31,12 +32,6 @@ import { AddProductObject } from "./products.interface";
         const products = await this.dao.postProductToProducts(data);
         return products
     }
-    
-     async  postProductToCart(data:AddProductObject) {
-        const products = await this.dao.postProductToCart(data);
-        const productsDto = (products)
-        return productsDto
-    };
     async deleteAll(){
         await this.dao.deleteAll()
         return true
@@ -44,6 +39,13 @@ import { AddProductObject } from "./products.interface";
     async deleteByQuery(query:any){
         const productDeleted = await this.dao.deleteByQuery(query)
         return productDeleted
+    }
+
+    // GRAPHQL
+
+    async postProductToProductsGraphql(title:"String", price:Number, thumbnail:"String", category:"String", stock:Number){
+        const products = await this.dao.postProductToProductsGraphql({title, price, thumbnail, category, stock});
+        return products
     }
 
 }

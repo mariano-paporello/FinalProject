@@ -1,9 +1,10 @@
 import mongoose from "mongoose"
 import byCript from "bcrypt"
+import { UserObject } from "../user.interface";
 
 
 
-const usersSchema = new mongoose.Schema(
+const usersSchema = new mongoose.Schema<UserObject>(
     {
     gmail: { type: String, require: true},
     password: { type: String, require: true, max: 100 },

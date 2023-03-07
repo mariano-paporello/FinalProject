@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
+import { CartObject } from "../cart.interface"
 
-export const cartSchema= new mongoose.Schema(
+export const cartSchema= new mongoose.Schema<CartObject>(
     {   
         userId: {type: String, require:true},
         cart: [

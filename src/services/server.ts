@@ -11,6 +11,8 @@ import session from 'express-session';
 import { storeOptions } from "../api/storeOptions";
 import passport from "passport";
 import { User } from '../../Public/types'
+import { graphqlHTTP } from 'express-graphql'
+import { schema } from './graphql'
 
 declare module 'express-session' {
     interface SessionData {
@@ -37,6 +39,11 @@ app.set('view engine', 'hbs')
 app.set('views', viewPath)
 app.engine('hbs', engine(paths))
 
+app.use('/graphql', graphqlHTTP({
+    schema: schema,
+    graphiql:true
+}))
+
 app.get('*', (req, res)=>{
     logger.warn( "METODO:"+req.method + " RUTA:"+ req.url )
     res.status(404).json({Error:"Inexistent route"})
@@ -49,3 +56,4 @@ app.post('*', (req, res)=>{
 const HTTPServer = new http.Server(app);
 
 module.exports = HTTPServer
+

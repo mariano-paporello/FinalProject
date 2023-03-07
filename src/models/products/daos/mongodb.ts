@@ -34,10 +34,6 @@ export class DaoMongoDB implements ProductBaseClass{
         const productAdded: ProductObject | DocumentMongoPost  =  await this.collection.create(data);
         return productAdded
     }
-    async postProductToCart(data:AddProductObject ){
-        const productAdding: ProductObject | DocumentMongoPost = await this.collection.create(data);
-        return productAdding 
-    }
     async deleteByQuery(query:any){
         const deleting = await this.collection.deleteOne(query)
         return deleting
@@ -45,5 +41,12 @@ export class DaoMongoDB implements ProductBaseClass{
     async deleteAll(){
         await this.collection.deleteMany()
         return true
+    }
+
+// GRAPHQL
+
+    async postProductToProductsGraphql(data:AddProductObject){
+        const productAdded: ProductObject | DocumentMongoPost  =  await this.collection.create(data);
+        return productAdded
     }
 }
