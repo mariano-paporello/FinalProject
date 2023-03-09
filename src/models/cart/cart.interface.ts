@@ -10,6 +10,7 @@ export interface productInCartObject{
     amount:number
     productId:string
 }
+
 export interface CartObject extends CreateCartObject{
     _id:string
 }

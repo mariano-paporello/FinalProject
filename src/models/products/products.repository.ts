@@ -1,5 +1,5 @@
 // import { asDto } from "./dto/products-dto";
-import { composeWithMongoose } from "graphql-compose-mongoose";
+import { schemaComposer } from 'graphql-compose'; 
 import { getDao } from "./products.factory";
 import { AddProductObject } from "./products.interface";
 
@@ -50,3 +50,69 @@ import { AddProductObject } from "./products.interface";
 
 }
 export const repositoryProduct = new ProductsRepository();
+
+const ProductTC = schemaComposer.createObjectTC({
+  name: 'ProductObject',
+  fields: {
+    _id:"String!",
+    id:"String",
+    title:"String",
+    price:"Int",
+    thumbnail:"String",
+    category:"String",
+    stock:"Int",
+  },
+});
+
+const ProductInCartInputTC = schemaComposer.createInputTC({
+  name:"ProductInCartObjectInput",
+  fields:{
+    _id:"String",
+    amount:"Int",
+    productId:"String"
+  }
+})
+
+
+export const productsQuerys = {
+    getAllProd: {
+    type: '[ProductObject]',
+    resolve: async () => await repositoryProduct.getAllProd(),
+  },
+  getProductById: {
+    type: 'ProductObject',
+    args: { id: 'String!' },
+    resolve: async (_:any, { id }:any) => await repositoryProduct.getProductById(id),
+  },
+  getProductByTitle: {
+    type: "ProductObject",
+    args: {
+      titleProd: "String"
+    },
+    resolve:async (_:any, {titleProd}:any) => await repositoryProduct.getProductByQuery({title:titleProd})
+  }
+}
+export const productsMutations = {
+    postProductToProducts: {
+        type: 'ProductObject',
+        args: {
+          title:"String!",
+          price:"Int",
+          thumbnail:"String",
+          category:"String",
+          stock:"Int",
+        },
+        resolve: async (_:any, { title, price, thumbnail, category, stock}:AddProductObject) => await repositoryProduct.postProductToProductsGraphql(title, price, thumbnail, category, stock),
+      },
+      deleteById:{
+        type: 'DeleteResult',
+        args: {
+          id: "String"
+        },
+        resolve: async (_:any, {id}:any) => await repositoryProduct.deleteByQuery({_id: id})
+      },
+      deleteAll: {
+        type: "Boolean",
+        resolve: async () => await repositoryProduct.deleteAll
+      }
+}
