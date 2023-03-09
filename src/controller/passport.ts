@@ -32,18 +32,22 @@ export const createUser = async( req:Request, password:string, username:string, 
     try {
         const {gmail, age, phoneNumber, image } = req.body
         // LOL
-        const user:any = await repositoryUser.singUp({
-            gmail, 
-            password, 
-            age, 
-            phoneNumber,
-            image,
-            username
-        })
-        req.session.gmail =  user.gmail
-        req.session.username= user.username
-        await ifCartExist(user)
-        return done(null,  user)
+        if(gmail && age && phoneNumber && image &&  password && username){
+            const user:any = await repositoryUser.singUp({
+                gmail, 
+                password, 
+                age, 
+                phoneNumber,
+                image,
+                username
+            })
+            req.session.gmail =  user.gmail
+            req.session.username= user.username
+            await ifCartExist(user)
+            return done(null,  user)
+        }
+        return done(null, false, {message: "Error debido a falta de alguno de los campos."})
+
     } catch (err) {
         return done(null, false, { mensaje: 'Error Inesperado', err });
     }
