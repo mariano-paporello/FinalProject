@@ -15,6 +15,8 @@ var cookie_parser_1 = __importDefault(require("cookie-parser"));
 var express_session_1 = __importDefault(require("express-session"));
 var storeOptions_1 = require("../api/storeOptions");
 var passport_1 = __importDefault(require("passport"));
+var express_graphql_1 = require("express-graphql");
+var graphql_1 = require("./graphql");
 var app = (0, express_1.default)();
 app.use((0, compression_1.default)());
 app.use(express_1.default.json());
@@ -29,6 +31,10 @@ app.use("/", index_1.default);
 app.set('view engine', 'hbs');
 app.set('views', paths_1.viewPath);
 app.engine('hbs', (0, express_handlebars_1.engine)(paths_1.paths));
+app.use('/graphql', (0, express_graphql_1.graphqlHTTP)({
+    schema: graphql_1.schema,
+    graphiql: true
+}));
 app.get('*', function (req, res) {
     loggers_1.logger.warn("METODO:" + req.method + " RUTA:" + req.url);
     res.status(404).json({ Error: "Inexistent route" });

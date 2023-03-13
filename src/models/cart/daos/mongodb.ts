@@ -5,10 +5,10 @@ import { BaseCartClass, CartObject, CreateCartObject, DocumentMongoPost } from '
 dotenv.config();
 
 mongoose.set('strictQuery', false);
-
+// ARREGLAR LOS ANY
 export class DaoMongoDB implements BaseCartClass{    
     private collection
-    private initDB
+    private initDB 
 
     constructor(collection:string, schema:Schema){
         this.collection = mongoose.model(collection, schema);

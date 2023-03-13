@@ -43,6 +43,7 @@ exports.DaoMongoDB = void 0;
 var mongoose_1 = __importDefault(require("mongoose"));
 var config_1 = __importDefault(require("../../../config"));
 mongoose_1.default.set('strictQuery', true);
+// ARREGLAR LOS ANY
 var DaoMongoDB = /** @class */ (function () {
     function DaoMongoDB(collection, schema) {
         this.collection = mongoose_1.default.model(collection, schema);
@@ -107,19 +108,6 @@ var DaoMongoDB = /** @class */ (function () {
             });
         });
     };
-    DaoMongoDB.prototype.postProductToCart = function (data) {
-        return __awaiter(this, void 0, void 0, function () {
-            var productAdding;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.create(data)];
-                    case 1:
-                        productAdding = _a.sent();
-                        return [2 /*return*/, productAdding];
-                }
-            });
-        });
-    };
     DaoMongoDB.prototype.deleteByQuery = function (query) {
         return __awaiter(this, void 0, void 0, function () {
             var deleting;
@@ -141,6 +129,20 @@ var DaoMongoDB = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         return [2 /*return*/, true];
+                }
+            });
+        });
+    };
+    // GRAPHQL
+    DaoMongoDB.prototype.postProductToProductsGraphql = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var productAdded;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.collection.create(data)];
+                    case 1:
+                        productAdded = _a.sent();
+                        return [2 /*return*/, productAdded];
                 }
             });
         });

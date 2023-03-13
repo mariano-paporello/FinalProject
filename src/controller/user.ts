@@ -44,7 +44,7 @@ const logIn = async (req:Request, username:string, password:string, done: any) =
 export const loginFunc = new LocalStrategy(strategyOptions, logIn);
 export const signUpFunc = new LocalStrategy(strategyOptions, signUp);
 
-passport.serializeUser((user:any, done) => {
+passport.serializeUser((user:User, done) => {
     done(null, user._id);
   });
 

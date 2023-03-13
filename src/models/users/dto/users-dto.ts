@@ -21,11 +21,11 @@ import { UserObject } from "../user.interface"
 
 export function asDto(users:UserObject[] | UserObject) {
     if(Array.isArray(users)){
-        const newUsers:any = users.map((element:UserObject) => new usersDTO(element))
+        const newUsers:unknown = users.map((element:UserObject) => new usersDTO(element))
         return newUsers
     }
     else{
-        const user:any =  new usersDTO(users)
+        const user:unknown =  new usersDTO(users)
         return user
     }
          

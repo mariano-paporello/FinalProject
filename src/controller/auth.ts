@@ -39,7 +39,7 @@ export const logInGet = (req:Request, res:Response)=>{
 // REGISTER LOGIC
 export const register = async (req:Request, res:Response, next:NextFunction) => {
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
-    passport.authenticate('signup', {}, (err, user, info) => {
+    passport.authenticate('signup', {}, async (err, user, info) => {
         const {
             gmail,
             username,
@@ -56,7 +56,7 @@ export const register = async (req:Request, res:Response, next:NextFunction) => 
             })
         }
         // Ver que onda con el type de esto:
-        const token:any = generateToken(user) 
+        const token:string | string[] | undefined = await generateToken(user) 
         
         logged.nombre = username
         logged.contraseña = true

@@ -22,7 +22,7 @@ import { AddProductObject } from "./products.interface";
         return productsDto
     };
     
-     async  getProductByQuery(query:any) {
+     async  getProductByQuery(query:unknown) {
         const products = await this.dao.getProductByQuery(query);
         const productsDto = (products)
         return productsDto
@@ -36,83 +36,83 @@ import { AddProductObject } from "./products.interface";
         await this.dao.deleteAll()
         return true
     }
-    async deleteByQuery(query:any){
+    async deleteByQuery(query:unknown){
         const productDeleted = await this.dao.deleteByQuery(query)
         return productDeleted
     }
 
     // GRAPHQL
 
-    async postProductToProductsGraphql(title:"String", price:Number, thumbnail:"String", category:"String", stock:Number){
-        const products = await this.dao.postProductToProductsGraphql({title, price, thumbnail, category, stock});
-        return products
-    }
+    // async postProductToProductsGraphql(title:String, price:Number, thumbnail:String, category:String, stock:Number){
+    //     const products = await this.dao.postProductToProductsGraphql({title, price, thumbnail, category, stock});
+    //     return products
+    // }
 
 }
 export const repositoryProduct = new ProductsRepository();
 
-const ProductTC = schemaComposer.createObjectTC({
-  name: 'ProductObject',
-  fields: {
-    _id:"String!",
-    id:"String",
-    title:"String",
-    price:"Int",
-    thumbnail:"String",
-    category:"String",
-    stock:"Int",
-  },
-});
+// const ProductTC = schemaComposer.createObjectTC({
+//   name: 'ProductObject',
+//   fields: {
+//     _id:"String!",
+//     id:"String",
+//     title:"String",
+//     price:"Int",
+//     thumbnail:"String",
+//     category:"String",
+//     stock:"Int",
+//   },
+// });
 
-const ProductInCartInputTC = schemaComposer.createInputTC({
-  name:"ProductInCartObjectInput",
-  fields:{
-    _id:"String",
-    amount:"Int",
-    productId:"String"
-  }
-})
+// const ProductInCartInputTC = schemaComposer.createInputTC({
+//   name:"ProductInCartObjectInput",
+//   fields:{
+//     _id:"String",
+//     amount:"Int",
+//     productId:"String"
+//   }
+// })
 
 
-export const productsQuerys = {
-    getAllProd: {
-    type: '[ProductObject]',
-    resolve: async () => await repositoryProduct.getAllProd(),
-  },
-  getProductById: {
-    type: 'ProductObject',
-    args: { id: 'String!' },
-    resolve: async (_:any, { id }:any) => await repositoryProduct.getProductById(id),
-  },
-  getProductByTitle: {
-    type: "ProductObject",
-    args: {
-      titleProd: "String"
-    },
-    resolve:async (_:any, {titleProd}:any) => await repositoryProduct.getProductByQuery({title:titleProd})
-  }
-}
-export const productsMutations = {
-    postProductToProducts: {
-        type: 'ProductObject',
-        args: {
-          title:"String!",
-          price:"Int",
-          thumbnail:"String",
-          category:"String",
-          stock:"Int",
-        },
-        resolve: async (_:any, { title, price, thumbnail, category, stock}:AddProductObject) => await repositoryProduct.postProductToProductsGraphql(title, price, thumbnail, category, stock),
-      },
-      deleteById:{
-        type: 'DeleteResult',
-        args: {
-          id: "String"
-        },
-        resolve: async (_:any, {id}:any) => await repositoryProduct.deleteByQuery({_id: id})
-      },
-      deleteAll: {
-        type: "Boolean",
-        resolve: async () => await repositoryProduct.deleteAll
-      }
-}
+// export const productsQuerys = {
+//     getAllProd: {
+//     type: '[ProductObject]',
+//     resolve: async () => await repositoryProduct.getAllProd(),
+//   },
+//   getProductById: {
+//     type: 'ProductObject',
+//     args: { id: 'String!' },
+//     resolve: async (_:unknown,  id:string ) => await repositoryProduct.getProductById(id),
+//   },
+//   getProductByTitle: {
+//     type: "ProductObject",
+//     args: {
+//       titleProd: "String"
+//     },
+//     resolve:async (_:unknown, titleProd:string) => await repositoryProduct.getProductByQuery({title:titleProd})
+//   }
+// }
+// export const productsMutations = {
+//     postProductToProducts: {
+//         type: 'ProductObject',
+//         args: {
+//           title:"String!",
+//           price:"Int",
+//           thumbnail:"String",
+//           category:"String",
+//           stock:"Int",
+//         },
+//         resolve: async (_:unknown,  title:String, price:Number, thumbnail:String, category:String, stock:Number) => await repositoryProduct.postProductToProductsGraphql(title, price, thumbnail, category, stock),
+//       },
+//       deleteById:{
+//         type: 'DeleteResult',
+//         args: {
+//           id: "String"
+//         },
+//         resolve: async (_:unknown, id:string) => await repositoryProduct.deleteByQuery({_id: id})
+//       },
+//       deleteAll: {
+//         type: "Boolean",
+//         resolve: async () => await repositoryProduct.deleteAll
+//       }
+// }

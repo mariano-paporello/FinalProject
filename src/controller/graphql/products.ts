@@ -9,7 +9,6 @@ export const ProductsQueries = {
 
 export const ProductsMutations = {
     postProductToProducts: repositoryProduct.postProductToProducts,
-    postProductToCart: repositoryProduct.postProductToCart,
     deleteAll: repositoryProduct.deleteAll,
     deleteByQuery: repositoryProduct.deleteByQuery,
 }

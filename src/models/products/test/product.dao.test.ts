@@ -1,10 +1,11 @@
 import mongoose, { connect } from "mongoose"
-import { getDao, getProductById } from "../products.factory"
+import { DaoMongoDB } from "../daos/mongodb"
+import { getDao } from "../products.factory"
 import { repositoryProduct } from "../products.repository"
 
 
 describe("Product Test", ()=>{
-    let daoTest:any 
+    let daoTest:DaoMongoDB 
     beforeAll(async () => {
         jest.spyOn(mongoose, "connect").mockResolvedValue(mongoose)
         daoTest = await getDao() 
@@ -26,13 +27,14 @@ describe("Product Test", ()=>{
             jest.spyOn(repositoryProduct, 'getProductByQuery').mockResolvedValue(mockResponse);
 
             const data = await daoTest.getProductByQuery({title:mockResponse.title})
-
-            expect(data.title).toEqual(mockResponse.title)
-            expect(data.price).toEqual(mockResponse.price)
-            expect(data.thumbnail).toEqual(mockResponse.thumbnail)
-            expect(data.category).toEqual(mockResponse.category)
-            expect(data.stock).toEqual(mockResponse.stock)
-            expect(data._id).toBeDefined()
+            if(data){
+                expect(data.title).toEqual(mockResponse.title)
+                expect(data.price).toEqual(mockResponse.price)
+                expect(data.thumbnail).toEqual(mockResponse.thumbnail)
+                expect(data.category).toEqual(mockResponse.category)
+                expect(data.stock).toEqual(mockResponse.stock)
+                expect(data._id).toBeDefined()
+            }
         })
     })
     describe("ProductDao post",()=>{

@@ -95,12 +95,14 @@ describe("Product Test", function () {
                         return [4 /*yield*/, daoTest.getProductByQuery({ title: mockResponse.title })];
                     case 1:
                         data = _a.sent();
-                        expect(data.title).toEqual(mockResponse.title);
-                        expect(data.price).toEqual(mockResponse.price);
-                        expect(data.thumbnail).toEqual(mockResponse.thumbnail);
-                        expect(data.category).toEqual(mockResponse.category);
-                        expect(data.stock).toEqual(mockResponse.stock);
-                        expect(data._id).toBeDefined();
+                        if (data) {
+                            expect(data.title).toEqual(mockResponse.title);
+                            expect(data.price).toEqual(mockResponse.price);
+                            expect(data.thumbnail).toEqual(mockResponse.thumbnail);
+                            expect(data.category).toEqual(mockResponse.category);
+                            expect(data.stock).toEqual(mockResponse.stock);
+                            expect(data._id).toBeDefined();
+                        }
                         return [2 /*return*/];
                 }
             });

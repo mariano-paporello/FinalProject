@@ -36,8 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.repositoryProduct = void 0;
+exports.productsMutations = exports.productsQuerys = exports.repositoryProduct = void 0;
 // import { asDto } from "./dto/products-dto";
+var graphql_compose_1 = require("graphql-compose");
 var products_factory_1 = require("./products.factory");
 var ProductsRepository = /** @class */ (function () {
     function ProductsRepository() {
@@ -101,21 +102,6 @@ var ProductsRepository = /** @class */ (function () {
             });
         });
     };
-    ProductsRepository.prototype.postProductToCart = function (data) {
-        return __awaiter(this, void 0, void 0, function () {
-            var products, productsDto;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.dao.postProductToCart(data)];
-                    case 1:
-                        products = _a.sent();
-                        productsDto = (products);
-                        return [2 /*return*/, productsDto];
-                }
-            });
-        });
-    };
-    ;
     ProductsRepository.prototype.deleteAll = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -141,6 +127,112 @@ var ProductsRepository = /** @class */ (function () {
             });
         });
     };
+    // GRAPHQL
+    ProductsRepository.prototype.postProductToProductsGraphql = function (title, price, thumbnail, category, stock) {
+        return __awaiter(this, void 0, void 0, function () {
+            var products;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dao.postProductToProductsGraphql({ title: title, price: price, thumbnail: thumbnail, category: category, stock: stock })];
+                    case 1:
+                        products = _a.sent();
+                        return [2 /*return*/, products];
+                }
+            });
+        });
+    };
     return ProductsRepository;
 }());
 exports.repositoryProduct = new ProductsRepository();
+var ProductTC = graphql_compose_1.schemaComposer.createObjectTC({
+    name: 'ProductObject',
+    fields: {
+        _id: "String!",
+        id: "String",
+        title: "String",
+        price: "Int",
+        thumbnail: "String",
+        category: "String",
+        stock: "Int",
+    },
+});
+var ProductInCartInputTC = graphql_compose_1.schemaComposer.createInputTC({
+    name: "ProductInCartObjectInput",
+    fields: {
+        _id: "String",
+        amount: "Int",
+        productId: "String"
+    }
+});
+exports.productsQuerys = {
+    getAllProd: {
+        type: '[ProductObject]',
+        resolve: function () { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, exports.repositoryProduct.getAllProd()];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    },
+    getProductById: {
+        type: 'ProductObject',
+        args: { id: 'String!' },
+        resolve: function (_, id) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, exports.repositoryProduct.getProductById(id)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    },
+    getProductByTitle: {
+        type: "ProductObject",
+        args: {
+            titleProd: "String"
+        },
+        resolve: function (_, titleProd) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, exports.repositoryProduct.getProductByQuery({ title: titleProd })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); }
+    }
+};
+exports.productsMutations = {
+    postProductToProducts: {
+        type: 'ProductObject',
+        args: {
+            title: "String!",
+            price: "Int",
+            thumbnail: "String",
+            category: "String",
+            stock: "Int",
+        },
+        resolve: function (_, title, price, thumbnail, category, stock) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, exports.repositoryProduct.postProductToProductsGraphql(title, price, thumbnail, category, stock)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); },
+    },
+    deleteById: {
+        type: 'DeleteResult',
+        args: {
+            id: "String"
+        },
+        resolve: function (_, id) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, exports.repositoryProduct.deleteByQuery({ _id: id })];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); }
+    },
+    deleteAll: {
+        type: "Boolean",
+        resolve: function () { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, exports.repositoryProduct.deleteAll];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); }
+    }
+};

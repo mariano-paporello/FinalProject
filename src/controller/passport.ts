@@ -3,10 +3,11 @@ import { repositoryUser } from '../models/users/user.repository';
 import { ifCartExist } from "./cart";
 import { UserObject } from "../models/users/user.interface";
 import { Request } from "express";
+import { User } from "../../Public/types";
 
 
 // CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
-export const searchUser= async(req:Request,password:string , username:string,  done:any)=>{
+export const searchUser= async(req:Request,password:string , username:string,  done: (error: any, user?: any, info?: any) => void)=>{
     try{
         console.log("DESDE PASSPORT USERNAME: ",username, " PASSWORD: ", password)
         const user:UserObject | null | undefined = await repositoryUser.logIn(username, password)
@@ -28,12 +29,12 @@ export const searchUser= async(req:Request,password:string , username:string,  d
     }
     
   }
-export const createUser = async( req:Request, password:string, username:string, done:any )=>{
+export const createUser = async( req:Request, password:string, username:string, done:(error: any, user?: any, info?: any) => void )=>{
     try {
         const {gmail, age, phoneNumber, image } = req.body
         // LOL
         if(gmail && age && phoneNumber && image &&  password && username){
-            const user:any = await repositoryUser.singUp({
+            const user:User = await repositoryUser.singUp({
                 gmail, 
                 password, 
                 age, 

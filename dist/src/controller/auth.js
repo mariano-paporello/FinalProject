@@ -95,24 +95,32 @@ exports.logInGet = logInGet;
 var register = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
-        passport_1.default.authenticate('signup', {}, function (err, user, info) {
-            var _a = req.body, gmail = _a.gmail, username = _a.username, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image, password = _a.password;
-            if (!username || !gmail || !age || !phoneNumber || !image || !password) {
-                res.status(400).json({
-                    Error: "Datos ingresados no validos o nulos"
-                });
-            }
-            // Ver que onda con el type de esto:
-            var token = (0, user_1.generateToken)(user);
-            logged_1.logged.nombre = username;
-            logged_1.logged.contraseña = true;
-            logged_1.logged.islogged = true;
-            logged_1.logged.isDestroyed = false;
-            res.header('x-auth-token', token).json({
-                msg: "User creado: ",
-                user: user
+        passport_1.default.authenticate('signup', {}, function (err, user, info) { return __awaiter(void 0, void 0, void 0, function () {
+            var _a, gmail, username, age, phoneNumber, image, password, token;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = req.body, gmail = _a.gmail, username = _a.username, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image, password = _a.password;
+                        if (!username || !gmail || !age || !phoneNumber || !image || !password) {
+                            res.status(400).json({
+                                Error: "Datos ingresados no validos o nulos"
+                            });
+                        }
+                        return [4 /*yield*/, (0, user_1.generateToken)(user)];
+                    case 1:
+                        token = _b.sent();
+                        logged_1.logged.nombre = username;
+                        logged_1.logged.contraseña = true;
+                        logged_1.logged.islogged = true;
+                        logged_1.logged.isDestroyed = false;
+                        res.header('x-auth-token', token).json({
+                            msg: "User creado: ",
+                            user: user
+                        });
+                        return [2 /*return*/];
+                }
             });
-        })(req, res, next);
+        }); })(req, res, next);
         return [2 /*return*/];
     });
 }); };

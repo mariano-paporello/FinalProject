@@ -4,10 +4,10 @@ import { AddProductObject, ProductBaseClass, ProductObject, DocumentMongoGet, Do
 
 mongoose.set('strictQuery', true);
 
-
+// ARREGLAR LOS ANY
 export class DaoMongoDB implements ProductBaseClass{    
     private collection
-    private initDB
+    private initDB 
 
     constructor(collection:string, schema:Schema){
         this.collection = mongoose.model(collection, schema);
@@ -45,8 +45,8 @@ export class DaoMongoDB implements ProductBaseClass{
 
 // GRAPHQL
 
-    async postProductToProductsGraphql(data:AddProductObject){
-        const productAdded: ProductObject | DocumentMongoPost  =  await this.collection.create(data);
-        return productAdded
-    }
+    // async postProductToProductsGraphql(data:{title:String, price:Number, thumbnail:String, category:String, stock:Number}){
+    //     const productAdded: ProductObject | DocumentMongoPost  =  await this.collection.create(data);
+    //     return productAdded
+    // }
 }

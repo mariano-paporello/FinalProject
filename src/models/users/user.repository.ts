@@ -11,7 +11,7 @@ import { schemaComposer } from 'graphql-compose';
         this.dao = getDao();
     }
 
-     async findById(id:string): Promise<UserObject>{
+     async findById(id:string){
         const user = await this.dao.findById(id);
         const userDto = (user)
         return userDto
@@ -36,62 +36,62 @@ import { schemaComposer } from 'graphql-compose';
 
 export const repositoryUser = new userRepository()
 
-const UserObjectTC = schemaComposer.createObjectTC({
-    name: "UserObject",
-    fields: {
-        _id: "String",
-        gmail: "String",
-        password:"String",
-        age:"String",
-        username:"String",
-        phoneNumber:"String",
-        image:"String"
-    }
-  });
-  const NewUserObjectInpTC = schemaComposer.createInputTC({
-    name: "AddUserObject",
-    fields: {
-        gmail: "String",
-        password:"String",
-        age:"String",
-        username:"String",
-        phoneNumber:"String",
-        image:"String"
-    }
-  });
+// const UserObjectTC = schemaComposer.createObjectTC({
+//     name: "UserObject",
+//     fields: {
+//         _id: "String",
+//         gmail: "String",
+//         password:"String",
+//         age:"String",
+//         username:"String",
+//         phoneNumber:"String",
+//         image:"String"
+//     }
+//   });
+//   const NewUserObjectInpTC = schemaComposer.createInputTC({
+//     name: "AddUserObject",
+//     fields: {
+//         gmail: "String",
+//         password:"String",
+//         age:"String",
+//         username:"String",
+//         phoneNumber:"String",
+//         image:"String"
+//     }
+//   });
 
 
-export const usersQuerys= {
-    findById:{
-        type:"UserObject",
-        args:{
-            id:"String"
-        },
-        resolve:async (_:any,{id}:any) => {await repositoryUser.findById(id)}
-    },
-    find:{
-        type:"[UserObject]",
-        args:{
-            username:"String"
-        },
-        resolve:async (_:any,{username}:any) => await repositoryUser.find(username)
-    },
-    logIn:{
-        type:"UserObject",
-        args:{
-            username:"String",
-            password:"String"
-        },
-        resolve:async (_:any, {username, password}:any) => await repositoryUser.logIn(username, password)
-    }
-}
+// export const usersQuerys= {
+//     findById:{
+//         type:"UserObject",
+//         args:{
+//             id:"String"
+//         },
+//         resolve:async (_:unknown,id:string) => {await repositoryUser.findById(id)}
+//     },
+//     find:{
+//         type:"[UserObject]",
+//         args:{
+//             username:"String"
+//         },
+//         resolve:async (_:unknown,username:string) => await repositoryUser.find(username)
+//     },
+//     logIn:{
+//         type:"UserObject",
+//         args:{
+//             username:"String",
+//             password:"String"
+//         },
+//         resolve:async (_:unknown, username:string, password:string) => await repositoryUser.logIn(username, password)
+//     }
+// }
 
-export const usersMutations = {
-    sigUp:{
-        type:"UserObject",
-        args: {
-            data: "AddUserObject"
-        },
-        resolve:async (_:any, {data}:any) => await repositoryUser.singUp(data)
-    }
-}
+// export const usersMutations = {
+//     sigUp:{
+//         type:"UserObject",
+//         args: {
+//             data: "AddUserObject"
+//         },
+//         resolve:async (_:unknown, data:AddUserObject) => await repositoryUser.singUp(data)
+//     }
+// }

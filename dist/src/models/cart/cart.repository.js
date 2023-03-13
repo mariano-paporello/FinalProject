@@ -36,7 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.repositoryCart = void 0;
+exports.cartMutations = exports.cartQuerys = exports.repositoryCart = void 0;
+var graphql_compose_1 = require("graphql-compose");
 var cart_factory_1 = require("./cart.factory");
 // import { asDto } from "./dto/cart-dto";
 var cartRepository = /** @class */ (function () {
@@ -103,6 +104,87 @@ var cartRepository = /** @class */ (function () {
         });
     };
     ;
+    // GRAPHQL
+    cartRepository.prototype.getCartByQueryGraphql = function (userId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var cart, cartDto;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dao.getCartByQuery({ userId: userId })];
+                    case 1:
+                        cart = _a.sent();
+                        cartDto = (cart);
+                        return [2 /*return*/, cartDto];
+                }
+            });
+        });
+    };
+    ;
+    cartRepository.prototype.createCartGraphql = function (userId, cart) {
+        return __awaiter(this, void 0, void 0, function () {
+            var data, cartCreated;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        data = { userId: userId, cart: cart };
+                        return [4 /*yield*/, this.dao.createCart(data)];
+                    case 1:
+                        cartCreated = _a.sent();
+                        return [2 /*return*/, cartCreated];
+                }
+            });
+        });
+    };
     return cartRepository;
 }());
 exports.repositoryCart = new cartRepository();
+var ProductInCartTC = graphql_compose_1.schemaComposer.createObjectTC({
+    name: "ProductInCartObject",
+    fields: {
+        _id: "String",
+        amount: "Int",
+        productId: "String"
+    }
+});
+var CartTC = graphql_compose_1.schemaComposer.createObjectTC({
+    name: "CartObject",
+    fields: {
+        _id: "String",
+        userId: "String",
+        cart: "[ProductInCartObject]"
+    }
+});
+exports.cartQuerys = {
+    getCartById: {
+        type: "CartObject",
+        args: { id: "String" },
+        resolve: function (_, id) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, exports.repositoryCart.getCartById(id)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); }
+    },
+    getCartByQuery: {
+        type: "CartObject",
+        args: { userId: "String" },
+        resolve: function (_, userid) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, exports.repositoryCart.getCartByQueryGraphql(userid)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); }
+    }
+};
+exports.cartMutations = {
+    createCart: {
+        type: "CartObject",
+        args: { userId: "String", cart: "[ProductInCartObjectInput]" },
+        resolve: function (_, userId, cart) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, exports.repositoryCart.createCartGraphql(userId, cart)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        }); }); }
+    }
+};

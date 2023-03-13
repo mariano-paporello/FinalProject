@@ -82,8 +82,9 @@ var createUser = function (req, password, username, done) { return __awaiter(voi
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _b.trys.push([0, 3, , 4]);
+                _b.trys.push([0, 4, , 5]);
                 _a = req.body, gmail = _a.gmail, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image;
+                if (!(gmail && age && phoneNumber && image && password && username)) return [3 /*break*/, 3];
                 return [4 /*yield*/, user_repository_1.repositoryUser.singUp({
                         gmail: gmail,
                         password: password,
@@ -100,10 +101,11 @@ var createUser = function (req, password, username, done) { return __awaiter(voi
             case 2:
                 _b.sent();
                 return [2 /*return*/, done(null, user)];
-            case 3:
+            case 3: return [2 /*return*/, done(null, false, { message: "Error debido a falta de alguno de los campos." })];
+            case 4:
                 err_2 = _b.sent();
                 return [2 /*return*/, done(null, false, { mensaje: 'Error Inesperado', err: err_2 })];
-            case 4: return [2 /*return*/];
+            case 5: return [2 /*return*/];
         }
     });
 }); };

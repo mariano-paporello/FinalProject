@@ -2,13 +2,14 @@ import mongoose from 'mongoose';
 import byCript from "bcrypt"
 import config from '../../../config';
 import { AddUserObject, UserBaseClass, UserObject } from '../user.interface';
+import { usersSchema } from '../schema/users.schema';
 
 mongoose.set('strictQuery', false);
 
 export default class DaoMongoDB implements UserBaseClass {
     private collection
     private initDB
-    constructor(collection:any, schema:any){
+    constructor(collection:string, schema:usersSchema){
         this.collection = mongoose.model(collection, schema);
         this.initDB = mongoose.connect(config.MONGO_ATLAS_URL);
     }
@@ -50,7 +51,7 @@ export default class DaoMongoDB implements UserBaseClass {
         
     }
     async singUp(data:AddUserObject){
-        const newUser:Promise<UserObject> =  await this.collection.create(data);
+        const newUser =  await this.collection.create(data);
         return newUser;
     }
 }

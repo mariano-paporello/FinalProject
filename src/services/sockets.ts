@@ -3,7 +3,7 @@ const io = require('socket.io')
 // import mjController from "../Controllers/mensajesController"
 
 
-const initWsServer =  (server:any) =>  {
+const initWsServer =  (server:unknown) =>  {
     const SocketServer = io(server)
 
 //     SocketServer.on('connection', (socket, req) => {

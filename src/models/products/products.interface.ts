@@ -1,14 +1,14 @@
 import mongoose from "mongoose"
 export interface AddProductObject {
-    title:"String",
+    title:string,
     price:Number,
-    thumbnail:"String",
-    category:"String",
+    thumbnail:string,
+    category:string,
     stock:Number,
 }
 export interface ProductObject extends AddProductObject{
-    _id:"String"
-    id?:"String"
+    _id:string
+    id?:string
 }
 export type DocumentMongoGet = (mongoose.Document<unknown, any, {
     [x: string]: any;
@@ -33,8 +33,8 @@ export interface DeleteResult{
 export interface ProductBaseClass {
     getAllProd():Promise<ProductObject[] | [] >
     getProductById(id:string):Promise<ProductObject | DocumentMongoGet>
-    getProductByQuery(query:any):Promise<ProductObject | DocumentMongoGet >
+    getProductByQuery(query:unknown):Promise<ProductObject | DocumentMongoGet >
     postProductToProducts(data:AddProductObject):Promise<ProductObject| DocumentMongoPost>
-    deleteByQuery(query:any):Promise<DeleteResult>
+    deleteByQuery(query:unknown):Promise<DeleteResult>
     deleteAll():Promise<boolean>
 }

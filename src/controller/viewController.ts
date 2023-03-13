@@ -6,7 +6,7 @@ import { logger } from "../utils/loggers"
 
 export const homeview =(req:Request, res:Response)=>{
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url ) 
-    repositoryProduct.getAllProd().then((productos:any)  => {
+    repositoryProduct.getAllProd().then((productos:unknown)  => {
                     res.json({
                         data: req.session.dataUser,
                         productosDisponibles: productos

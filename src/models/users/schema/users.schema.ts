@@ -2,8 +2,7 @@ import mongoose from "mongoose"
 import byCript from "bcrypt"
 import { UserObject } from "../user.interface";
 
-
-
+export type usersSchema = mongoose.Schema<UserObject>
 const usersSchema = new mongoose.Schema<UserObject>(
     {
     gmail: { type: String, require: true},
