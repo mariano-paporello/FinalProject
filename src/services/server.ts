@@ -19,7 +19,8 @@ declare module 'express-session' {
         dataUser: User
         gmail: String,
         username: String,
-        contraseña: String
+        contraseña: String,
+        admin: Boolean
     }
 }
 

@@ -9,7 +9,7 @@ import { User } from "../../Public/types"
 
 // LOGIN LOGIC
 export const logIn =  async (req:Request, res:Response, next:NextFunction) => {
-    passport.authenticate('login', {}, async (err, user:User, info) => {
+    passport.authenticate('login', {}, async (err:Error, user:User, info:unknown) => {
     logger.info( "METODO:"+ req.method + " RUTA:"+ req.url )
     
     if (user.gmail && user._id) {
@@ -39,7 +39,7 @@ export const logInGet = (req:Request, res:Response)=>{
 // REGISTER LOGIC
 export const register = async (req:Request, res:Response, next:NextFunction) => {
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
-    passport.authenticate('signup', {}, async (err, user, info) => {
+    passport.authenticate('signup', {}, async (err:Error, user:User, info:unknown) => {
         const {
             gmail,
             username,

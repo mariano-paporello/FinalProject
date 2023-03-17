@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import config from '../../../config';
-import { AddProductObject, ProductBaseClass, ProductObject, DocumentMongoGet, DocumentMongoPost } from '../products.interface';
+import { AddProductObject, ProductBaseClass, ProductObject, DocumentMongoGet, DocumentMongoPost, DocumentForProductPost } from '../products.interface';
 
 mongoose.set('strictQuery', true);
 
@@ -31,7 +31,7 @@ export class DaoMongoDB implements ProductBaseClass{
         return productFound
     }
     async postProductToProducts(data:AddProductObject){
-        const productAdded: ProductObject | DocumentMongoPost  =  await this.collection.create(data);
+        const productAdded: ProductObject | DocumentForProductPost  =  await this.collection.create(data);
         return productAdded
     }
     async deleteByQuery(query:any){

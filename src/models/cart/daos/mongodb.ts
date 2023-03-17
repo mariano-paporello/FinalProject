@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import dotenv from 'dotenv';
 import config from '../../../config';
-import { BaseCartClass, CartObject, CreateCartObject, DocumentMongoPost } from '../cart.interface';
+import { BaseCartClass, CartObject, CreateCartObject, DocumentCartMongoPost } from '../cart.interface';
 dotenv.config();
 
 mongoose.set('strictQuery', false);
@@ -26,7 +26,7 @@ export class DaoMongoDB implements BaseCartClass{
         return cart
     }
     async createCart(data:CreateCartObject){
-        const cart: DocumentMongoPost = await this.collection.create(data)
+        const cart = await this.collection.create(data)
         return cart
     }
     async updateCart(query:any, update:any){

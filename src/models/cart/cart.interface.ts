@@ -14,13 +14,13 @@ export interface productInCartObject{
 export interface CartObject extends CreateCartObject{
     _id:string
 }
-export type DocumentMongoPost = mongoose.Document<unknown, any, {
+export type DocumentCartMongoPost = mongoose.Document<unknown, any, {
     [x: string]: any;
-}> & {
+}> & Omit<{
     [x: string]: any;
 } & Required<{
     _id: unknown;
-}>
+}>, never>
 export type DocumentMongoGet = (mongoose.Document<unknown, any, {
     [x: string]: any;
 }> & {
@@ -37,6 +37,6 @@ export type UpdateResult= {
 export interface BaseCartClass {
     getCartById(id:string):Promise<CartObject | DocumentMongoGet>
     getCartByQuery(query:unknown):Promise<CartObject | DocumentMongoGet >
-    createCart(data:CreateCartObject):Promise<CartObject |DocumentMongoPost>
+    createCart(data:CreateCartObject):Promise<CartObject | DocumentCartMongoPost>
     updateCart(query:unknown, update:unknown):Promise<UpdateResult>
 }

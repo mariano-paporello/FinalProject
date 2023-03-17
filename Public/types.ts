@@ -6,6 +6,7 @@ export interface User{
     username:string
     phoneNumber:string
     image:string
+    admin: boolean
 }
 export type ProductToView = ({
     title: any;

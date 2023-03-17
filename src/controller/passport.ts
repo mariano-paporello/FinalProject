@@ -16,6 +16,9 @@ export const searchUser= async(req:Request,password:string , username:string,  d
             req.session.dataUser= user
             req.session.gmail= user.gmail;
             req.session.username= user.username;
+            if(user.admin){
+                req.session.admin= user.admin
+            }
             return done(null, user);
         }else if(typeof user === "boolean"){
         return done(null, false, {msg: "Usuario no encontrado debido a que dio false"})
@@ -40,7 +43,8 @@ export const createUser = async( req:Request, password:string, username:string, 
                 age, 
                 phoneNumber,
                 image,
-                username
+                username,
+                admin: false
             })
             req.session.gmail =  user.gmail
             req.session.username= user.username

@@ -6,6 +6,7 @@ export interface AddUserObject {
     username:string
     phoneNumber:string
     image:string
+    admin:boolean
 }
 
 export interface UserObject extends AddUserObject{

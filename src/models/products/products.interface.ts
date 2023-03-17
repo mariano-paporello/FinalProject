@@ -24,7 +24,10 @@ export type DocumentMongoPost = mongoose.Document<unknown, any, {
     [x: string]: any;
 } & Required<{
     _id: unknown;
-}>
+}> 
+
+export type DocumentForProductPost =  mongoose.Document<unknown, any, { [x: string]: any; }> & Omit<{ [x: string]: any; } & Required<{ _id: unknown; }>, never>
+
 
 export interface DeleteResult{
     acknowledged:boolean
@@ -34,7 +37,7 @@ export interface ProductBaseClass {
     getAllProd():Promise<ProductObject[] | [] >
     getProductById(id:string):Promise<ProductObject | DocumentMongoGet>
     getProductByQuery(query:unknown):Promise<ProductObject | DocumentMongoGet >
-    postProductToProducts(data:AddProductObject):Promise<ProductObject| DocumentMongoPost>
+    postProductToProducts(data:AddProductObject):Promise<ProductObject| DocumentForProductPost>
     deleteByQuery(query:unknown):Promise<DeleteResult>
     deleteAll():Promise<boolean>
 }
