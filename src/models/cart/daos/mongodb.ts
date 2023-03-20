@@ -11,7 +11,7 @@ export class DaoMongoDB implements BaseCartClass{
     private initDB 
 
     constructor(collection:string, schema:Schema){
-        this.collection = mongoose.model(collection, schema);
+        this.collection = mongoose.model<CartObject>(collection, schema);
         this.initDB = mongoose.connect(config.MONGO_ATLAS_URL);
     }
     async initMongoDB() {

@@ -37,6 +37,6 @@ export type UpdateResult= {
 export interface BaseCartClass {
     getCartById(id:string):Promise<CartObject | DocumentMongoGet>
     getCartByQuery(query:unknown):Promise<CartObject | DocumentMongoGet >
-    createCart(data:CreateCartObject):Promise<CartObject | DocumentCartMongoPost>
+    createCart(data:CreateCartObject):Promise<CartObject>
     updateCart(query:unknown, update:unknown):Promise<UpdateResult>
 }

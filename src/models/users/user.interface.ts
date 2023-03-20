@@ -30,8 +30,8 @@ export type DocumentMongoPost = mongoose.Document<unknown, any, {
 }>
 
 export interface UserBaseClass{
-    findById(id:string):Promise<UserObject | DocumentMongoGet>
-    find(username:string):Promise<UserObject[] | null | DocumentMongoGet>
+    findById(id:string):Promise<UserObject| DocumentMongoGet>
+    find(username:string):Promise<UserObject[] | null >
     logIn(username:string,password:string):Promise<UserObject| null |undefined>
-    singUp(data:AddUserObject):Promise<UserObject | DocumentMongoGet>
+    singUp(data:AddUserObject):Promise<UserObject >
 }

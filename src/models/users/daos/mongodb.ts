@@ -10,7 +10,7 @@ export default class DaoMongoDB implements UserBaseClass {
     private collection
     private initDB
     constructor(collection:string, schema:usersSchema){
-        this.collection = mongoose.model(collection, schema);
+        this.collection = mongoose.model<UserObject>(collection, schema);
         this.initDB = mongoose.connect(config.MONGO_ATLAS_URL);
     }
 

@@ -14,7 +14,7 @@ const usersSchema = new mongoose.Schema<UserObject>(
     admin: {type: Boolean, require:true}
 })
 
-usersSchema.pre("save", async function(next){
+usersSchema.pre<UserObject>("save", async function(next){
     const user = this;
     const hash =await byCript.hash(user.password! , 10);
     this.password = hash

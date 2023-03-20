@@ -10,7 +10,7 @@ export class DaoMongoDB implements ProductBaseClass{
     private initDB 
 
     constructor(collection:string, schema:Schema){
-        this.collection = mongoose.model(collection, schema);
+        this.collection = mongoose.model<ProductObject>(collection, schema);
         this.initDB = mongoose.connect(config.MONGO_ATLAS_URL);
     }
 
@@ -23,15 +23,15 @@ export class DaoMongoDB implements ProductBaseClass{
         return products
     }
     async getProductById(id:string) {
-        const productFound: ProductObject | DocumentMongoGet  = await this.collection.findById(id)
+        const productFound: ProductObject | null  = await this.collection.findById(id)
         return productFound
     }
     async getProductByQuery(query:any){
-        const productFound: ProductObject | DocumentMongoGet   = await this.collection.findOne(query)
+        const productFound: ProductObject | null   = await this.collection.findOne(query)
         return productFound
     }
     async postProductToProducts(data:AddProductObject){
-        const productAdded: ProductObject | DocumentForProductPost  =  await this.collection.create(data);
+        const productAdded: ProductObject =  await this.collection.create(data);
         return productAdded
     }
     async deleteByQuery(query:any){
