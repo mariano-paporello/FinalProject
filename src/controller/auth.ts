@@ -18,9 +18,9 @@ export const logIn =  async (req:Request, res:Response, next:NextFunction) => {
         logged.islogged = true
         logged.isDestroyed= false
         const token = await generateToken(user)
-        res.header('Access-Control-Expose-Headers', 'x-auth-token').header('x-auth-token', token).status(200).json({
-                msg: 'login OK',
-                header: await req.headers['x-auth-token']
+
+        res.header('x-auth-token', token).status(200).json({
+                msg: 'login OK',     
          })  
         } else {
             logger.error("Datos ingresados no validos o nulos")
@@ -99,7 +99,7 @@ if(logged&& logged.islogged){
 next()
 }
 else{
-    logger.error("METODO:"+req.method + " RUTA:"+ req.url);
+    logger.error("METODO:"+req.method + " RUTA:"+ req.url+ "User is Nos logged");
     
     res.status(400).json({
         Error: "Not Logged"
@@ -110,9 +110,20 @@ else{
     if(logged && !logged.isDestroyed){
         next()
     }else{
-        logger.error("METODO:"+req.method + " RUTA:"+ req.url);
+        logger.error("METODO:"+req.method + " RUTA:"+ req.url + "Not logged because the session is destroyed");
         res.status(400).json({
             Error: "Session destroyed"
         })
     }
  }
+export const isAdmin = (req:Request, res:Response, next: NextFunction)=>{
+    if(req.session.dataUser?.admin){
+        next()
+    }
+    else{
+        logger.error("METODO:"+req.method + " RUTA:"+ req.url+ "User is not type Admin")
+        res.status(401).json({
+            Error: "Not authorized"
+        })
+    }
+}

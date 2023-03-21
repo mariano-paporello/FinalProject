@@ -38,6 +38,6 @@ export interface ProductBaseClass {
     getProductById(id:string):Promise<ProductObject | DocumentMongoGet>
     getProductByQuery(query:unknown):Promise<ProductObject | DocumentMongoGet >
     postProductToProducts(data:AddProductObject):Promise<ProductObject>
-    deleteByQuery(query:unknown):Promise<DeleteResult>
+    deleteById(id:string):Promise<DeleteResult>
     deleteAll():Promise<boolean>
 }

@@ -90,5 +90,22 @@ const addQuantityInCart = async (product: ProductObject | DocumentMongoGet, data
     }
 }
 
+export const modifyAProduct = async (req:Request, res:Response) => {
+    const {id} = req.params
+    const data: ProductObject = req.body
+    const changedProduct = await updateCart({_id:id},data)
+    if(changedProduct.acknowledged){
+        res.status(200).json({
+            msg: "Modificacion realizada de forma correcta"
+        })
+    }
+    res.status(400).json({
+        Error: "Modificacion fallida"
+    })
+}
+
+export const deleteAProduct = async (req:Request, res:Response) => {
+    
 
 
+}

@@ -11,7 +11,7 @@ export interface productInCartObject{
     productId:string
 }
 
-export interface CartObject extends CreateCartObject{
+export interface CartObject extends CreateCartObject, mongoose.Document{
     _id:string
 }
 export type DocumentCartMongoPost = mongoose.Document<unknown, any, {

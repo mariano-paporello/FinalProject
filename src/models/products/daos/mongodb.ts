@@ -34,8 +34,8 @@ export class DaoMongoDB implements ProductBaseClass{
         const productAdded: ProductObject =  await this.collection.create(data);
         return productAdded
     }
-    async deleteByQuery(query:any){
-        const deleting = await this.collection.deleteOne(query)
+    async deleteById(id: string){
+        const deleting = await this.collection.deleteOne({_id: id})
         return deleting
     }
     async deleteAll(){

@@ -2,6 +2,7 @@
 import { AddUserObject, UserBaseClass, UserObject } from "./user.interface";
 import { getDao } from "./users.factory";
 import { schemaComposer } from 'graphql-compose'; 
+import { User } from "../../../Public/types";
 
 
 

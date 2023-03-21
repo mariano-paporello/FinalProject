@@ -36,8 +36,8 @@ import { AddProductObject } from "./products.interface";
         await this.dao.deleteAll()
         return true
     }
-    async deleteByQuery(query:unknown){
-        const productDeleted = await this.dao.deleteByQuery(query)
+    async deleteById(id:string){
+        const productDeleted = await this.dao.deleteById(id)
         return productDeleted
     }
 

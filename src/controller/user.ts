@@ -2,7 +2,7 @@ import passport from 'passport';
 import { Strategy as LocalStrategy , IStrategyOptionsWithRequest} from 'passport-local';
 import { repositoryUser } from '../models/users/user.repository';
 import { logger } from '../utils/loggers';
-import { checkAuth, createAuthToken } from './jws';
+import { checkAuth, createAuthToken } from '../api/jws';
 import { createUser, searchUser } from './passport';
 import { Response, Request, NextFunction } from "express"
 import {User} from "../../Public/types"
