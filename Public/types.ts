@@ -8,20 +8,21 @@ export interface User{
     image:string
     admin: boolean
 }
-// export type ProductToView = ({
-//     title: any;
-//     price: number;
-//     thumbnail: any;
-//     amount: number;
-// } | undefined)[] | undefined
 
-export type ProductToView = {title:string, price: number, thumbnail:string, amount: number}[]
+export type ProductToView = ({title:string, price: number, thumbnail:string, amount: number})[] 
 export interface singlePorduct{
         title: any;
         price: number;
         thumbnail: any;
         amount: number;
 }
+export type finalProductForm = ({
+    title: string;
+    price: number;
+    thumbnail: string;
+    amount: number;
+} | undefined)[]
+
 export interface NewMessage{
     id: string
     author:{

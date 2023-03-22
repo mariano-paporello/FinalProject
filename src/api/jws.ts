@@ -12,6 +12,7 @@ export const createAuthToken = async (user:User)=> {
       image: user.image,
       gmail: user.gmail
     };
+
     
     const token = jwt.sign(payload, config.TOKEN_SECRET, {expiresIn: "10m"});
     return token
@@ -21,18 +22,21 @@ export const createAuthToken = async (user:User)=> {
 
       try{
         const token = req.headers["x-auth-token"] || req.headers['Access-Control-Expose-Headers'];
-
+        console.log("EL TOKEN EN CHECKAUTH: ", token)
         if(!token){
           return res.status(401).json({msg:"NO AUTORIZADeee "}) 
         }else if(!Array.isArray(token)){
-          const decode : any = jwt.verify(
-            token,
-            config.TOKEN_SECRET
+          /*const decode : any =*/ 
+          jwt.verify(token, config.TOKEN_SECRET, (err, user)=>{
+              if(err) return res.status(403)
+              req.user = user
+              next()
+            }
           )
-        const user: any = await repositoryUser.findById(decode.userId) 
-        req.user = user
+        // const user : any = await repositoryUser.findById(decode.userId) 
+        // req.user = user
        
-        next()
+        // next()
       }
       }catch(err){
         
