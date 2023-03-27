@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken"
 import { User } from "../../Public/types";
 import config from '../config/index';
 import { repositoryUser } from '../models/users/user.repository';
+import { logger } from "../utils/loggers";
 
 
 export const createAuthToken = async (user:User)=> {
@@ -21,23 +22,31 @@ export const createAuthToken = async (user:User)=> {
   export const checkAuth = async (req:Request,res:Response,next:NextFunction)=>{
 
       try{
-        const token = req.headers["x-auth-token"] || req.headers['Access-Control-Expose-Headers'];
-        console.log("EL TOKEN EN CHECKAUTH: ", token)
+        const authHeader = req.headers["authorization"];
+        console.log("AAAAA", authHeader)
+        if(authHeader){
+        const token = authHeader && authHeader.split(' ')[1]
+        console.log("CACACA DE TOKEN: ",token)
         if(!token){
-          return res.status(401).json({msg:"NO AUTORIZADeee "}) 
+          return res.status(401).json({msg:"NO AUTORIZADO "}) 
         }else if(!Array.isArray(token)){
-          /*const decode : any =*/ 
+          try{ 
           jwt.verify(token, config.TOKEN_SECRET, (err, user)=>{
               if(err) return res.status(403)
               req.user = user
+              console.log("PASAMOS EL JWT ")
               next()
             }
           )
-        // const user : any = await repositoryUser.findById(decode.userId) 
-        // req.user = user
-       
-        // next()
+        }catch(err){
+          logger.error(err)
+          console.log(err)
+          return res.status(401).json({
+            err
+          })
+        }
       }
+    }
       }catch(err){
         
         return res.status(401).json({msg:' NO AUTORIZADO'})

@@ -18,8 +18,8 @@ export const validateToken = (req:Request, res:Response, next:NextFunction)=>{
 
 // PASSPORT PART
 const strategyOptions: IStrategyOptionsWithRequest = {
-  usernameField: "password",
-  passwordField: "username",
+  usernameField: "username",
+  passwordField: "password",
   passReqToCallback: true
 };
 

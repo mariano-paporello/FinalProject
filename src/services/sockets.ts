@@ -1,42 +1,35 @@
 const io = require('socket.io')
-// import prodController from "../Controllers/productsController"
-// import mjController from "../Controllers/mensajesController"
+import mjController from "../controller/mensajes"
 
 
 const initWsServer =  (server:unknown) =>  {
     const SocketServer = io(server)
 
-//     SocketServer.on('connection', (socket, req) => {
-//         socket.emit('bienvenidaAUsuario', 'Bienvenido Nuevo Usuario')
-//         socket.emit('bienvenidaAUsuario', {
-//             Bienvenida: 'hola'
-//         })
-//         socket.on("enviarNuevoProducto",async (data)  => {
+    SocketServer.on('connection', (socket:any, req: Request) => {
+        socket.emit('bienvenidaAUsuario', 'Bienvenido Nuevo Usuario')
+        socket.emit('bienvenidaAUsuario', {
+            Bienvenida: 'hola'
+        })
+        socket.on('enviarNuevoUser', (data:any)=>{
+            const nuevoUser = {
+                id: socket.client.id,
+                ...data
+            }
             
-//             const nuevoProducto= await prodController.newProduct(data)
-//             SocketServer.emit("productosArray", nuevoProducto)
+            socket.emit("UsuarioConfirmadoYGuardado", nuevoUser)
+        })
+        socket.on('enviarMensaje', async(data:any)=>{
             
-//         })
-//         socket.on('enviarNuevoUser', data=>{
-//             const nuevoUser = {
-//                 id: socket.client.id,
-//                 ...data
-//             }
-            
-//             socket.emit("UsuarioConfirmadoYGuardado", nuevoUser)
-//         })
-//         socket.on('enviarMensaje', async(data)=>{
-            
-//                 const dataSi = await mjController.nuevomensaje(data)
-//             SocketServer.emit('imprimirMensaje', dataSi)
+                const dataSi = await mjController.nuevomensaje(data)
+            SocketServer.emit('imprimirMensaje', dataSi)
             
             
             
-//         })
-//         socket.on("enviarUserLoginName",  (data)=>{
-//             socket.emit("userSaved", data)
-//         })
-//     })
-//     return SocketServer
+        })
+        socket.on("enviarUserLoginName",  (data:any)=>{
+            socket.emit("userSaved", data)
+        })
+    })
+    return SocketServer
 }  
 module.exports= initWsServer

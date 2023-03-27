@@ -2,8 +2,7 @@ import express from 'express'
 import http from 'http'
 import {engine} from 'express-handlebars'
 import compression from "compression"
-import {logger }from "../utils/loggers"
-// import { usuario } from '../persistence/user'
+import {logger}from "../utils/loggers"
 import index from '../routes/index'
 import { paths, viewPath } from '../utils/paths'
 import cookieParser from "cookie-parser";
@@ -11,14 +10,11 @@ import session from 'express-session';
 import { storeOptions } from "../api/storeOptions";
 import passport from "passport";
 import { User } from '../../Public/types'
-import { graphqlHTTP } from 'express-graphql'
-// import { schema } from './graphql'
 
 declare module 'express-session' {
     interface SessionData {
         dataUser: User
         gmail: String,
-        username: String,
         contraseña: String,
         admin: Boolean
     }
@@ -40,10 +36,6 @@ app.set('view engine', 'hbs')
 app.set('views', viewPath)
 app.engine('hbs', engine(paths))
 
-// app.use('/graphql', graphqlHTTP({
-//     schema: schema,
-//     graphiql:true
-// }))
 
 app.get('*', (req, res)=>{
     logger.warn( "METODO:"+req.method + " RUTA:"+ req.url )

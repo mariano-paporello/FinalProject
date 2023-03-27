@@ -71,10 +71,30 @@ var DaoMongoDB = /** @class */ (function () {
     };
     DaoMongoDB.prototype.getProductById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
+            var productFound, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.collection.findById(id)];
+                    case 1:
+                        productFound = _a.sent();
+                        return [2 /*return*/, productFound];
+                    case 2:
+                        error_1 = _a.sent();
+                        console.log(error_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    DaoMongoDB.prototype.getOneProductByQuery = function (query) {
+        return __awaiter(this, void 0, void 0, function () {
             var productFound;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.findById(id)];
+                    case 0: return [4 /*yield*/, this.collection.findOne(query)];
                     case 1:
                         productFound = _a.sent();
                         return [2 /*return*/, productFound];
@@ -82,12 +102,12 @@ var DaoMongoDB = /** @class */ (function () {
             });
         });
     };
-    DaoMongoDB.prototype.getProductByQuery = function (query) {
+    DaoMongoDB.prototype.getProductsByQuery = function (query) {
         return __awaiter(this, void 0, void 0, function () {
             var productFound;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.findOne(query)];
+                    case 0: return [4 /*yield*/, this.collection.find(query)];
                     case 1:
                         productFound = _a.sent();
                         return [2 /*return*/, productFound];
@@ -108,12 +128,25 @@ var DaoMongoDB = /** @class */ (function () {
             });
         });
     };
-    DaoMongoDB.prototype.deleteByQuery = function (query) {
+    DaoMongoDB.prototype.updateProduct = function (query, update) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.collection.updateOne(query, update)];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result];
+                }
+            });
+        });
+    };
+    DaoMongoDB.prototype.deleteById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var deleting;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.deleteOne(query)];
+                    case 0: return [4 /*yield*/, this.collection.deleteOne({ _id: id })];
                     case 1:
                         deleting = _a.sent();
                         return [2 /*return*/, deleting];
@@ -129,20 +162,6 @@ var DaoMongoDB = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         return [2 /*return*/, true];
-                }
-            });
-        });
-    };
-    // GRAPHQL
-    DaoMongoDB.prototype.postProductToProductsGraphql = function (data) {
-        return __awaiter(this, void 0, void 0, function () {
-            var productAdded;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.create(data)];
-                    case 1:
-                        productAdded = _a.sent();
-                        return [2 /*return*/, productAdded];
                 }
             });
         });

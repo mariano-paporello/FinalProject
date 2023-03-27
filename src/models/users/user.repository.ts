@@ -1,7 +1,6 @@
 // import { asDto } from "./dto/users-dto";
 import { AddUserObject, UserBaseClass, UserObject } from "./user.interface";
 import { getDao } from "./users.factory";
-import { schemaComposer } from 'graphql-compose'; 
 import { User } from "../../../Public/types";
 
 
@@ -36,63 +35,3 @@ import { User } from "../../../Public/types";
 }
 
 export const repositoryUser = new userRepository()
-
-// const UserObjectTC = schemaComposer.createObjectTC({
-//     name: "UserObject",
-//     fields: {
-//         _id: "String",
-//         gmail: "String",
-//         password:"String",
-//         age:"String",
-//         username:"String",
-//         phoneNumber:"String",
-//         image:"String"
-//     }
-//   });
-//   const NewUserObjectInpTC = schemaComposer.createInputTC({
-//     name: "AddUserObject",
-//     fields: {
-//         gmail: "String",
-//         password:"String",
-//         age:"String",
-//         username:"String",
-//         phoneNumber:"String",
-//         image:"String"
-//     }
-//   });
-
-
-// export const usersQuerys= {
-//     findById:{
-//         type:"UserObject",
-//         args:{
-//             id:"String"
-//         },
-//         resolve:async (_:unknown,id:string) => {await repositoryUser.findById(id)}
-//     },
-//     find:{
-//         type:"[UserObject]",
-//         args:{
-//             username:"String"
-//         },
-//         resolve:async (_:unknown,username:string) => await repositoryUser.find(username)
-//     },
-//     logIn:{
-//         type:"UserObject",
-//         args:{
-//             username:"String",
-//             password:"String"
-//         },
-//         resolve:async (_:unknown, username:string, password:string) => await repositoryUser.logIn(username, password)
-//     }
-// }
-
-// export const usersMutations = {
-//     sigUp:{
-//         type:"UserObject",
-//         args: {
-//             data: "AddUserObject"
-//         },
-//         resolve:async (_:unknown, data:AddUserObject) => await repositoryUser.singUp(data)
-//     }
-// }

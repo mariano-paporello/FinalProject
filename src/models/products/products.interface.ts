@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose, { FilterQuery, UpdateQuery } from "mongoose"
 export interface AddProductObject {
     title:string,
     price:number,
@@ -26,6 +26,12 @@ export type DocumentMongoPost = mongoose.Document<unknown, any, {
     _id: unknown;
 }> 
 
+export type UpdateResult= {
+    acknowledged : boolean
+    matchedCount : number
+    modifiedCount : number
+}
+
 export type DocumentForProductPost =  mongoose.Document<unknown, any, { [x: string]: any; }> & Omit<{ [x: string]: any; } & Required<{ _id: unknown; }>, never>
 
 
@@ -35,9 +41,11 @@ export interface DeleteResult{
 }
 export interface ProductBaseClass {
     getAllProd():Promise<ProductObject[] | [] >
-    getProductById(id:string):Promise<ProductObject | DocumentMongoGet>
-    getProductByQuery(query:unknown):Promise<ProductObject | DocumentMongoGet >
+    getProductById(id:string):Promise<ProductObject | DocumentMongoGet | undefined>
+    getOneProductByQuery(query:FilterQuery<ProductObject>):Promise<ProductObject | DocumentMongoGet >
+    getProductsByQuery(query:FilterQuery<ProductObject>):Promise<ProductObject[] >
     postProductToProducts(data:AddProductObject):Promise<ProductObject>
+    updateProduct(query:FilterQuery<ProductObject>, update:UpdateQuery<ProductObject>): Promise<UpdateResult>
     deleteById(id:string):Promise<DeleteResult>
     deleteAll():Promise<boolean>
 }

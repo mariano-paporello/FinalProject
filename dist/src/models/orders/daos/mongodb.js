@@ -39,10 +39,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DaoMongoDB = void 0;
 var mongoose_1 = __importDefault(require("mongoose"));
-var bcrypt_1 = __importDefault(require("bcrypt"));
 var config_1 = __importDefault(require("../../../config"));
-mongoose_1.default.set('strictQuery', false);
 var DaoMongoDB = /** @class */ (function () {
     function DaoMongoDB(collection, schema) {
         this.collection = mongoose_1.default.model(collection, schema);
@@ -55,83 +54,52 @@ var DaoMongoDB = /** @class */ (function () {
             });
         });
     };
-    DaoMongoDB.prototype.findById = function (id) {
+    DaoMongoDB.prototype.getAllOrdersOfTheUser = function (userId) {
         return __awaiter(this, void 0, void 0, function () {
-            var user;
+            var OrdersOfUser;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.findById(id)];
-                    case 1:
-                        user = _a.sent();
-                        return [2 /*return*/, user];
-                }
+                OrdersOfUser = this.collection.find({ userId: userId });
+                return [2 /*return*/];
             });
         });
     };
-    DaoMongoDB.prototype.find = function (usernameIngresed) {
+    DaoMongoDB.prototype.getOrderById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var userfound;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.find({ username: usernameIngresed })];
-                    case 1:
-                        userfound = _a.sent();
-                        if (userfound.length === 0) {
-                            return [2 /*return*/, null];
-                        }
-                        return [2 /*return*/, userfound];
-                }
-            });
-        });
-    };
-    DaoMongoDB.prototype.logIn = function (username, password) {
-        return __awaiter(this, void 0, void 0, function () {
-            var candidatePassword, usersfound, i, logUser;
+            var orderFound, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        candidatePassword = password;
-                        return [4 /*yield*/, this.find(username)];
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.collection.findById(id)];
                     case 1:
-                        usersfound = _a.sent();
-                        if (!(usersfound != null && usersfound.length > 0)) return [3 /*break*/, 6];
-                        i = 0;
-                        _a.label = 2;
+                        orderFound = _a.sent();
+                        return [2 /*return*/, orderFound];
                     case 2:
-                        if (!(i <= usersfound.length)) return [3 /*break*/, 5];
-                        return [4 /*yield*/, bcrypt_1.default.compare(candidatePassword, usersfound[i].password)];
-                    case 3:
-                        logUser = _a.sent();
-                        if (logUser) {
-                            return [2 /*return*/, usersfound[i]];
-                        }
-                        else {
-                            return [2 /*return*/, null];
-                        }
-                        _a.label = 4;
-                    case 4:
-                        i++;
-                        return [3 /*break*/, 2];
-                    case 5: return [3 /*break*/, 7];
-                    case 6: return [2 /*return*/, null];
-                    case 7: return [2 /*return*/];
+                        error_1 = _a.sent();
+                        console.log(error_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
             });
         });
     };
-    DaoMongoDB.prototype.singUp = function (data) {
+    DaoMongoDB.prototype.createAnOrder = function (data) {
         return __awaiter(this, void 0, void 0, function () {
-            var newUser;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.collection.create(data)];
-                    case 1:
-                        newUser = _a.sent();
-                        return [2 /*return*/, newUser];
+                    case 1: return [2 /*return*/, _a.sent()];
                 }
+            });
+        });
+    };
+    DaoMongoDB.prototype.updateOrder = function (query, update) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/];
             });
         });
     };
     return DaoMongoDB;
 }());
-exports.default = DaoMongoDB;
+exports.DaoMongoDB = DaoMongoDB;

@@ -39,62 +39,60 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signUpFunc = exports.loginFunc = exports.validateToken = exports.generateToken = void 0;
-var passport_1 = __importDefault(require("passport"));
-var passport_local_1 = require("passport-local");
-var user_repository_1 = require("../models/users/user.repository");
+exports.checkAuth = exports.createAuthToken = void 0;
+var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+var index_1 = __importDefault(require("../config/index"));
 var loggers_1 = require("../utils/loggers");
-var jws_1 = require("../api/jws");
-var passport_2 = require("./passport");
-// JWT PART
-var generateToken = function (user) { return __awaiter(void 0, void 0, void 0, function () {
+var createAuthToken = function (user) { return __awaiter(void 0, void 0, void 0, function () {
+    var payload, token;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, (0, jws_1.createAuthToken)(user)];
-            case 1: return [2 /*return*/, _a.sent()];
-        }
+        payload = {
+            usedId: user._id,
+            username: user.username,
+            image: user.image,
+            gmail: user.gmail
+        };
+        token = jsonwebtoken_1.default.sign(payload, index_1.default.TOKEN_SECRET, { expiresIn: "10m" });
+        return [2 /*return*/, token];
     });
 }); };
-exports.generateToken = generateToken;
-var validateToken = function (req, res, next) {
-    (0, jws_1.checkAuth)(req, res, next);
-};
-exports.validateToken = validateToken;
-// PASSPORT PART
-var strategyOptions = {
-    usernameField: "username",
-    passwordField: "password",
-    passReqToCallback: true
-};
-var logIn = function (req, username, password, done) { return __awaiter(void 0, void 0, void 0, function () {
+exports.createAuthToken = createAuthToken;
+var checkAuth = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var authHeader, token;
     return __generator(this, function (_a) {
         try {
-            (0, passport_2.searchUser)(req, username, password, done);
+            authHeader = req.headers["authorization"];
+            console.log("AAAAA", authHeader);
+            if (authHeader) {
+                token = authHeader && authHeader.split(' ')[1];
+                console.log("CACACA DE TOKEN: ", token);
+                if (!token) {
+                    return [2 /*return*/, res.status(401).json({ msg: "NO AUTORIZADO " })];
+                }
+                else if (!Array.isArray(token)) {
+                    try {
+                        jsonwebtoken_1.default.verify(token, index_1.default.TOKEN_SECRET, function (err, user) {
+                            if (err)
+                                return res.status(403);
+                            req.user = user;
+                            console.log("PASAMOS EL JWT ");
+                            next();
+                        });
+                    }
+                    catch (err) {
+                        loggers_1.logger.error(err);
+                        console.log(err);
+                        return [2 /*return*/, res.status(401).json({
+                                err: err
+                            })];
+                    }
+                }
+            }
         }
         catch (err) {
-            loggers_1.logger.error("Error: ", err);
+            return [2 /*return*/, res.status(401).json({ msg: ' NO AUTORIZADO' })];
         }
         return [2 /*return*/];
     });
 }); };
-var signUp = function (req, username, password, done) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        try {
-            (0, passport_2.createUser)(req, username, password, done);
-        }
-        catch (err) {
-            loggers_1.logger.error("Error: ", err);
-        }
-        return [2 /*return*/];
-    });
-}); };
-exports.loginFunc = new passport_local_1.Strategy(strategyOptions, logIn);
-exports.signUpFunc = new passport_local_1.Strategy(strategyOptions, signUp);
-passport_1.default.serializeUser(function (user, done) {
-    done(null, user._id);
-});
-passport_1.default.deserializeUser(function (userId, done) {
-    user_repository_1.repositoryUser.findById(userId).then(function (user) {
-        return done(null, user);
-    });
-});
+exports.checkAuth = checkAuth;

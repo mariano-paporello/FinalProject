@@ -36,9 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.usersMutations = exports.usersQuerys = exports.repositoryUser = void 0;
+exports.repositoryUser = void 0;
 var users_factory_1 = require("./users.factory");
-var graphql_compose_1 = require("graphql-compose");
 var userRepository = /** @class */ (function () {
     function userRepository() {
         this.dao = (0, users_factory_1.getDao)();
@@ -102,81 +101,3 @@ var userRepository = /** @class */ (function () {
     return userRepository;
 }());
 exports.repositoryUser = new userRepository();
-var UserObjectTC = graphql_compose_1.schemaComposer.createObjectTC({
-    name: "UserObject",
-    fields: {
-        _id: "String",
-        gmail: "String",
-        password: "String",
-        age: "String",
-        username: "String",
-        phoneNumber: "String",
-        image: "String"
-    }
-});
-var NewUserObjectInpTC = graphql_compose_1.schemaComposer.createInputTC({
-    name: "AddUserObject",
-    fields: {
-        gmail: "String",
-        password: "String",
-        age: "String",
-        username: "String",
-        phoneNumber: "String",
-        image: "String"
-    }
-});
-exports.usersQuerys = {
-    findById: {
-        type: "UserObject",
-        args: {
-            id: "String"
-        },
-        resolve: function (_, id) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, exports.repositoryUser.findById(id)];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        }); }); }
-    },
-    find: {
-        type: "[UserObject]",
-        args: {
-            username: "String"
-        },
-        resolve: function (_, username) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, exports.repositoryUser.find(username)];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); }
-    },
-    logIn: {
-        type: "UserObject",
-        args: {
-            username: "String",
-            password: "String"
-        },
-        resolve: function (_, username, password) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, exports.repositoryUser.logIn(username, password)];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); }
-    }
-};
-exports.usersMutations = {
-    sigUp: {
-        type: "UserObject",
-        args: {
-            data: "AddUserObject"
-        },
-        resolve: function (_, data) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, exports.repositoryUser.singUp(data)];
-                case 1: return [2 /*return*/, _a.sent()];
-            }
-        }); }); }
-    }
-};

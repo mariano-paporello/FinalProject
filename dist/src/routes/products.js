@@ -2,8 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var auth_1 = require("../controller/auth");
+var jws_1 = require("../api/jws");
 var products_1 = require("../controller/products");
 var productsRoute = (0, express_1.Router)();
-productsRoute.get("/", auth_1.loggedIsNotDestroyed, products_1.productsController);
-productsRoute.post("/:id", auth_1.loggedIsNotDestroyed, products_1.productToCart);
+productsRoute.get("/:id?", products_1.productsGetController);
+productsRoute.get("/category/:category", products_1.productsGetController);
+productsRoute.post("/", auth_1.loggedIsNotDestroyed, auth_1.isLogged, auth_1.isAdmin, jws_1.checkAuth, products_1.newProductController);
+productsRoute.put("/:id", auth_1.loggedIsNotDestroyed, auth_1.isLogged, auth_1.isAdmin, jws_1.checkAuth, products_1.modifyAProduct);
+productsRoute.delete("/:id", auth_1.loggedIsNotDestroyed, auth_1.isLogged, auth_1.isAdmin, jws_1.checkAuth, products_1.deleteAProduct);
 exports.default = productsRoute;

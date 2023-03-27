@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var messages_1 = __importDefault(require("../models/messages"));
+var messages_1 = __importDefault(require("../models/messages/messages"));
 var loggers_1 = require("../utils/loggers");
 var mensajeController = /** @class */ (function () {
     function mensajeController() {

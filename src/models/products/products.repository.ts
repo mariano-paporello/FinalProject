@@ -1,7 +1,7 @@
 // import { asDto } from "./dto/products-dto";
-import { schemaComposer } from 'graphql-compose'; 
+import { FilterQuery, UpdateQuery } from 'mongoose';
 import { getDao } from "./products.factory";
-import { AddProductObject } from "./products.interface";
+import { AddProductObject, ProductObject } from "./products.interface";
 
 
  class ProductsRepository {
@@ -17,20 +17,29 @@ import { AddProductObject } from "./products.interface";
     };
     
      async  getProductById(id:string) {
-        const products = await this.dao.getProductById(id);
+            const products = await this.dao.getProductById(id);
         const productsDto = (products)
         return productsDto
     };
     
-     async  getProductByQuery(query:unknown) {
-        const products = await this.dao.getProductByQuery(query);
-        const productsDto = (products)
+     async  getProductByQuery(query:FilterQuery<ProductObject>) {
+        const product = await this.dao.getOneProductByQuery(query);
+        const productsDto = (product)
         return productsDto
     };
+    async getProductsByQuery(query:FilterQuery<ProductObject>){
+        const products = await this.dao.getProductsByQuery(query)
+        return products
+    }
 
     async postProductToProducts(data:AddProductObject){
         const products = await this.dao.postProductToProducts(data);
         return products
+    }
+
+    async updateProduct (query: FilterQuery<ProductObject>, update: UpdateQuery<ProductObject>){
+        const result = await this.dao.updateProduct(query, update)
+        return result
     }
     async deleteAll(){
         await this.dao.deleteAll()
@@ -41,78 +50,7 @@ import { AddProductObject } from "./products.interface";
         return productDeleted
     }
 
-    // GRAPHQL
-
-    // async postProductToProductsGraphql(title:String, price:Number, thumbnail:String, category:String, stock:Number){
-    //     const products = await this.dao.postProductToProductsGraphql({title, price, thumbnail, category, stock});
-    //     return products
-    // }
 
 }
 export const repositoryProduct = new ProductsRepository();
 
-// const ProductTC = schemaComposer.createObjectTC({
-//   name: 'ProductObject',
-//   fields: {
-//     _id:"String!",
-//     id:"String",
-//     title:"String",
-//     price:"Int",
-//     thumbnail:"String",
-//     category:"String",
-//     stock:"Int",
-//   },
-// });
-
-// const ProductInCartInputTC = schemaComposer.createInputTC({
-//   name:"ProductInCartObjectInput",
-//   fields:{
-//     _id:"String",
-//     amount:"Int",
-//     productId:"String"
-//   }
-// })
-
-
-// export const productsQuerys = {
-//     getAllProd: {
-//     type: '[ProductObject]',
-//     resolve: async () => await repositoryProduct.getAllProd(),
-//   },
-//   getProductById: {
-//     type: 'ProductObject',
-//     args: { id: 'String!' },
-//     resolve: async (_:unknown,  id:string ) => await repositoryProduct.getProductById(id),
-//   },
-//   getProductByTitle: {
-//     type: "ProductObject",
-//     args: {
-//       titleProd: "String"
-//     },
-//     resolve:async (_:unknown, titleProd:string) => await repositoryProduct.getProductByQuery({title:titleProd})
-//   }
-// }
-// export const productsMutations = {
-//     postProductToProducts: {
-//         type: 'ProductObject',
-//         args: {
-//           title:"String!",
-//           price:"Int",
-//           thumbnail:"String",
-//           category:"String",
-//           stock:"Int",
-//         },
-//         resolve: async (_:unknown,  title:String, price:Number, thumbnail:String, category:String, stock:Number) => await repositoryProduct.postProductToProductsGraphql(title, price, thumbnail, category, stock),
-//       },
-//       deleteById:{
-//         type: 'DeleteResult',
-//         args: {
-//           id: "String"
-//         },
-//         resolve: async (_:unknown, id:string) => await repositoryProduct.deleteByQuery({_id: id})
-//       },
-//       deleteAll: {
-//         type: "Boolean",
-//         resolve: async () => await repositoryProduct.deleteAll
-//       }
-// }

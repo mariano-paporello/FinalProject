@@ -1,5 +1,5 @@
 import { NewMessage } from "../../Public/types"
-import menssagesMetodos from "../models/messages"
+import menssagesMetodos from "../models/messages/messages"
 import {logger} from "../utils/loggers"
 
 class mensajeController{

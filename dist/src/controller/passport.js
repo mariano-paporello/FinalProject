@@ -41,13 +41,12 @@ var loggers_1 = require("../utils/loggers");
 var user_repository_1 = require("../models/users/user.repository");
 var cart_1 = require("./cart");
 // CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
-var searchUser = function (req, password, username, done) { return __awaiter(void 0, void 0, void 0, function () {
+var searchUser = function (req, username, password, done) { return __awaiter(void 0, void 0, void 0, function () {
     var user, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 5, , 6]);
-                console.log("DESDE PASSPORT USERNAME: ", username, " PASSWORD: ", password);
                 return [4 /*yield*/, user_repository_1.repositoryUser.logIn(username, password)];
             case 1:
                 user = _a.sent();
@@ -57,7 +56,9 @@ var searchUser = function (req, password, username, done) { return __awaiter(voi
                 _a.sent();
                 req.session.dataUser = user;
                 req.session.gmail = user.gmail;
-                req.session.username = user.username;
+                if (user.admin) {
+                    req.session.admin = user.admin;
+                }
                 return [2 /*return*/, done(null, user)];
             case 3:
                 if (typeof user === "boolean") {
@@ -77,7 +78,7 @@ var searchUser = function (req, password, username, done) { return __awaiter(voi
     });
 }); };
 exports.searchUser = searchUser;
-var createUser = function (req, password, username, done) { return __awaiter(void 0, void 0, void 0, function () {
+var createUser = function (req, username, password, done) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, gmail, age, phoneNumber, image, user, err_2;
     return __generator(this, function (_b) {
         switch (_b.label) {
@@ -91,12 +92,12 @@ var createUser = function (req, password, username, done) { return __awaiter(voi
                         age: age,
                         phoneNumber: phoneNumber,
                         image: image,
-                        username: username
+                        username: username,
+                        admin: false
                     })];
             case 1:
                 user = _b.sent();
                 req.session.gmail = user.gmail;
-                req.session.username = user.username;
                 return [4 /*yield*/, (0, cart_1.ifCartExist)(user)];
             case 2:
                 _b.sent();

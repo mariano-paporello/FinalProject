@@ -7,15 +7,13 @@ import { User } from "../../Public/types";
 
 
 // CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
-export const searchUser= async(req:Request,password:string , username:string,  done: (error: any, user?: any, info?: any) => void)=>{
+export const searchUser= async(req:Request, username:string, password:string,  done: (error: any, user?: any, info?: any) => void)=>{
     try{
-        console.log("DESDE PASSPORT USERNAME: ",username, " PASSWORD: ", password)
         const user:UserObject | null | undefined = await repositoryUser.logIn(username, password)
         if(user&&typeof user !== "boolean"){
             await ifCartExist(user)
             req.session.dataUser= user
             req.session.gmail= user.gmail;
-            req.session.username= user.username;
             if(user.admin){
                 req.session.admin= user.admin
             }
@@ -32,10 +30,9 @@ export const searchUser= async(req:Request,password:string , username:string,  d
     }
     
   }
-export const createUser = async( req:Request, password:string, username:string, done:(error: any, user?: any, info?: any) => void )=>{
+export const createUser = async( req:Request, username:string, password:string, done:(error: any, user?: any, info?: any) => void )=>{
     try {
         const {gmail, age, phoneNumber, image } = req.body
-        // LOL
         if(gmail && age && phoneNumber && image &&  password && username){
             const user:User = await repositoryUser.singUp({
                 gmail, 
@@ -47,7 +44,6 @@ export const createUser = async( req:Request, password:string, username:string, 
                 admin: false
             })
             req.session.gmail =  user.gmail
-            req.session.username= user.username
             await ifCartExist(user)
             return done(null,  user)
         }

@@ -36,57 +36,153 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.productToCart = exports.productsController = void 0;
+exports.deleteAProduct = exports.modifyAProduct = exports.newProductController = exports.productsGetController = void 0;
 var products_1 = require("../api/products");
 var loggers_1 = require("../utils/loggers");
-var productsController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, _b, err_1;
+var productsGetController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var productoBuscado, productosBuscados, _a, _b, err_1;
     var _c;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0:
-                _d.trys.push([0, 2, , 3]);
+                _d.trys.push([0, 7, , 8]);
+                console.log(req.params);
+                if (!req.params.id) return [3 /*break*/, 2];
+                return [4 /*yield*/, (0, products_1.getProducts)(req.params.id)];
+            case 1:
+                productoBuscado = _d.sent();
+                if (productoBuscado !== null && productoBuscado) {
+                    res.json({
+                        productoBuscado: productoBuscado
+                    });
+                }
+                else if (!productoBuscado) {
+                    res.status(400).json({
+                        Error: "ID ingresado es incorrecto. Debe de tener 24 caracteres"
+                    });
+                }
+                else {
+                    loggers_1.logger.warning("EL ID DEL PRODUCTO BUSCADO NO EXISTE");
+                    res.status(400).json({
+                        Error: "ID del producto no fue encontrado"
+                    });
+                }
+                return [3 /*break*/, 6];
+            case 2:
+                if (!req.params.category) return [3 /*break*/, 4];
+                return [4 /*yield*/, (0, products_1.getProducts)(undefined, req.params.category)];
+            case 3:
+                productosBuscados = _d.sent();
+                console.log(productosBuscados);
+                if (productosBuscados && Array.isArray(productosBuscados) && productosBuscados.length >= 1) {
+                    res.json({
+                        productosBuscados: productosBuscados
+                    });
+                }
+                else {
+                    res.json({
+                        Error: "No se pudo encontrar ningun producto con esa categoria"
+                    });
+                }
+                return [3 /*break*/, 6];
+            case 4:
                 _b = (_a = res).json;
                 _c = {};
                 return [4 /*yield*/, (0, products_1.getProducts)()];
-            case 1:
+            case 5:
                 _b.apply(_a, [(_c.productos = _d.sent(),
                         _c)]);
-                return [3 /*break*/, 3];
-            case 2:
+                _d.label = 6;
+            case 6: return [3 /*break*/, 8];
+            case 7:
                 err_1 = _d.sent();
-                loggers_1.logger.error("Error: ", err_1);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                loggers_1.logger.error("Error in productsController: ", err_1);
+                return [3 /*break*/, 8];
+            case 8: return [2 /*return*/];
         }
     });
 }); };
-exports.productsController = productsController;
-var productToCart = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var product, err_2;
+exports.productsGetController = productsGetController;
+var newProductController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var productCreated, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 4, , 5]);
-                return [4 /*yield*/, (0, products_1.findProduct)(req.params.id)];
+                console.log(req.session.admin);
+                if (!req.session.admin) return [3 /*break*/, 2];
+                return [4 /*yield*/, (0, products_1.newProductToDB)(req.body)];
             case 1:
-                product = _a.sent();
-                if (!(req.session.dataUser && product !== undefined && product !== null)) return [3 /*break*/, 3];
-                return [4 /*yield*/, (0, products_1.añadirProdACart)(req.session.dataUser, product)];
-            case 2:
-                _a.sent();
-                _a.label = 3;
-            case 3:
-                res.json({
-                    msg: "👍 👍 👍 👍 TODO BIENN ",
+                productCreated = _a.sent();
+                res.status(200).json({
+                    productoCreado: productCreated
                 });
-                return [3 /*break*/, 5];
+                return [3 /*break*/, 3];
+            case 2:
+                res.status(404).json({
+                    Error: "User no es administrador"
+                });
+                _a.label = 3;
+            case 3: return [3 /*break*/, 5];
             case 4:
-                err_2 = _a.sent();
-                loggers_1.logger.error("Error: ", err_2);
+                error_1 = _a.sent();
+                loggers_1.logger.error("Error in productsController: ".concat(error_1));
+                res.json({
+                    error: error_1
+                });
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
         }
     });
 }); };
-exports.productToCart = productToCart;
+exports.newProductController = newProductController;
+var modifyAProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, data, changedProduct;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                data = req.body;
+                console.log(data);
+                return [4 /*yield*/, (0, products_1.updateProduct)({ _id: id }, { $set: data })];
+            case 1:
+                changedProduct = _a.sent();
+                console.log(changedProduct);
+                if (changedProduct.acknowledged && changedProduct.modifiedCount > 0) {
+                    res.status(200).json({
+                        msg: "Modificacion realizada de forma correcta"
+                    });
+                }
+                else {
+                    res.status(400).json({
+                        Error: "Modificacion falló"
+                    });
+                }
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.modifyAProduct = modifyAProduct;
+var deleteAProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, deleteResult;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                return [4 /*yield*/, (0, products_1.deleteProduct)(id)];
+            case 1:
+                deleteResult = _a.sent();
+                if (deleteResult && deleteResult.acknowledged && deleteResult.deletedCount === 1) {
+                    res.status(200).json({
+                        msg: "Producto con id: ".concat(id, ". Fue borrado")
+                    });
+                }
+                loggers_1.logger.error("No se a podido borrar el producto debido a un mal ingresado id");
+                res.status(400).json({
+                    error: "Error al intentar borrar el producto con id: ".concat(id, ". Debido a que el mismo no es un id posible (minimo 24 caracteres)")
+                });
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.deleteAProduct = deleteAProduct;

@@ -1,9 +1,10 @@
-import {emptyCartCreator, checkCart, getProductById, getCartByQuery, sendTheCartWithEmail, sendTheCartWithWhatsApp } from "../api/cart"
+import {emptyCartCreator, checkCart, getCartByQuery, sendTheCartWithEmail, sendTheCartWithWhatsApp, getCartByUserId, updateCart } from "../api/cart"
 import { logger } from "../utils/loggers"
 import {finalProductForm, ProductToView, User} from "../../Public/types"
 import { Request, Response } from "express"
 import { ProductObject } from "../models/products/products.interface"
-import { CartObject, productInCartObject } from "../models/cart/cart.interface"
+import { CartObject, DocumentMongoGet, productInCartObject } from "../models/cart/cart.interface"
+import { getProductById } from "../api/products"
 
 
 export const cart = async(req:Request, res:Response)=>{
@@ -63,7 +64,6 @@ const modifyTheProductToLookGood = async(productFromProducts: ProductObject  , c
 
 
 
-
 export const cartSender = async(req:Request, res:Response)=>{
     try {
         const dataUser = req.session.dataUser
@@ -114,4 +114,65 @@ export const createCartOfUser = async(dataUser:User) => await emptyCartCreator(d
 export const ifCartExist = async(dataUser:User) =>{
     const cartFound:unknown  = await checkCart(dataUser._id)
    return cartFound ? null : createCartOfUser(dataUser)
+}
+
+
+export const productToCartController = async(req:Request, res:Response)=>{
+    try{
+        const product  = await getProductById(req.params.id)
+        console.log("producto loll ", product)
+        if(req.session.dataUser && product !== undefined && product !== null){
+            await añadirProdACart(req.session.dataUser, product)
+        }
+        res.json({
+            msg:"👍 👍 👍 👍 TODO BIENN ",
+        })
+    }catch(err){
+        logger.error("Error in productsController: ",err)
+    }
+}
+
+
+const añadirProdACart = async (dataUser:User,product:ProductObject | DocumentMongoGet)=>{
+    if(product){
+        const userHasCart:CartObject | null = await getCartByUserId({userId: dataUser._id})
+        if(userHasCart!== null){
+            const index: number = await getIndex(userHasCart, product)
+            
+            if(userHasCart && index != -1 && index || index===0){
+               return await addProduct(userHasCart, index, dataUser)
+            }else if(userHasCart && index === -1){
+                return await addQuantityInCart(product,  dataUser)
+            }
+        }
+    }
+    return product
+}
+const getIndex = async (cartOfUser:any, product:ProductObject | DocumentMongoGet)=>{
+    const index: number = cartOfUser.cart.findIndex( (obj:productInCartObject) => {
+        if(product){
+        return obj.productId === product.id
+        }
+    })
+    return index
+}
+const addProduct = async (cartOfUser:any, index:number, dataUser:User) =>{
+    try{
+        const newCart: any = cartOfUser.cart
+        newCart[index] = {productId:newCart[index].productId, amount: newCart[index].amount+1}  
+        const addAmountToaProduct = await updateCart({userId: dataUser._id},{$set:{cart:newCart}})
+        return true
+    }catch(err){
+        logger.error("Error: ", err)
+    }
+}
+const addQuantityInCart = async (product: ProductObject | DocumentMongoGet, dataUser:User)=>{
+    try{
+        if(product){
+            const addOneProductToExistingCart = await updateCart({userId:dataUser._id},{$push: {cart:{productId: product._id, amount:1}}})
+            return true 
+        }
+    }catch(err){
+        logger.error("Error: ", err)
+    }
 }

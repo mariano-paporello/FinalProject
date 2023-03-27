@@ -24,7 +24,6 @@ export default class DaoMongoDB implements UserBaseClass {
     }
 
     async find(usernameIngresed:string):Promise<UserObject[] | null>{
-        console.log(usernameIngresed)
       const userfound = await this.collection.find({username: usernameIngresed}) 
       if(userfound.length === 0){
         return null

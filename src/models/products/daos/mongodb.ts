@@ -1,6 +1,6 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { FilterQuery, Schema, UpdateQuery } from 'mongoose';
 import config from '../../../config';
-import { AddProductObject, ProductBaseClass, ProductObject, DocumentMongoGet, DocumentMongoPost, DocumentForProductPost } from '../products.interface';
+import { AddProductObject, ProductBaseClass, ProductObject } from '../products.interface';
 
 mongoose.set('strictQuery', true);
 
@@ -23,16 +23,28 @@ export class DaoMongoDB implements ProductBaseClass{
         return products
     }
     async getProductById(id:string) {
-        const productFound: ProductObject | null  = await this.collection.findById(id)
+        try {
+            const productFound: ProductObject | null  = await this.collection.findById(id)
+            return productFound 
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    async getOneProductByQuery(query:FilterQuery<ProductObject>){
+        const productFound: ProductObject | null   = await this.collection.findOne(query)
         return productFound
     }
-    async getProductByQuery(query:any){
-        const productFound: ProductObject | null   = await this.collection.findOne(query)
+    async getProductsByQuery(query:FilterQuery<ProductObject>){
+        const productFound: ProductObject[] | null = await this.collection.find(query)
         return productFound
     }
     async postProductToProducts(data:AddProductObject){
         const productAdded: ProductObject =  await this.collection.create(data);
         return productAdded
+    }
+    async updateProduct(query: FilterQuery<ProductObject>, update: UpdateQuery<ProductObject>){
+        const result = await this.collection.updateOne(query,update)
+        return result
     }
     async deleteById(id: string){
         const deleting = await this.collection.deleteOne({_id: id})
@@ -42,11 +54,4 @@ export class DaoMongoDB implements ProductBaseClass{
         await this.collection.deleteMany()
         return true
     }
-
-// GRAPHQL
-
-    // async postProductToProductsGraphql(data:{title:String, price:Number, thumbnail:String, category:String, stock:Number}){
-    //     const productAdded: ProductObject | DocumentMongoPost  =  await this.collection.create(data);
-    //     return productAdded
-    // }
 }

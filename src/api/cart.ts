@@ -1,23 +1,23 @@
 import { EmailService } from "../services/email"
 import { whatsappService } from "../services/twilio"
 import { logger } from "../utils/loggers"
-import { repositoryProduct } from "../models/products/products.repository"
 import { repositoryCart } from "../models/cart/cart.repository"
-import { CartObject, productInCartObject } from "../models/cart/cart.interface"
-import { ProductToView, User, singlePorduct } from "../../Public/types"
-import { ProductObject } from "../models/products/products.interface"
-import { UnknownObject } from "express-handlebars/types"
 
 
-export const getProductById = async(id: string)=>{
-    return await repositoryProduct.getProductById(id)
-}
+
+
 
 export const getCartByQuery = async (query: unknown)=>{
     return await repositoryCart.getCartByQuery(query)
 }
 
+export const getCartByUserId= async (query:{userId:string})=>{
+    return await repositoryCart.getCartByQuery(query)
+}
 
+export const updateCart = async (query:unknown, update:unknown)=>{
+    return await repositoryCart.updateCart(query, update)
+}
 
 export const  sendTheCartWithEmail = async (gmail:string, subject:string, content:string) =>{
     const enviarEmail = await EmailService.sendEmail(gmail, subject, content)

@@ -6,8 +6,9 @@ export interface User{
     username:string
     phoneNumber:string
     image:string
-    admin: boolean
+    admin?: boolean
 }
+
 
 export type ProductToView = ({title:string, price: number, thumbnail:string, amount: number})[] 
 export interface singlePorduct{

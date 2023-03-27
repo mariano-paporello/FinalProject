@@ -1,111 +1,104 @@
 import { Request, Response } from "express"
-import { User } from "../../Public/types"
-import { findProduct, getCartByUserId, getProducts, newProductToDB, updateCart } from "../api/products"
-import { CartObject, productInCartObject } from "../models/cart/cart.interface"
+import { deleteProduct, getProducts, newProductToDB, updateProduct } from "../api/products"
 import { DocumentMongoGet, ProductObject } from "../models/products/products.interface"
+import { repositoryProduct } from "../models/products/products.repository"
 
 import {logger} from "../utils/loggers"
 
 
-export const productsController = async (req:Request, res:Response)=>{
+export const productsGetController = async (req:Request, res:Response)=>{
     try{
-        res.json({
-            productos: await getProducts(),
-        })
+        console.log(req.params)
+        if(req.params.id){
+           const productoBuscado = await getProducts(req.params.id)
+           if(productoBuscado!== null && productoBuscado){
+                res.json({
+                    productoBuscado: productoBuscado
+                })
+           }
+           else if(!productoBuscado ){
+                res.status(400).json({
+                    Error: "ID ingresado es incorrecto. Debe de tener 24 caracteres"
+                })
+           }else{
+                logger.warning("EL ID DEL PRODUCTO BUSCADO NO EXISTE")
+                res.status(400).json({
+                    Error: "ID del producto no fue encontrado"
+                })
+           }
+        }
+        else if(req.params.category){
+            const productosBuscados = await getProducts(undefined,req.params.category)
+            console.log(productosBuscados)
+            if(productosBuscados && Array.isArray(productosBuscados) && productosBuscados.length >= 1 ){
+                res.json({
+                    productosBuscados: productosBuscados
+                })
+            }else{
+                res.json({
+                    Error: "No se pudo encontrar ningun producto con esa categoria"
+                })
+            }  
+        }else{
+            res.json({
+                productos: await getProducts(),
+            })
+        }
     }catch(err){
         logger.error("Error in productsController: ",err)
     }
 } 
-
-export const productToCartController = async(req:Request, res:Response)=>{
-    try{
-        const product  = await findProduct(req.params.id)
-        if(req.session.dataUser && product !== undefined && product !== null){
-            await añadirProdACart(req.session.dataUser, product)
-        }
-        res.json({
-            msg:"👍 👍 👍 👍 TODO BIENN ",
-        })
-    }catch(err){
-        logger.error("Error in productsController: ",err)
-    }
-}
-
 export const newProductController = async (req: Request, res:Response)=>{
     try {
+        console.log(req.session.admin)
         if(req.session.admin){
             const productCreated = await newProductToDB(req.body)
-            return productCreated
+            res.status(200).json({
+                productoCreado: productCreated
+            })
         }
         else{
-            return false
+            res.status(404).json({
+                Error: "User no es administrador"
+            })
         }
     } catch (error) {
         logger.error(`Error in productsController: ${error}`)
+        res.json({
+            error: error
+        })
     }
 }
 
 
- const añadirProdACart = async (dataUser:User,product:ProductObject | DocumentMongoGet)=>{
-    if(product){
-        const userHasCart:CartObject | null = await getCartByUserId({userId: dataUser._id})
-        if(userHasCart!== null){
-            const index: number = await getIndex(userHasCart, product)
-            
-            if(userHasCart && index != -1 && index || index===0){
-               return await addProduct(userHasCart, index, dataUser)
-            }else if(userHasCart && index === -1){
-                return await addQuantityInCart(product,  dataUser)
-            }
-        }
-    }
-    return product
-}
-const getIndex = async (cartOfUser:any, product:ProductObject | DocumentMongoGet)=>{
-    const index: number = cartOfUser.cart.findIndex( (obj:productInCartObject) => {
-        if(product){
-        return obj.productId === product.id
-        }
-    })
-    return index
-}
-const addProduct = async (cartOfUser:any, index:number, dataUser:User) =>{
-    try{
-        const newCart: any = cartOfUser.cart
-        newCart[index] = {productId:newCart[index].productId, amount: newCart[index].amount+1}  
-        const addAmountToaProduct = await updateCart({userId: dataUser._id},{$set:{cart:newCart}})
-        return true
-    }catch(err){
-        logger.error("Error: ", err)
-    }
-}
-const addQuantityInCart = async (product: ProductObject | DocumentMongoGet, dataUser:User)=>{
-    try{
-        if(product){
-            const addOneProductToExistingCart = await updateCart({userId:dataUser._id},{$push: {cart:{productId: product._id, amount:1}}})
-            return true 
-        }
-    }catch(err){
-        logger.error("Error: ", err)
-    }
-}
 
 export const modifyAProduct = async (req:Request, res:Response) => {
     const {id} = req.params
     const data: ProductObject = req.body
-    const changedProduct = await updateCart({_id:id},data)
-    if(changedProduct.acknowledged){
+    console.log(data)
+    const changedProduct = await updateProduct({_id: id},{$set: data})
+    console.log(changedProduct)
+    if(changedProduct.acknowledged && changedProduct.modifiedCount>0){
         res.status(200).json({
             msg: "Modificacion realizada de forma correcta"
         })
+    }else{
+        res.status(400).json({
+            Error: "Modificacion falló"
+        })
     }
-    res.status(400).json({
-        Error: "Modificacion fallida"
-    })
 }
 
 export const deleteAProduct = async (req:Request, res:Response) => {
-    
-
-
+    const {id} = req.params
+    const deleteResult = await deleteProduct(id)
+    if(deleteResult && deleteResult.acknowledged && deleteResult.deletedCount===1){
+        res.status(200).json({
+            msg: `Producto con id: ${id}. Fue borrado`
+        })
+    }
+    logger.error("No se a podido borrar el producto debido a un mal ingresado id")
+    res.status(400).json({
+        error: `Error al intentar borrar el producto con id: ${id}. Debido a que el mismo no es un id posible (minimo 24 caracteres)`
+    })
 }
