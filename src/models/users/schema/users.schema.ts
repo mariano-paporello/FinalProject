@@ -11,7 +11,8 @@ const usersSchema = new mongoose.Schema<UserObject>(
     username: { type: String, require: true},
     phoneNumber: { type: String, require: true, max:15},
     image: { type: String, require: true},
-    admin: {type: Boolean, require:true}
+    admin: {type: Boolean, require:true},
+    address: {type:String, require: true}
 })
 
 usersSchema.pre<UserObject>("save", async function(next){

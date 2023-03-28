@@ -100,12 +100,12 @@ var register = function (req, res, next) { return __awaiter(void 0, void 0, void
         loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
         if (req.body.password === req.body.passwordConfirm) {
             passport_1.default.authenticate('signup', {}, function (err, user, info) { return __awaiter(void 0, void 0, void 0, function () {
-                var _a, gmail, username, age, phoneNumber, image, password, token;
+                var _a, gmail, username, age, phoneNumber, image, password, passwordConfirm, address, token;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
                         case 0:
-                            _a = req.body, gmail = _a.gmail, username = _a.username, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image, password = _a.password;
-                            if (!username || !gmail || !age || !phoneNumber || !image || !password) {
+                            _a = req.body, gmail = _a.gmail, username = _a.username, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image, password = _a.password, passwordConfirm = _a.passwordConfirm, address = _a.address;
+                            if (!username || !gmail || !age || !phoneNumber || !image || !password || !passwordConfirm || address) {
                                 res.status(400).json({
                                     Error: "Datos ingresados no validos o nulos"
                                 });

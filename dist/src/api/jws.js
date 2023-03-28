@@ -52,7 +52,7 @@ var createAuthToken = function (user) { return __awaiter(void 0, void 0, void 0,
             image: user.image,
             gmail: user.gmail
         };
-        token = jsonwebtoken_1.default.sign(payload, index_1.default.TOKEN_SECRET, { expiresIn: "10m" });
+        token = jsonwebtoken_1.default.sign(payload, index_1.default.JWT_SECRET_KEY, { expiresIn: index_1.default.TOKEN_KEEP_ALIVE });
         return [2 /*return*/, token];
     });
 }); };
@@ -71,7 +71,7 @@ var checkAuth = function (req, res, next) { return __awaiter(void 0, void 0, voi
                 }
                 else if (!Array.isArray(token)) {
                     try {
-                        jsonwebtoken_1.default.verify(token, index_1.default.TOKEN_SECRET, function (err, user) {
+                        jsonwebtoken_1.default.verify(token, index_1.default.JWT_SECRET_KEY, function (err, user) {
                             if (err)
                                 return res.status(403);
                             req.user = user;

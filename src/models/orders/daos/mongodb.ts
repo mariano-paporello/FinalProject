@@ -1,8 +1,8 @@
 import mongoose, { FilterQuery, Schema, UpdateQuery } from 'mongoose';
 import config from '../../../config';
-import { NewOrderObject, OrderObject } from '../orders.interface';
+import { NewOrderObject, OrderObject, OrdersBaseClass } from '../orders.interface';
 
-export class DaoMongoDB  {    
+export class DaoMongoDB implements OrdersBaseClass {    
     private collection
     private initDB 
 
@@ -15,20 +15,28 @@ export class DaoMongoDB  {
         return this.initDB;
     }
 
-    async getAllOrdersOfTheUser(userId:string){
-        const OrdersOfUser = this.collection.find({userId: userId})
+    async getNumberOfOrder(){
+        const OrdersLength = (await this.collection.find()).length
+        return OrdersLength
+    }
+    async getOrders(userId: string){
+        const ordersOfTheUser = await this.collection.find({userId: userId})
+        return ordersOfTheUser
     }
     async getOrderById(id:string) {
         try {
-            const orderFound = await this.collection.findById(id)
+            console.log("id",id)
+            const orderFound = await this.collection.findOne({_id:id})
+            console.log(orderFound)
             return orderFound 
         } catch (error) {
             console.log(error)
         }
     }
-async createAnOrder(data:NewOrderObject){
-    return await this.collection.create(data)
-}
+    async createAnOrder(data:NewOrderObject){
+        return await this.collection.create(data)
+    }
     async updateOrder(query: FilterQuery<OrderObject>, update: UpdateQuery<OrderObject>){
+        return await this.collection.updateOne(query, update)
     }
 }

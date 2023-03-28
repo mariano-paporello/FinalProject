@@ -36,17 +36,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.productToCartController = exports.ifCartExist = exports.createCartOfUser = exports.cartSender = exports.cart = void 0;
+exports.productToCartController = exports.ifCartExist = exports.createCartOfUser = exports.cartSender = exports.cartGet = exports.cart = void 0;
 var cart_1 = require("../api/cart");
 var loggers_1 = require("../utils/loggers");
 var products_1 = require("../api/products");
+var orders_1 = require("./orders");
 var cart = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var productsInCart;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 if (!req.session.dataUser) return [3 /*break*/, 2];
-                return [4 /*yield*/, cartGet(req.session.dataUser._id)];
+                return [4 /*yield*/, (0, exports.cartGet)(req.session.dataUser._id)];
             case 1:
                 productsInCart = _a.sent();
                 if (productsInCart) {
@@ -83,6 +84,7 @@ var cartGet = function (id) { return __awaiter(void 0, void 0, void 0, function 
         }
     });
 }); };
+exports.cartGet = cartGet;
 var cartTransformer = function (cartOfUser) { return __awaiter(void 0, void 0, void 0, function () {
     var productsInCart, FinalProductForm;
     return __generator(this, function (_a) {
@@ -150,31 +152,29 @@ var modifyTheProductToLookGood = function (productFromProducts, cartOfUser) { re
     });
 }); };
 var cartSender = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var dataUser, productsInCart, productsHtml, content, message, done, err_1;
+    var dataUser, productsInCart, order, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 4, , 5]);
                 dataUser = req.session.dataUser;
                 if (!dataUser) return [3 /*break*/, 3];
-                return [4 /*yield*/, cartGet(dataUser._id)];
+                return [4 /*yield*/, (0, exports.cartGet)(dataUser._id)];
             case 1:
                 productsInCart = _a.sent();
                 if (!(productsInCart !== undefined)) return [3 /*break*/, 3];
-                productsHtml = productsInCart === null || productsInCart === void 0 ? void 0 : productsInCart.map(function (product) {
-                    if (product !== undefined)
-                        return "<li>Producto:<ul><li>Nombre del Producto:".concat(product.title, "</li><li>Precio total: $").concat(product.price, "</li><li>Imagen del producto: <img src=").concat(product.thumbnail, " alt=\"Image Not Found\"></li><li>Cantidad del producto: ").concat(product.amount, "</li></ul></li>");
-                });
-                content = "<div><h1>Productos:</h1><ul>".concat(productsHtml, "</ul></div>");
-                message = "Nuevo pedido de ".concat(dataUser.username, ". Email: ").concat(dataUser.gmail, ".\n                    Productos: \n                    ").concat(productsInCart.map(function (product) {
-                    product !== undefined ? "-".concat(product.title, ".\n                    -").concat(product.price) : 'there are no products';
-                }));
-                return [4 /*yield*/, cartMsgSender(dataUser, "Nuevo pedido de ".concat(dataUser.username, ". Email: ").concat(dataUser.gmail), content, message)];
+                return [4 /*yield*/, (0, orders_1.CreateOrder)(productsInCart, req.session.dataUser)];
             case 2:
-                done = _a.sent();
-                if (done) {
-                    res.json({
-                        msg: "TODO PERFECTO EMAIL ENVIADO"
+                order = _a.sent();
+                if (order) {
+                    res.status(201).json({
+                        order: order
+                    });
+                }
+                else {
+                    loggers_1.logger.error("Error: Error al crear orden de compra");
+                    res.status(400).json({
+                        error: "Error al crear orden de compra"
                     });
                 }
                 _a.label = 3;
@@ -182,38 +182,15 @@ var cartSender = function (req, res) { return __awaiter(void 0, void 0, void 0, 
             case 4:
                 err_1 = _a.sent();
                 loggers_1.logger.error("Error: ", err_1);
+                res.status(400).json({
+                    error: err_1
+                });
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
         }
     });
 }); };
 exports.cartSender = cartSender;
-var cartMsgSender = function (dataUser, subjectEmail, contentEmail, messageWhatsApp) { return __awaiter(void 0, void 0, void 0, function () {
-    var enviarEmail, sendWhatsAppResponse, error_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 4, , 5]);
-                if (!(subjectEmail && contentEmail && messageWhatsApp)) return [3 /*break*/, 3];
-                return [4 /*yield*/, (0, cart_1.sendTheCartWithEmail)(dataUser.gmail, subjectEmail, contentEmail)];
-            case 1:
-                enviarEmail = _a.sent();
-                return [4 /*yield*/, (0, cart_1.sendTheCartWithWhatsApp)("+".concat(dataUser.phoneNumber), messageWhatsApp)];
-            case 2:
-                sendWhatsAppResponse = _a.sent();
-                if (enviarEmail && sendWhatsAppResponse) {
-                    return [2 /*return*/, true];
-                }
-                _a.label = 3;
-            case 3: return [3 /*break*/, 5];
-            case 4:
-                error_2 = _a.sent();
-                loggers_1.logger.error("Error: ", error_2);
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
-        }
-    });
-}); };
 var createCartOfUser = function (dataUser) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
     switch (_a.label) {
         case 0: return [4 /*yield*/, (0, cart_1.emptyCartCreator)(dataUser._id)];
@@ -308,7 +285,7 @@ var addProduct = function (cartOfUser, index, dataUser) { return __awaiter(void 
                 return [4 /*yield*/, (0, cart_1.updateCart)({ userId: dataUser._id }, { $set: { cart: newCart } })];
             case 1:
                 addAmountToaProduct = _a.sent();
-                return [2 /*return*/, true];
+                return [2 /*return*/, addAmountToaProduct];
             case 2:
                 err_3 = _a.sent();
                 loggers_1.logger.error("Error: ", err_3);
@@ -327,7 +304,7 @@ var addQuantityInCart = function (product, dataUser) { return __awaiter(void 0, 
                 return [4 /*yield*/, (0, cart_1.updateCart)({ userId: dataUser._id }, { $push: { cart: { productId: product._id, amount: 1 } } })];
             case 1:
                 addOneProductToExistingCart = _a.sent();
-                return [2 /*return*/, true];
+                return [2 /*return*/, addOneProductToExistingCart];
             case 2: return [3 /*break*/, 4];
             case 3:
                 err_4 = _a.sent();

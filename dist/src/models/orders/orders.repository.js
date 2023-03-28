@@ -36,22 +36,39 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.repositoryProduct = void 0;
+exports.repositoryOrders = void 0;
 var orders_factory_1 = require("./orders.factory");
-var ProductsRepository = /** @class */ (function () {
-    function ProductsRepository() {
+var OrdersRepository = /** @class */ (function () {
+    function OrdersRepository() {
         this.dao = (0, orders_factory_1.getDao)();
     }
-    ProductsRepository.prototype.getAllOrdersOfTheUser = function (userId) {
+    OrdersRepository.prototype.getNumberOfOrder = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var OrdersOfUser;
+            var OrdersLength;
             return __generator(this, function (_a) {
-                OrdersOfUser = this.dao.getAllOrdersOfTheUser(userId);
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dao.getNumberOfOrder()];
+                    case 1:
+                        OrdersLength = _a.sent();
+                        return [2 /*return*/, OrdersLength];
+                }
             });
         });
     };
-    ProductsRepository.prototype.getOrderById = function (id) {
+    OrdersRepository.prototype.getOrders = function (userId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var ordersOfUser;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dao.getOrders(userId)];
+                    case 1:
+                        ordersOfUser = _a.sent();
+                        return [2 /*return*/, ordersOfUser];
+                }
+            });
+        });
+    };
+    OrdersRepository.prototype.getOrderById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var orderFound, error_1;
             return __generator(this, function (_a) {
@@ -71,7 +88,7 @@ var ProductsRepository = /** @class */ (function () {
             });
         });
     };
-    ProductsRepository.prototype.createAnOrder = function (data) {
+    OrdersRepository.prototype.createAnOrder = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var createdOrder;
             return __generator(this, function (_a) {
@@ -79,18 +96,24 @@ var ProductsRepository = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.dao.createAnOrder(data)];
                     case 1:
                         createdOrder = _a.sent();
-                        return [2 /*return*/];
+                        return [2 /*return*/, createdOrder];
                 }
             });
         });
     };
-    ProductsRepository.prototype.updateOrder = function (query, update) {
+    OrdersRepository.prototype.updateOrder = function (query, update) {
         return __awaiter(this, void 0, void 0, function () {
+            var updateResult;
             return __generator(this, function (_a) {
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dao.updateOrder(query, update)];
+                    case 1:
+                        updateResult = _a.sent();
+                        return [2 /*return*/, updateResult];
+                }
             });
         });
     };
-    return ProductsRepository;
+    return OrdersRepository;
 }());
-exports.repositoryProduct = new ProductsRepository();
+exports.repositoryOrders = new OrdersRepository();

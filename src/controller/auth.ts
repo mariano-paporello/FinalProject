@@ -56,11 +56,13 @@ export const register = async (req:Request, res:Response, next:NextFunction) => 
                 age, 
                 phoneNumber,
                 image,
-                password
+                password,
+                passwordConfirm,
+                address
             } = req.body
            
     
-            if (!username || !gmail || !age || !phoneNumber || !image || !password) {
+            if (!username || !gmail || !age || !phoneNumber || !image || !password || !passwordConfirm || address) {
                 res.status(400).json({
                     Error: "Datos ingresados no validos o nulos"
                 })

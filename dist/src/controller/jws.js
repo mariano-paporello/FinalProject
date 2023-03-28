@@ -51,7 +51,7 @@ var createAuthToken = function (user) { return __awaiter(void 0, void 0, void 0,
             image: user.image,
             gmail: user.gmail
         };
-        token = jsonwebtoken_1.default.sign(payload, index_1.default.TOKEN_SECRET);
+        token = jsonwebtoken_1.default.sign(payload, index_1.default.JWT_SECRET_KEY);
         return [2 /*return*/, token];
     });
 }); };
@@ -65,7 +65,7 @@ var checkAuth = function (req, res, next) { return __awaiter(void 0, void 0, voi
                 return [2 /*return*/, res.status(401).json({ msg: "NO AUTORIZADeee" })];
             }
             else if (!Array.isArray(token)) {
-                decode = jsonwebtoken_1.default.verify(token, index_1.default.TOKEN_SECRET);
+                decode = jsonwebtoken_1.default.verify(token, index_1.default.JWT_SECRET_KEY);
             }
             user = 'pepe';
             req.user = user;

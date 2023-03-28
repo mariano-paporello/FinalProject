@@ -8,9 +8,11 @@ const cartRoute = Router()
 
 cartRoute.get("/",isLogged, checkAuth,  loggedIsNotDestroyed, cart )
 
-cartRoute.post("/",isLogged, checkAuth,  loggedIsNotDestroyed, cartSender )
+cartRoute.post("/add/:id",loggedIsNotDestroyed, checkAuth, isLogged, productToCartController)
 
-cartRoute.post("/:id",loggedIsNotDestroyed, checkAuth, isLogged, productToCartController)
+cartRoute.post("/submit",isLogged, checkAuth,  loggedIsNotDestroyed, cartSender )
+
+cartRoute
 
 
 export default cartRoute

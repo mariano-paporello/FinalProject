@@ -32,7 +32,7 @@ export const searchUser= async(req:Request, username:string, password:string,  d
   }
 export const createUser = async( req:Request, username:string, password:string, done:(error: any, user?: any, info?: any) => void )=>{
     try {
-        const {gmail, age, phoneNumber, image } = req.body
+        const {gmail, age, phoneNumber, image, address } = req.body
         if(gmail && age && phoneNumber && image &&  password && username){
             const user:User = await repositoryUser.singUp({
                 gmail, 
@@ -41,7 +41,8 @@ export const createUser = async( req:Request, username:string, password:string, 
                 phoneNumber,
                 image,
                 username,
-                admin: false
+                admin: false,
+                address
             })
             req.session.gmail =  user.gmail
             await ifCartExist(user)

@@ -11,9 +11,11 @@ export const orderSchema= new mongoose.Schema<OrderObject>(
                 price: {type:Number, require: true}
             }
         ],
+        userId: {type: String, require: true},
         numberOrder: {type: Number, require: true},
         state: { type: String, require: true},
-        gmail: {type: String, require: true}
+        gmail: {type: String, require: true},
+        total: {type: Number, require: true}
     },
     {timestamps: true}
 )

@@ -9,14 +9,14 @@ const args = minimist(process.argv)
 
 switch(args.database.toLowerCase()) {
     case 'mongo':
-        if(args.testing){
+        if(args){
             dao = new DaoMongoDB('orders', orderSchema);
             dao.initMongoDB();
             break;
         }
             
     default:
-        logger.error("Error en factory al seleccionar Db")
+        logger.error("Error en factory de orders al seleccionar Db")
         break;
 };
 

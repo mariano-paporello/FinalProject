@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken"
 import { User } from "../../Public/types";
 import config from '../config/index';
-import { repositoryUser } from '../models/users/user.repository';
 import { logger } from "../utils/loggers";
 
 
@@ -15,7 +14,7 @@ export const createAuthToken = async (user:User)=> {
     };
 
     
-    const token = jwt.sign(payload, config.TOKEN_SECRET, {expiresIn: "10m"});
+    const token = jwt.sign(payload, config.JWT_SECRET_KEY, {expiresIn: config.TOKEN_KEEP_ALIVE});
     return token
   }
 
@@ -31,7 +30,7 @@ export const createAuthToken = async (user:User)=> {
           return res.status(401).json({msg:"NO AUTORIZADO "}) 
         }else if(!Array.isArray(token)){
           try{ 
-          jwt.verify(token, config.TOKEN_SECRET, (err, user)=>{
+          jwt.verify(token, config.JWT_SECRET_KEY, (err, user)=>{
               if(err) return res.status(403)
               req.user = user
               console.log("PASAMOS EL JWT ")

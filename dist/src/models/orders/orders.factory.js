@@ -12,13 +12,13 @@ var dao;
 var args = (0, minimist_1.default)(process.argv);
 switch (args.database.toLowerCase()) {
     case 'mongo':
-        if (args.testing) {
+        if (args) {
             dao = new mongodb_1.DaoMongoDB('orders', orders_schema_1.orderSchema);
             dao.initMongoDB();
             break;
         }
     default:
-        loggers_1.logger.error("Error en factory al seleccionar Db");
+        loggers_1.logger.error("Error en factory de orders al seleccionar Db");
         break;
 }
 ;

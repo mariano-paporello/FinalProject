@@ -79,12 +79,12 @@ var searchUser = function (req, username, password, done) { return __awaiter(voi
 }); };
 exports.searchUser = searchUser;
 var createUser = function (req, username, password, done) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, gmail, age, phoneNumber, image, user, err_2;
+    var _a, gmail, age, phoneNumber, image, address, user, err_2;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 4, , 5]);
-                _a = req.body, gmail = _a.gmail, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image;
+                _a = req.body, gmail = _a.gmail, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image, address = _a.address;
                 if (!(gmail && age && phoneNumber && image && password && username)) return [3 /*break*/, 3];
                 return [4 /*yield*/, user_repository_1.repositoryUser.singUp({
                         gmail: gmail,
@@ -93,7 +93,8 @@ var createUser = function (req, username, password, done) { return __awaiter(voi
                         phoneNumber: phoneNumber,
                         image: image,
                         username: username,
-                        admin: false
+                        admin: false,
+                        address: address
                     })];
             case 1:
                 user = _b.sent();

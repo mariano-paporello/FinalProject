@@ -36,71 +36,76 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkCart = exports.emptyCartCreator = exports.updateCart = exports.getCartByUserId = exports.getCartByQuery = void 0;
-var loggers_1 = require("../utils/loggers");
-var cart_repository_1 = require("../models/cart/cart.repository");
-var getCartByQuery = function (query) { return __awaiter(void 0, void 0, void 0, function () {
+exports.updateOrder = exports.sendTheCartWithWhatsApp = exports.sendTheCartWithEmail = exports.getOrderById = exports.getOrders = exports.createOrder = exports.numberOfOrderCreator = void 0;
+var orders_repository_1 = require("../models/orders/orders.repository");
+var email_1 = require("../services/email");
+var twilio_1 = require("../services/twilio");
+var numberOfOrderCreator = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, cart_repository_1.repositoryCart.getCartByQuery(query)];
+            case 0: return [4 /*yield*/, orders_repository_1.repositoryOrders.getNumberOfOrder()];
             case 1: return [2 /*return*/, _a.sent()];
         }
     });
 }); };
-exports.getCartByQuery = getCartByQuery;
-var getCartByUserId = function (query) { return __awaiter(void 0, void 0, void 0, function () {
+exports.numberOfOrderCreator = numberOfOrderCreator;
+var createOrder = function (order) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, cart_repository_1.repositoryCart.getCartByQuery(query)];
+            case 0: return [4 /*yield*/, orders_repository_1.repositoryOrders.createAnOrder(order)];
             case 1: return [2 /*return*/, _a.sent()];
         }
     });
 }); };
-exports.getCartByUserId = getCartByUserId;
-var updateCart = function (query, update) { return __awaiter(void 0, void 0, void 0, function () {
+exports.createOrder = createOrder;
+var getOrders = function (userId) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, cart_repository_1.repositoryCart.updateCart(query, update)];
+            case 0: return [4 /*yield*/, orders_repository_1.repositoryOrders.getOrders(userId)];
             case 1: return [2 /*return*/, _a.sent()];
         }
     });
 }); };
-exports.updateCart = updateCart;
-var emptyCartCreator = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var emptyCart, error_1;
+exports.getOrders = getOrders;
+var getOrderById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, cart_repository_1.repositoryCart.createCart({ userId: id, cart: [] })];
+            case 0: return [4 /*yield*/, orders_repository_1.repositoryOrders.getOrderById(id)];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+exports.getOrderById = getOrderById;
+var sendTheCartWithEmail = function (gmail, subject, content) { return __awaiter(void 0, void 0, void 0, function () {
+    var enviarEmail;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, email_1.EmailService.sendEmail(gmail, subject, content)];
             case 1:
-                emptyCart = _a.sent();
-                return [2 /*return*/, emptyCart];
-            case 2:
-                error_1 = _a.sent();
-                loggers_1.logger.error("Error: ", error_1);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                enviarEmail = _a.sent();
+                return [2 /*return*/, true];
         }
     });
 }); };
-exports.emptyCartCreator = emptyCartCreator;
-var checkCart = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var cartFound, error_2;
+exports.sendTheCartWithEmail = sendTheCartWithEmail;
+var sendTheCartWithWhatsApp = function (phoneNumber, message) { return __awaiter(void 0, void 0, void 0, function () {
+    var whatsapp;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, cart_repository_1.repositoryCart.getCartByQuery({ userId: id })];
+            case 0: return [4 /*yield*/, twilio_1.whatsappService.sendWhatsAppMessage(phoneNumber, message)];
             case 1:
-                cartFound = _a.sent();
-                return [2 /*return*/, cartFound];
-            case 2:
-                error_2 = _a.sent();
-                loggers_1.logger.error("Error: ", error_2);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                whatsapp = _a.sent();
+                return [2 /*return*/, true];
         }
     });
 }); };
-exports.checkCart = checkCart;
+exports.sendTheCartWithWhatsApp = sendTheCartWithWhatsApp;
+var updateOrder = function (query, update) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, orders_repository_1.repositoryOrders.updateOrder(query, update)];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+exports.updateOrder = updateOrder;

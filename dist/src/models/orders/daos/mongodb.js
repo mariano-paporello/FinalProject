@@ -54,12 +54,29 @@ var DaoMongoDB = /** @class */ (function () {
             });
         });
     };
-    DaoMongoDB.prototype.getAllOrdersOfTheUser = function (userId) {
+    DaoMongoDB.prototype.getNumberOfOrder = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var OrdersOfUser;
+            var OrdersLength;
             return __generator(this, function (_a) {
-                OrdersOfUser = this.collection.find({ userId: userId });
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.collection.find()];
+                    case 1:
+                        OrdersLength = (_a.sent()).length;
+                        return [2 /*return*/, OrdersLength];
+                }
+            });
+        });
+    };
+    DaoMongoDB.prototype.getOrders = function (userId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var ordersOfTheUser;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.collection.find({ userId: userId })];
+                    case 1:
+                        ordersOfTheUser = _a.sent();
+                        return [2 /*return*/, ordersOfTheUser];
+                }
             });
         });
     };
@@ -70,9 +87,11 @@ var DaoMongoDB = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, this.collection.findById(id)];
+                        console.log("id", id);
+                        return [4 /*yield*/, this.collection.findOne({ _id: id })];
                     case 1:
                         orderFound = _a.sent();
+                        console.log(orderFound);
                         return [2 /*return*/, orderFound];
                     case 2:
                         error_1 = _a.sent();
@@ -96,7 +115,10 @@ var DaoMongoDB = /** @class */ (function () {
     DaoMongoDB.prototype.updateOrder = function (query, update) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.collection.updateOne(query, update)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
             });
         });
     };

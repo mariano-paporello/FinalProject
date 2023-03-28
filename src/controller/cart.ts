@@ -1,10 +1,11 @@
-import {emptyCartCreator, checkCart, getCartByQuery, sendTheCartWithEmail, sendTheCartWithWhatsApp, getCartByUserId, updateCart } from "../api/cart"
+import {emptyCartCreator, checkCart, getCartByQuery, getCartByUserId, updateCart } from "../api/cart"
 import { logger } from "../utils/loggers"
-import {finalProductForm, ProductToView, User} from "../../Public/types"
+import {finalProductForm, User} from "../../Public/types"
 import { Request, Response } from "express"
 import { ProductObject } from "../models/products/products.interface"
 import { CartObject, DocumentMongoGet, productInCartObject } from "../models/cart/cart.interface"
 import { getProductById } from "../api/products"
+import { CreateOrder } from "./orders"
 
 
 export const cart = async(req:Request, res:Response)=>{
@@ -19,7 +20,7 @@ export const cart = async(req:Request, res:Response)=>{
 }
 
 
-const cartGet = async(id:string): Promise<finalProductForm | undefined> =>{
+export const cartGet = async(id:string): Promise<finalProductForm | undefined> =>{
     try{
         
         const cartOfUser = await getCartByQuery({userId:id})
@@ -70,43 +71,27 @@ export const cartSender = async(req:Request, res:Response)=>{
         if(dataUser){
             const productsInCart:finalProductForm | undefined = await cartGet(dataUser._id)
             if(productsInCart!== undefined){
-                const productsHtml = productsInCart?.map(product=>{
-                    if(product!==undefined)
-                    return `<li>Producto:<ul><li>Nombre del Producto:${product.title}</li><li>Precio total: $${product.price}</li><li>Imagen del producto: <img src=${product.thumbnail} alt="Image Not Found"></li><li>Cantidad del producto: ${product.amount}</li></ul></li>`}
-                    ) 
-                const content = `<div><h1>Productos:</h1><ul>${productsHtml}</ul></div>`
-                const message = `Nuevo pedido de ${dataUser.username}. Email: ${dataUser.gmail}.
-                    Productos: 
-                    ${productsInCart.map((product) =>{ product !== undefined? `-${product.title}.
-                    -${product.price}`: 'there are no products'})}`
-                const done:unknown =  await cartMsgSender(dataUser, `Nuevo pedido de ${dataUser.username}. Email: ${dataUser.gmail}`, content, message)
-                if(done){
-                    res.json({
-                        msg: "TODO PERFECTO EMAIL ENVIADO"
+                const order = await CreateOrder(productsInCart, req.session.dataUser)
+                if(order){
+                res.status(201).json({
+                    order: order
+                })}
+                else{
+                    logger.error("Error: Error al crear orden de compra")
+                    res.status(400).json({
+                        error: "Error al crear orden de compra"
                     })
                 }
             }
-        
         }
     } catch (err) {
         logger.error("Error: ", err)
+        res.status(400).json({
+            error : err
+        })
     }
 }
 
- const cartMsgSender = async(dataUser:User, subjectEmail:string, contentEmail:string, messageWhatsApp: string)=>{
-    try{
-        if(subjectEmail&&contentEmail&&messageWhatsApp){
-            const enviarEmail = await sendTheCartWithEmail(dataUser.gmail, subjectEmail, contentEmail)
-        
-        const sendWhatsAppResponse = await sendTheCartWithWhatsApp(`+${dataUser.phoneNumber}`, messageWhatsApp)
-        if(enviarEmail && sendWhatsAppResponse){
-            return true
-        }
-        }
-    }catch(error){
-        logger.error("Error: ", error)
-    }
-}
 
 export const createCartOfUser = async(dataUser:User) => await emptyCartCreator(dataUser._id) 
 
@@ -161,7 +146,7 @@ const addProduct = async (cartOfUser:any, index:number, dataUser:User) =>{
         const newCart: any = cartOfUser.cart
         newCart[index] = {productId:newCart[index].productId, amount: newCart[index].amount+1}  
         const addAmountToaProduct = await updateCart({userId: dataUser._id},{$set:{cart:newCart}})
-        return true
+        return addAmountToaProduct
     }catch(err){
         logger.error("Error: ", err)
     }
@@ -170,7 +155,7 @@ const addQuantityInCart = async (product: ProductObject | DocumentMongoGet, data
     try{
         if(product){
             const addOneProductToExistingCart = await updateCart({userId:dataUser._id},{$push: {cart:{productId: product._id, amount:1}}})
-            return true 
+            return addOneProductToExistingCart 
         }
     }catch(err){
         logger.error("Error: ", err)

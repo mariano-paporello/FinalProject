@@ -7,6 +7,7 @@ export interface User{
     phoneNumber:string
     image:string
     admin?: boolean
+    address: string
 }
 
 
@@ -34,4 +35,10 @@ export interface NewMessage{
         avatar: string
         },
     text: string
+}
+export enum states{
+    generate = "Generado",
+    paid = "Pago",
+    send = "Enviado",
+    ended = "Finalizado"
 }

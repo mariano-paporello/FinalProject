@@ -1,11 +1,5 @@
-import { EmailService } from "../services/email"
-import { whatsappService } from "../services/twilio"
 import { logger } from "../utils/loggers"
 import { repositoryCart } from "../models/cart/cart.repository"
-
-
-
-
 
 export const getCartByQuery = async (query: unknown)=>{
     return await repositoryCart.getCartByQuery(query)
@@ -17,16 +11,6 @@ export const getCartByUserId= async (query:{userId:string})=>{
 
 export const updateCart = async (query:unknown, update:unknown)=>{
     return await repositoryCart.updateCart(query, update)
-}
-
-export const  sendTheCartWithEmail = async (gmail:string, subject:string, content:string) =>{
-    const enviarEmail = await EmailService.sendEmail(gmail, subject, content)
-    return true
-}
-
-export const sendTheCartWithWhatsApp = async(phoneNumber: string, message:string)=> {
-    const whatsapp = await whatsappService.sendWhatsAppMessage(phoneNumber, message)
-     return true
 }
 export const emptyCartCreator =async (id:string) => {
     try{
