@@ -12,9 +12,7 @@ const initWsServer = (server: unknown) => {
     socket.emit("bienvenidaAUsuario", {
       Bienvenida: "hola",
     });
-    socket.on(
-      "recibimosTokenYmensaje",
-      async (data: { token: string; message: string }) => {
+    socket.on("recibimosTokenYmensaje", async (data: { token: string; message: string }) => {
         const { token, message } = data;
         let jwtObject: any
         const user = jwt.verify(token, config.JWT_SECRET_KEY, (err, user) => {
@@ -27,6 +25,7 @@ const initWsServer = (server: unknown) => {
           }
         });
         if(typeof user === "object" && jwtObject){
+          console.log(jwtObject.useriD)
           const newMessage = {
             userId: jwtObject.userId,
             type: tipos.Usuario,
@@ -36,7 +35,7 @@ const initWsServer = (server: unknown) => {
         socket.emit('imprimirMensaje', messageComplete)
         }else{
           logger.error("NO authorizado")
-          socket.emit('errorNoAuthorizado', user)
+          socket.emit('errorNoAutorizado', user)
         }
       }
     );

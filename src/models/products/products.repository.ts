@@ -12,7 +12,7 @@ import { AddProductObject, ProductObject } from "./products.interface";
 
      async  getAllProd() {
         const products = await this.dao.getAllProd();
-        const productsDto = (products)
+        const productsDto = products
         return productsDto
     };
     

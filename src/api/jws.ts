@@ -7,7 +7,7 @@ import { logger } from "../utils/loggers";
 
 export const createAuthToken = async (user:User)=> {
     const payload = {
-      usedId: user._id,
+      userId: user._id,
       username: user.username,
       image: user.image,
       gmail: user.gmail

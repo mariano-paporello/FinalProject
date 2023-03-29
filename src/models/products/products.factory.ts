@@ -23,6 +23,8 @@ switch(args.database.toLowerCase()) {
             
     default:
         logger.error("Error en factory al seleccionar Db")
+        dao = new DaoMongoDB('productos', productoSchema);
+        dao.initMongoDB();
         break;
 };
 

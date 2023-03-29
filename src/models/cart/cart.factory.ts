@@ -14,7 +14,9 @@ switch(args.database.toLowerCase()) {
         dao.initMongoDB();
         break;
     default:
-        logger.error("Error al querer seleccionar DB en Carrito")
+        logger.error("Error al querer seleccionar DB en Carrito(iniciando con la default)")
+        dao = new DaoMongoDB('carts', cartSchema);
+        dao.initMongoDB();
         break;
 };
 

@@ -32,8 +32,6 @@ if (args.modo === "CLUSTER" && cluster.isPrimary ) {
 server.on('error', (err:Error) => {
     logger.error('SERVER ERROR: ', err);
   });
-  
-  // Log on exit
   process.on('exit', (code) => {
     logger.error(`Exit ==> El proceso termino con codigo ${code}\n\n`);
   });

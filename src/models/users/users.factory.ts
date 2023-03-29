@@ -15,6 +15,8 @@ switch(args.database.toLowerCase()) {
         break;
     default:
         logger.error("Error al querer seleccionar DB en users")
+        dao = new DaoMongoDB('users', usersSchema);
+        dao.initMongoDB();
         break;
 };
 

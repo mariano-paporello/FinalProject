@@ -20,7 +20,11 @@ const tokenInput = document.getElementById("token");
     messageInput.value = "";
 
   });
-
+socket.on("errorNoAutorizado", (error)=>{
+  if(error === false){
+  throw new Error("No autorizado")
+}
+})
 socket.on("imprimirMensaje", (data) => {
   const p = document.createElement("p");
   p.innerText = `${data.message}`;

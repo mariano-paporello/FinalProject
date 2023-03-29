@@ -16,7 +16,9 @@ switch(args.database.toLowerCase()) {
         }
             
     default:
-        logger.error("Error en factory de orders al seleccionar Db")
+        logger.error("Error en factory de orders al seleccionar Db(iniciando con la default)")
+        dao = new DaoMongoDB('orders', orderSchema);
+        dao.initMongoDB();
         break;
 };
 
