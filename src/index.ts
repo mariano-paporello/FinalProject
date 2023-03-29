@@ -1,10 +1,10 @@
 const server = require('./services/server')
-const initWsServer = require("./services/sockets")
 import minimist from "minimist"
 import os from "os"
 import cluster from "cluster"
 import config from "./config"
 import { logger } from "./utils/loggers"
+import initWsServer from "./services/sockets"
 
 const args = minimist(process.argv)
 
@@ -13,7 +13,6 @@ const numCPUs = os.cpus().length
 
 
 initWsServer(server);
-
 if (args.modo === "CLUSTER" && cluster.isPrimary ) {
     logger.info("💡💡💡 TIPO CLUSTER")
     for (let i=0;i < numCPUs; i++) {

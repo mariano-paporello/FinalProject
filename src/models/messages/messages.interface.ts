@@ -13,3 +13,12 @@ export enum tipos {
     Usuario = "Usuario",
     Sistema = "Sistema"
 }
+
+export interface jwtObject{
+    usedId: string,
+  username: string,
+  image: string,
+  gmail: string,
+  iat: number,
+  exp: number
+}
