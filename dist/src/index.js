@@ -4,16 +4,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var server = require('./services/server');
-var initWsServer = require("./services/sockets");
 var minimist_1 = __importDefault(require("minimist"));
 var os_1 = __importDefault(require("os"));
 var cluster_1 = __importDefault(require("cluster"));
 var config_1 = __importDefault(require("./config"));
 var loggers_1 = require("./utils/loggers");
+var sockets_1 = __importDefault(require("./services/sockets"));
 var args = (0, minimist_1.default)(process.argv);
 var port = args.port || config_1.default.PORT;
 var numCPUs = os_1.default.cpus().length;
-initWsServer(server);
+(0, sockets_1.default)(server);
 if (args.modo === "CLUSTER" && cluster_1.default.isPrimary) {
     loggers_1.logger.info("💡💡💡 TIPO CLUSTER");
     for (var i = 0; i < numCPUs; i++) {
@@ -33,7 +33,6 @@ else {
 server.on('error', function (err) {
     loggers_1.logger.error('SERVER ERROR: ', err);
 });
-// Log on exit
 process.on('exit', function (code) {
     loggers_1.logger.error("Exit ==> El proceso termino con codigo ".concat(code, "\n\n"));
 });

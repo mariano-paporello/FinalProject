@@ -45,6 +45,8 @@ var chat = function (req, res) { return __awaiter(void 0, void 0, void 0, functi
     });
 }); };
 exports.chat = chat;
+// HACER PARA QUE SE PUEDA  ACEDER A LA RUTA CART SIN AUTHORIZACION SIEMPRE QUE ESTES LOGEADO
+// PODER VER EL CART EN NORMAL 
 var chatById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id, messagesOfUser;
     var _a;

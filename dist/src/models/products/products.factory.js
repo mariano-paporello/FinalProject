@@ -25,6 +25,8 @@ switch (args.database.toLowerCase()) {
         }
     default:
         loggers_1.logger.error("Error en factory al seleccionar Db");
+        dao = new mongodb_1.DaoMongoDB('productos', products_schema_1.productoSchema);
+        dao.initMongoDB();
         break;
 }
 ;

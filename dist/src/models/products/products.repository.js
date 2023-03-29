@@ -50,7 +50,7 @@ var ProductsRepository = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.dao.getAllProd()];
                     case 1:
                         products = _a.sent();
-                        productsDto = (products);
+                        productsDto = products;
                         return [2 /*return*/, productsDto];
                 }
             });

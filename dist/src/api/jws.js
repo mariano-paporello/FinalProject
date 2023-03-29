@@ -47,7 +47,7 @@ var createAuthToken = function (user) { return __awaiter(void 0, void 0, void 0,
     var payload, token;
     return __generator(this, function (_a) {
         payload = {
-            usedId: user._id,
+            userId: user._id,
             username: user.username,
             image: user.image,
             gmail: user.gmail
