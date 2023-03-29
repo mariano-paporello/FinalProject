@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loggedIsNotDestroyed = exports.isLogged = exports.logout = exports.registerGet = exports.register = exports.logInGet = exports.logIn = void 0;
+exports.isAdmin = exports.loggedIsNotDestroyed = exports.isLogged = exports.logout = exports.registerGet = exports.register = exports.logInGet = exports.logIn = void 0;
 var passport_1 = __importDefault(require("passport"));
 var loggers_1 = require("../utils/loggers");
 var user_1 = require("./user");
@@ -47,40 +47,43 @@ var logged_1 = require("../utils/logged");
 // LOGIN LOGIC
 var logIn = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        passport_1.default.authenticate('login', {}, function (err, user, info) { return __awaiter(void 0, void 0, void 0, function () {
-            var token, _a, _b;
-            var _c;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
-                    case 0:
-                        loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
-                        if (!(user.gmail && user.id)) return [3 /*break*/, 3];
-                        logged_1.logged.nombre = user.username;
-                        logged_1.logged.contraseña = true;
-                        logged_1.logged.islogged = true;
-                        logged_1.logged.isDestroyed = false;
-                        return [4 /*yield*/, (0, user_1.generateToken)(user)];
-                    case 1:
-                        token = _d.sent();
-                        _b = (_a = res.header('Access-Control-Expose-Headers', 'x-auth-token').header('x-auth-token', token).status(200)).json;
-                        _c = {
-                            msg: 'login OK'
-                        };
-                        return [4 /*yield*/, req.headers['x-auth-token']];
-                    case 2:
-                        _b.apply(_a, [(_c.header = _d.sent(),
-                                _c)]);
-                        return [3 /*break*/, 4];
-                    case 3:
-                        loggers_1.logger.error("Datos ingresados no validos o nulos");
-                        res.status(400).json({
-                            Error: "Datos ingresados no validos o nulos."
-                        });
-                        _d.label = 4;
-                    case 4: return [2 /*return*/];
-                }
+        if (req.body.password === req.body.passwordConfirm) {
+            passport_1.default.authenticate('login', {}, function (err, user, info) { return __awaiter(void 0, void 0, void 0, function () {
+                var token;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
+                            if (!(user.gmail && user._id)) return [3 /*break*/, 2];
+                            logged_1.logged.nombre = user.username;
+                            logged_1.logged.contraseña = true;
+                            logged_1.logged.islogged = true;
+                            logged_1.logged.isDestroyed = false;
+                            return [4 /*yield*/, (0, user_1.generateToken)(user)];
+                        case 1:
+                            token = _a.sent();
+                            res.header("Authorization", "Bearer ".concat(token)).status(200).json({
+                                msg: 'login OK',
+                                token: token
+                            });
+                            return [3 /*break*/, 3];
+                        case 2:
+                            loggers_1.logger.error("Datos ingresados no validos o nulos");
+                            res.status(400).json({
+                                Error: "Datos ingresados no validos o nulos."
+                            });
+                            _a.label = 3;
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            }); })(req, res, next);
+        }
+        else {
+            loggers_1.logger.error("Contraseñas ingresadas no son iguales");
+            res.status(400).json({
+                Error: "Las contraseñas ingresadas no son iguales"
             });
-        }); })(req, res, next);
+        }
         return [2 /*return*/];
     });
 }); };
@@ -95,24 +98,39 @@ exports.logInGet = logInGet;
 var register = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
-        passport_1.default.authenticate('signup', {}, function (err, user, info) {
-            var _a = req.body, gmail = _a.gmail, username = _a.username, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image, password = _a.password;
-            if (!username || !gmail || !age || !phoneNumber || !image || !password) {
-                res.status(400).json({
-                    Error: "Datos ingresados no validos o nulos"
+        if (req.body.password === req.body.passwordConfirm) {
+            passport_1.default.authenticate('signup', {}, function (err, user, info) { return __awaiter(void 0, void 0, void 0, function () {
+                var _a, gmail, username, age, phoneNumber, image, password, passwordConfirm, address, token;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            _a = req.body, gmail = _a.gmail, username = _a.username, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image, password = _a.password, passwordConfirm = _a.passwordConfirm, address = _a.address;
+                            if (!username || !gmail || !age || !phoneNumber || !image || !password || !passwordConfirm || address) {
+                                res.status(400).json({
+                                    Error: "Datos ingresados no validos o nulos"
+                                });
+                            }
+                            return [4 /*yield*/, (0, user_1.generateToken)(user)];
+                        case 1:
+                            token = _b.sent();
+                            logged_1.logged.nombre = username;
+                            logged_1.logged.contraseña = true;
+                            logged_1.logged.islogged = true;
+                            logged_1.logged.isDestroyed = false;
+                            res.header("authorization", "Bearer ".concat(token)).json({
+                                token: token
+                            });
+                            return [2 /*return*/];
+                    }
                 });
-            }
-            // Ver que onda con el type de esto:
-            var token = (0, user_1.generateToken)(user);
-            logged_1.logged.nombre = username;
-            logged_1.logged.contraseña = true;
-            logged_1.logged.islogged = true;
-            logged_1.logged.isDestroyed = false;
-            res.header('x-auth-token', token).json({
-                msg: "User creado: ",
-                user: user
+            }); })(req, res, next);
+        }
+        else {
+            loggers_1.logger.error("Contraseñas ingresadas no son iguales");
+            res.status(400).json({
+                Error: "Las contraseñas ingresadas no son iguales"
             });
-        })(req, res, next);
+        }
         return [2 /*return*/];
     });
 }); };
@@ -125,10 +143,11 @@ var registerGet = function (req, res) {
 exports.registerGet = registerGet;
 // LOGOUT LOGIC
 var logout = function (req, res) {
+    var _a;
     loggers_1.logger.info("METODO:" + req.method + " RUTA:" + req.url);
-    if (req.session.username) {
+    if (req.session.gmail) {
         res.json({
-            logoutFromThisUser: req.session.username
+            logoutFromThisUser: (_a = req.session.dataUser) === null || _a === void 0 ? void 0 : _a.username
         });
         logged_1.logged.islogged = false;
         logged_1.logged.nombre = "";
@@ -145,7 +164,7 @@ var isLogged = function (req, res, next) {
         next();
     }
     else {
-        loggers_1.logger.error("METODO:" + req.method + " RUTA:" + req.url);
+        loggers_1.logger.error("METODO:" + req.method + " RUTA:" + req.url + "User is Nos logged");
         res.status(400).json({
             Error: "Not Logged"
         });
@@ -157,10 +176,22 @@ var loggedIsNotDestroyed = function (req, res, next) {
         next();
     }
     else {
-        loggers_1.logger.error("METODO:" + req.method + " RUTA:" + req.url);
+        loggers_1.logger.error("METODO:" + req.method + " RUTA:" + req.url + "Not logged because the session is destroyed");
         res.status(400).json({
             Error: "Session destroyed"
         });
     }
 };
 exports.loggedIsNotDestroyed = loggedIsNotDestroyed;
+var isAdmin = function (req, res, next) {
+    if (req.session.admin) {
+        next();
+    }
+    else {
+        loggers_1.logger.error("METODO:" + req.method + " RUTA:" + req.url + " User is not type Admin");
+        res.status(401).json({
+            Error: "Not authorized"
+        });
+    }
+};
+exports.isAdmin = isAdmin;

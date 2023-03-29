@@ -36,79 +36,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkCart = exports.emptyCartCreator = exports.cartMsgSender = exports.cartGet = void 0;
-var email_1 = require("../services/email");
-var twilio_1 = require("../services/twilio");
+exports.deleteCartProduct = exports.checkCart = exports.emptyCartCreator = exports.updateCart = exports.getCartByUserId = exports.getCartByQuery = void 0;
 var loggers_1 = require("../utils/loggers");
-var products_repository_1 = require("../models/products/products.repository");
 var cart_repository_1 = require("../models/cart/cart.repository");
-var cartGet = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var cartOfUser_1, productsInCart, error_1;
+var getCartByQuery = function (query) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 3, , 4]);
-                return [4 /*yield*/, cart_repository_1.repositoryCart.getCartByQuery({ userId: id })];
-            case 1:
-                cartOfUser_1 = _a.sent();
-                return [4 /*yield*/, Promise.all(cartOfUser_1.cart.map(function (product) { return __awaiter(void 0, void 0, void 0, function () {
-                        var productFound;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0: return [4 /*yield*/, products_repository_1.repositoryProduct.getProductByQuery({ _id: product.productId })];
-                                case 1:
-                                    productFound = _a.sent();
-                                    return [2 /*return*/, productFound];
-                            }
-                        });
-                    }); })).then(function (result) { return __awaiter(void 0, void 0, void 0, function () {
-                        return __generator(this, function (_a) {
-                            return [2 /*return*/, result.map(function (productFromProducts) {
-                                    var title = productFromProducts.title, price = productFromProducts.price, thumbnail = productFromProducts.thumbnail;
-                                    var productInCart = cartOfUser_1.cart.filter(function (productInCart) { return productFromProducts.id === productInCart.productId; });
-                                    return { title: title, price: price * productInCart[0].amount, thumbnail: thumbnail, amount: productInCart[0].amount };
-                                })];
-                        });
-                    }); })];
-            case 2:
-                productsInCart = _a.sent();
-                return [2 /*return*/, productsInCart];
-            case 3:
-                error_1 = _a.sent();
-                loggers_1.logger.error("Error: ", error_1);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+            case 0: return [4 /*yield*/, cart_repository_1.repositoryCart.getCartByQuery(query)];
+            case 1: return [2 /*return*/, _a.sent()];
         }
     });
 }); };
-exports.cartGet = cartGet;
-var cartMsgSender = function (dataUser, subject, content, products) { return __awaiter(void 0, void 0, void 0, function () {
-    var enviarEmail, message, whatsapp, error_2;
+exports.getCartByQuery = getCartByQuery;
+var getCartByUserId = function (query) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 3, , 4]);
-                return [4 /*yield*/, email_1.EmailService.sendEmail(dataUser.gmail, subject, content)];
-            case 1:
-                enviarEmail = _a.sent();
-                message = "Nuevo pedido de ".concat(dataUser.username, ". Email: ").concat(dataUser.gmail, ".\n        Productos: \n        ").concat(products.map(function (product) {
-                    return "-".concat(product.title, ".\n        -").concat(product.price);
-                }));
-                return [4 /*yield*/, twilio_1.whatsappService.sendWhatsAppMessage("+".concat(dataUser.phoneNumber), message)];
-            case 2:
-                whatsapp = _a.sent();
-                return [2 /*return*/, true];
-            case 3:
-                error_2 = _a.sent();
-                loggers_1.logger.error("Error: ", error_2);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+            case 0: return [4 /*yield*/, cart_repository_1.repositoryCart.getCartByQuery(query)];
+            case 1: return [2 /*return*/, _a.sent()];
         }
     });
 }); };
-exports.cartMsgSender = cartMsgSender;
+exports.getCartByUserId = getCartByUserId;
+var updateCart = function (query, update) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, cart_repository_1.repositoryCart.updateCart(query, update)];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+exports.updateCart = updateCart;
 var emptyCartCreator = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var emptyCart, error_3;
+    var emptyCart, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -118,8 +77,8 @@ var emptyCartCreator = function (id) { return __awaiter(void 0, void 0, void 0, 
                 emptyCart = _a.sent();
                 return [2 /*return*/, emptyCart];
             case 2:
-                error_3 = _a.sent();
-                loggers_1.logger.error("Error: ", error_3);
+                error_1 = _a.sent();
+                loggers_1.logger.error("Error: ", error_1);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
@@ -127,7 +86,7 @@ var emptyCartCreator = function (id) { return __awaiter(void 0, void 0, void 0, 
 }); };
 exports.emptyCartCreator = emptyCartCreator;
 var checkCart = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var cartFound, error_4;
+    var cartFound, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -137,11 +96,17 @@ var checkCart = function (id) { return __awaiter(void 0, void 0, void 0, functio
                 cartFound = _a.sent();
                 return [2 /*return*/, cartFound];
             case 2:
-                error_4 = _a.sent();
-                loggers_1.logger.error("Error: ", error_4);
+                error_2 = _a.sent();
+                loggers_1.logger.error("Error: ", error_2);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.checkCart = checkCart;
+var deleteCartProduct = function (idProduct, cuantity) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        return [2 /*return*/];
+    });
+}); };
+exports.deleteCartProduct = deleteCartProduct;

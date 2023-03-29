@@ -50,16 +50,24 @@ var searchUser = function (req, username, password, done) { return __awaiter(voi
                 return [4 /*yield*/, user_repository_1.repositoryUser.logIn(username, password)];
             case 1:
                 user = _a.sent();
-                if (!user) return [3 /*break*/, 3];
+                if (!(user && typeof user !== "boolean")) return [3 /*break*/, 3];
                 return [4 /*yield*/, (0, cart_1.ifCartExist)(user)];
             case 2:
                 _a.sent();
                 req.session.dataUser = user;
                 req.session.gmail = user.gmail;
-                req.session.image = user.image;
-                req.session.username = user.username;
+                if (user.admin) {
+                    req.session.admin = user.admin;
+                }
                 return [2 /*return*/, done(null, user)];
-            case 3: return [2 /*return*/, done(null, false, { msg: "Usuario no encontrado" })];
+            case 3:
+                if (typeof user === "boolean") {
+                    return [2 /*return*/, done(null, false, { msg: "Usuario no encontrado debido a que dio false" })];
+                }
+                else {
+                    return [2 /*return*/, done(null, false, { msg: "Usuario no encontrado debido a que dio undefined" })];
+                }
+                _a.label = 4;
             case 4: return [3 /*break*/, 6];
             case 5:
                 err_1 = _a.sent();
@@ -71,33 +79,35 @@ var searchUser = function (req, username, password, done) { return __awaiter(voi
 }); };
 exports.searchUser = searchUser;
 var createUser = function (req, username, password, done) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, gmail, age, phoneNumber, image, user, err_2;
+    var _a, gmail, age, phoneNumber, image, address, user, err_2;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _b.trys.push([0, 3, , 4]);
-                _a = req.body, gmail = _a.gmail, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image;
+                _b.trys.push([0, 4, , 5]);
+                _a = req.body, gmail = _a.gmail, age = _a.age, phoneNumber = _a.phoneNumber, image = _a.image, address = _a.address;
+                if (!(gmail && age && phoneNumber && image && password && username)) return [3 /*break*/, 3];
                 return [4 /*yield*/, user_repository_1.repositoryUser.singUp({
                         gmail: gmail,
                         password: password,
                         age: age,
                         phoneNumber: phoneNumber,
                         image: image,
-                        username: username
+                        username: username,
+                        admin: false,
+                        address: address
                     })];
             case 1:
                 user = _b.sent();
-                req.session.image = user.image;
                 req.session.gmail = user.gmail;
-                req.session.username = user.username;
                 return [4 /*yield*/, (0, cart_1.ifCartExist)(user)];
             case 2:
                 _b.sent();
                 return [2 /*return*/, done(null, user)];
-            case 3:
+            case 3: return [2 /*return*/, done(null, false, { message: "Error debido a falta de alguno de los campos." })];
+            case 4:
                 err_2 = _b.sent();
                 return [2 /*return*/, done(null, false, { mensaje: 'Error Inesperado', err: err_2 })];
-            case 4: return [2 /*return*/];
+            case 5: return [2 /*return*/];
         }
     });
 }); };

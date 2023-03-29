@@ -42,7 +42,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DaoMongoDB = void 0;
 var mongoose_1 = __importDefault(require("mongoose"));
 var config_1 = __importDefault(require("../../../config"));
+var loggers_1 = require("../../../utils/loggers");
 mongoose_1.default.set('strictQuery', true);
+// ARREGLAR LOS ANY
 var DaoMongoDB = /** @class */ (function () {
     function DaoMongoDB(collection, schema) {
         this.collection = mongoose_1.default.model(collection, schema);
@@ -70,10 +72,30 @@ var DaoMongoDB = /** @class */ (function () {
     };
     DaoMongoDB.prototype.getProductById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
+            var productFound, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.collection.findById(id)];
+                    case 1:
+                        productFound = _a.sent();
+                        return [2 /*return*/, productFound];
+                    case 2:
+                        error_1 = _a.sent();
+                        loggers_1.logger.info("Error in getProductById: ".concat(error_1));
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    DaoMongoDB.prototype.getOneProductByQuery = function (query) {
+        return __awaiter(this, void 0, void 0, function () {
             var productFound;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.findById(id)];
+                    case 0: return [4 /*yield*/, this.collection.findOne(query)];
                     case 1:
                         productFound = _a.sent();
                         return [2 /*return*/, productFound];
@@ -81,12 +103,12 @@ var DaoMongoDB = /** @class */ (function () {
             });
         });
     };
-    DaoMongoDB.prototype.getProductByQuery = function (query) {
+    DaoMongoDB.prototype.getProductsByQuery = function (query) {
         return __awaiter(this, void 0, void 0, function () {
             var productFound;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.findOne(query)];
+                    case 0: return [4 /*yield*/, this.collection.find(query)];
                     case 1:
                         productFound = _a.sent();
                         return [2 /*return*/, productFound];
@@ -107,25 +129,25 @@ var DaoMongoDB = /** @class */ (function () {
             });
         });
     };
-    DaoMongoDB.prototype.postProductToCart = function (data) {
+    DaoMongoDB.prototype.updateProduct = function (query, update) {
         return __awaiter(this, void 0, void 0, function () {
-            var productAdding;
+            var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.create(data)];
+                    case 0: return [4 /*yield*/, this.collection.updateOne(query, update)];
                     case 1:
-                        productAdding = _a.sent();
-                        return [2 /*return*/, productAdding];
+                        result = _a.sent();
+                        return [2 /*return*/, result];
                 }
             });
         });
     };
-    DaoMongoDB.prototype.deleteByQuery = function (query) {
+    DaoMongoDB.prototype.deleteById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var deleting;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.deleteOne(query)];
+                    case 0: return [4 /*yield*/, this.collection.deleteOne({ _id: id })];
                     case 1:
                         deleting = _a.sent();
                         return [2 /*return*/, deleting];

@@ -8,7 +8,6 @@ var http_1 = __importDefault(require("http"));
 var express_handlebars_1 = require("express-handlebars");
 var compression_1 = __importDefault(require("compression"));
 var loggers_1 = require("../utils/loggers");
-// import { usuario } from '../persistence/user'
 var index_1 = __importDefault(require("../routes/index"));
 var paths_1 = require("../utils/paths");
 var cookie_parser_1 = __importDefault(require("cookie-parser"));

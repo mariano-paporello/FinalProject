@@ -68,14 +68,17 @@ var DaoMongoDB = /** @class */ (function () {
             });
         });
     };
-    DaoMongoDB.prototype.find = function (username) {
+    DaoMongoDB.prototype.find = function (usernameIngresed) {
         return __awaiter(this, void 0, void 0, function () {
             var userfound;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.find({ username: username })];
+                    case 0: return [4 /*yield*/, this.collection.find({ username: usernameIngresed })];
                     case 1:
                         userfound = _a.sent();
+                        if (userfound.length === 0) {
+                            return [2 /*return*/, null];
+                        }
                         return [2 /*return*/, userfound];
                 }
             });
@@ -91,7 +94,7 @@ var DaoMongoDB = /** @class */ (function () {
                         return [4 /*yield*/, this.find(username)];
                     case 1:
                         usersfound = _a.sent();
-                        if (!(usersfound && usersfound.length > 0)) return [3 /*break*/, 6];
+                        if (!(usersfound != null && usersfound.length > 0)) return [3 /*break*/, 6];
                         i = 0;
                         _a.label = 2;
                     case 2:
@@ -103,14 +106,14 @@ var DaoMongoDB = /** @class */ (function () {
                             return [2 /*return*/, usersfound[i]];
                         }
                         else {
-                            return [2 /*return*/, false];
+                            return [2 /*return*/, null];
                         }
                         _a.label = 4;
                     case 4:
                         i++;
                         return [3 /*break*/, 2];
                     case 5: return [3 /*break*/, 7];
-                    case 6: return [2 /*return*/, false];
+                    case 6: return [2 /*return*/, null];
                     case 7: return [2 /*return*/];
                 }
             });

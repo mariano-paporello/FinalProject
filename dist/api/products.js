@@ -36,76 +36,68 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.añadirProdACart = exports.getProducts = exports.findProduct = void 0;
-var cart_repository_1 = require("../models/cart/cart.repository");
+exports.newProductToDB = exports.updateProduct = exports.deleteProduct = exports.getProducts = exports.getProductById = void 0;
 var products_repository_1 = require("../models/products/products.repository");
 var loggers_1 = require("../utils/loggers");
-var findProduct = function (_id) { return __awaiter(void 0, void 0, void 0, function () {
-    var product;
+var getProductById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                if (!_id) return [3 /*break*/, 2];
-                return [4 /*yield*/, products_repository_1.repositoryProduct.getProductById(_id)];
-            case 1:
-                product = _a.sent();
-                return [2 /*return*/, product];
-            case 2: return [2 /*return*/];
-        }
-    });
-}); };
-exports.findProduct = findProduct;
-var getProducts = function () { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, products_repository_1.repositoryProduct.getAllProd()];
+            case 0: return [4 /*yield*/, products_repository_1.repositoryProduct.getProductById(id)];
             case 1: return [2 /*return*/, _a.sent()];
         }
     });
 }); };
-exports.getProducts = getProducts;
-var añadirProdACart = function (dataUser, product) { return __awaiter(void 0, void 0, void 0, function () {
-    var userHasCart, index, newCart, addAmountToaProduct, err_1, addOneProductToExistingCart, err_2;
+exports.getProductById = getProductById;
+var getProducts = function (id, category) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                if (!product) return [3 /*break*/, 10];
-                return [4 /*yield*/, cart_repository_1.repositoryCart.getCartByQuery({ userId: dataUser._id })];
-            case 1:
-                userHasCart = _a.sent();
-                index = userHasCart === null || userHasCart === void 0 ? void 0 : userHasCart.cart.findIndex(function (obj) {
-                    return obj.productId === product.id;
-                });
-                if (!(userHasCart && index != -1 && index || index === 0)) return [3 /*break*/, 6];
-                _a.label = 2;
+                if (!(id && id.length === 24)) return [3 /*break*/, 2];
+                return [4 /*yield*/, products_repository_1.repositoryProduct.getProductById(id)];
+            case 1: return [2 /*return*/, _a.sent()];
             case 2:
-                _a.trys.push([2, 4, , 5]);
-                newCart = userHasCart === null || userHasCart === void 0 ? void 0 : userHasCart.cart;
-                newCart[index] = { productId: newCart[index].productId, amount: newCart[index].amount + 1 };
-                return [4 /*yield*/, cart_repository_1.repositoryCart.updateCart({ userId: dataUser._id }, { $set: { cart: newCart } })];
+                if (!(id && id !== null)) return [3 /*break*/, 3];
+                loggers_1.logger.warn("WARNING ID INGRESADO NO ES IGUAL A 24 CARACTERES");
+                return [2 /*return*/, false];
             case 3:
-                addAmountToaProduct = _a.sent();
-                return [2 /*return*/, true];
-            case 4:
-                err_1 = _a.sent();
-                loggers_1.logger.error("Error: ", err_1);
-                return [3 /*break*/, 5];
-            case 5: return [3 /*break*/, 10];
-            case 6:
-                if (!(userHasCart && index === -1)) return [3 /*break*/, 10];
-                _a.label = 7;
-            case 7:
-                _a.trys.push([7, 9, , 10]);
-                return [4 /*yield*/, cart_repository_1.repositoryCart.updateCart({ userId: dataUser._id }, { $push: { cart: { productId: product._id, amount: 1 } } })];
-            case 8:
-                addOneProductToExistingCart = _a.sent();
-                return [2 /*return*/, true];
-            case 9:
-                err_2 = _a.sent();
-                loggers_1.logger.error("Error: ", err_2);
-                return [3 /*break*/, 10];
-            case 10: return [2 /*return*/, product];
+                if (!category) return [3 /*break*/, 5];
+                return [4 /*yield*/, products_repository_1.repositoryProduct.getProductsByQuery({ category: category })];
+            case 4: return [2 /*return*/, _a.sent()];
+            case 5: return [4 /*yield*/, products_repository_1.repositoryProduct.getAllProd()];
+            case 6: return [2 /*return*/, _a.sent()];
         }
     });
 }); };
-exports.añadirProdACart = añadirProdACart;
+exports.getProducts = getProducts;
+var deleteProduct = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!(id && id.length === 24)) return [3 /*break*/, 2];
+                return [4 /*yield*/, products_repository_1.repositoryProduct.deleteById(id)];
+            case 1: return [2 /*return*/, _a.sent()];
+            case 2:
+                loggers_1.logger.warn("ID INGRESADO NO TIENE 24 CARACTERES");
+                return [2 /*return*/, false];
+        }
+    });
+}); };
+exports.deleteProduct = deleteProduct;
+var updateProduct = function (query, update) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, products_repository_1.repositoryProduct.updateProduct(query, update)];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+exports.updateProduct = updateProduct;
+var newProductToDB = function (data) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, products_repository_1.repositoryProduct.postProductToProducts(data)];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+exports.newProductToDB = newProductToDB;

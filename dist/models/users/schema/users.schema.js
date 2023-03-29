@@ -48,6 +48,8 @@ var usersSchema = new mongoose_1.default.Schema({
     username: { type: String, require: true },
     phoneNumber: { type: String, require: true, max: 15 },
     image: { type: String, require: true },
+    admin: { type: Boolean, require: true },
+    address: { type: String, require: true }
 });
 usersSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function () {

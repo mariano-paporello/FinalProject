@@ -45,6 +45,7 @@ var dotenv_1 = __importDefault(require("dotenv"));
 var config_1 = __importDefault(require("../../../config"));
 dotenv_1.default.config();
 mongoose_1.default.set('strictQuery', false);
+// ARREGLAR LOS ANY
 var DaoMongoDB = /** @class */ (function () {
     function DaoMongoDB(collection, schema) {
         this.collection = mongoose_1.default.model(collection, schema);

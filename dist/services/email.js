@@ -61,7 +61,7 @@ var Email = /** @class */ (function () {
             },
         });
         if (!args.testing) {
-            this.transporter.verify().then(function () { console.log("emailSenderREADY"); });
+            this.transporter.verify().then(function () { console.log("EmailSenderReady"); });
         }
     }
     Email.prototype.sendEmail = function (dest, subject, content) {

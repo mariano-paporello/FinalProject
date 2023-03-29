@@ -44,7 +44,7 @@ var passport_1 = __importDefault(require("passport"));
 var passport_local_1 = require("passport-local");
 var user_repository_1 = require("../models/users/user.repository");
 var loggers_1 = require("../utils/loggers");
-var jws_1 = require("./jws");
+var jws_1 = require("../api/jws");
 var passport_2 = require("./passport");
 // JWT PART
 var generateToken = function (user) { return __awaiter(void 0, void 0, void 0, function () {
@@ -62,9 +62,9 @@ var validateToken = function (req, res, next) {
 exports.validateToken = validateToken;
 // PASSPORT PART
 var strategyOptions = {
-    password: "password",
-    username: "username",
-    passReqToCallback: true,
+    usernameField: "username",
+    passwordField: "password",
+    passReqToCallback: true
 };
 var logIn = function (req, username, password, done) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {

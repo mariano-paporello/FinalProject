@@ -37,7 +37,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.repositoryProduct = void 0;
-// import { asDto } from "./dto/products-dto";
 var products_factory_1 = require("./products.factory");
 var ProductsRepository = /** @class */ (function () {
     function ProductsRepository() {
@@ -51,7 +50,7 @@ var ProductsRepository = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.dao.getAllProd()];
                     case 1:
                         products = _a.sent();
-                        productsDto = (products);
+                        productsDto = products;
                         return [2 /*return*/, productsDto];
                 }
             });
@@ -75,19 +74,32 @@ var ProductsRepository = /** @class */ (function () {
     ;
     ProductsRepository.prototype.getProductByQuery = function (query) {
         return __awaiter(this, void 0, void 0, function () {
-            var products, productsDto;
+            var product, productsDto;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.dao.getProductByQuery(query)];
+                    case 0: return [4 /*yield*/, this.dao.getOneProductByQuery(query)];
                     case 1:
-                        products = _a.sent();
-                        productsDto = (products);
+                        product = _a.sent();
+                        productsDto = (product);
                         return [2 /*return*/, productsDto];
                 }
             });
         });
     };
     ;
+    ProductsRepository.prototype.getProductsByQuery = function (query) {
+        return __awaiter(this, void 0, void 0, function () {
+            var products;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dao.getProductsByQuery(query)];
+                    case 1:
+                        products = _a.sent();
+                        return [2 /*return*/, products];
+                }
+            });
+        });
+    };
     ProductsRepository.prototype.postProductToProducts = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var products;
@@ -101,21 +113,19 @@ var ProductsRepository = /** @class */ (function () {
             });
         });
     };
-    ProductsRepository.prototype.postProductToCart = function (data) {
+    ProductsRepository.prototype.updateProduct = function (query, update) {
         return __awaiter(this, void 0, void 0, function () {
-            var products, productsDto;
+            var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.dao.postProductToCart(data)];
+                    case 0: return [4 /*yield*/, this.dao.updateProduct(query, update)];
                     case 1:
-                        products = _a.sent();
-                        productsDto = (products);
-                        return [2 /*return*/, productsDto];
+                        result = _a.sent();
+                        return [2 /*return*/, result];
                 }
             });
         });
     };
-    ;
     ProductsRepository.prototype.deleteAll = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -128,12 +138,12 @@ var ProductsRepository = /** @class */ (function () {
             });
         });
     };
-    ProductsRepository.prototype.deleteByQuery = function (query) {
+    ProductsRepository.prototype.deleteById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var productDeleted;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.dao.deleteByQuery(query)];
+                    case 0: return [4 /*yield*/, this.dao.deleteById(id)];
                     case 1:
                         productDeleted = _a.sent();
                         return [2 /*return*/, productDeleted];
