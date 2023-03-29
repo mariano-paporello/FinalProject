@@ -13,13 +13,17 @@ export interface User{
 
 export type ProductToView = ({title:string, price: number, thumbnail:string, amount: number})[] 
 export interface singlePorduct{
-        title: any;
+        id: string | undefined;
+        title: string;
+        priceUnit: number;
         price: number;
-        thumbnail: any;
+        thumbnail: string;
         amount: number;
 }
 export type finalProductForm = ({
+    id: string | undefined;
     title: string;
+    priceUnit: number;
     price: number;
     thumbnail: string;
     amount: number;
@@ -41,4 +45,10 @@ export enum states{
     paid = "Pago",
     send = "Enviado",
     ended = "Finalizado"
+}
+export interface updatedProduct{
+        id: string | undefined;
+        title: string| undefined;
+        price?: number;
+        amount: number;
 }

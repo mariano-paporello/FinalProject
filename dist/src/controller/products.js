@@ -46,7 +46,6 @@ var productsGetController = function (req, res) { return __awaiter(void 0, void 
         switch (_d.label) {
             case 0:
                 _d.trys.push([0, 7, , 8]);
-                console.log(req.params);
                 if (!req.params.id) return [3 /*break*/, 2];
                 return [4 /*yield*/, (0, products_1.getProducts)(req.params.id)];
             case 1:
@@ -73,7 +72,6 @@ var productsGetController = function (req, res) { return __awaiter(void 0, void 
                 return [4 /*yield*/, (0, products_1.getProducts)(undefined, req.params.category)];
             case 3:
                 productosBuscados = _d.sent();
-                console.log(productosBuscados);
                 if (productosBuscados && Array.isArray(productosBuscados) && productosBuscados.length >= 1) {
                     res.json({
                         productosBuscados: productosBuscados
@@ -109,7 +107,6 @@ var newProductController = function (req, res) { return __awaiter(void 0, void 0
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 4, , 5]);
-                console.log(req.session.admin);
                 if (!req.session.admin) return [3 /*break*/, 2];
                 return [4 /*yield*/, (0, products_1.newProductToDB)(req.body)];
             case 1:
@@ -143,11 +140,9 @@ var modifyAProduct = function (req, res) { return __awaiter(void 0, void 0, void
             case 0:
                 id = req.params.id;
                 data = req.body;
-                console.log(data);
                 return [4 /*yield*/, (0, products_1.updateProduct)({ _id: id }, { $set: data })];
             case 1:
                 changedProduct = _a.sent();
-                console.log(changedProduct);
                 if (changedProduct.acknowledged && changedProduct.modifiedCount > 0) {
                     res.status(200).json({
                         msg: "Modificacion realizada de forma correcta"

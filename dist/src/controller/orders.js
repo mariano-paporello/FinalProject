@@ -85,7 +85,6 @@ var CreateOrder = function (data, userData) { return __awaiter(void 0, void 0, v
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 6, , 7]);
-                console.log(getTotal(data));
                 if (!(data && userData)) return [3 /*break*/, 4];
                 total = getTotal(data);
                 if (!total) return [3 /*break*/, 3];
@@ -137,38 +136,48 @@ var getTotal = function (data) {
     }
 };
 var sendMessages = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var dataUser, productsInCart, orderUpdated, productsHtml, content, message, done;
+    var dataUser, idOfOrder, productsInCart, orderUpdated, order, productsHtml, content, message, done;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 dataUser = req.session.dataUser;
-                if (!dataUser) return [3 /*break*/, 4];
+                idOfOrder = req.body.id;
+                if (!(dataUser && idOfOrder)) return [3 /*break*/, 6];
                 return [4 /*yield*/, (0, cart_1.cartGet)(dataUser._id)];
             case 1:
                 productsInCart = _a.sent();
-                if (!(productsInCart !== undefined)) return [3 /*break*/, 4];
-                return [4 /*yield*/, (0, orders_1.updateOrder)({}, {})];
+                if (!(productsInCart !== undefined)) return [3 /*break*/, 6];
+                return [4 /*yield*/, updateState(idOfOrder)];
             case 2:
                 orderUpdated = _a.sent();
+                return [4 /*yield*/, (0, orders_1.getOrderById)(idOfOrder)];
+            case 3:
+                order = _a.sent();
+                if (!!orderUpdated) return [3 /*break*/, 4];
+                res.status(400).json({
+                    Error: "Orden no encontrada o en estado no generado"
+                });
+                return [3 /*break*/, 6];
+            case 4:
+                if (!order) return [3 /*break*/, 6];
                 productsHtml = productsInCart === null || productsInCart === void 0 ? void 0 : productsInCart.map(function (product) {
                     if (product !== undefined)
                         return "<li>Producto:<ul><li>Nombre del Producto:".concat(product.title, "</li><li>Precio total: $").concat(product.price, "</li><li>Imagen del producto: <img src=").concat(product.thumbnail, " alt=\"Image Not Found\"></li><li>Cantidad del producto: ").concat(product.amount, "</li></ul></li>");
                 });
-                content = "<div><h1>Productos:</h1><ul>".concat(productsHtml, "</ul></div>");
+                content = "<div><h1>Productos:</h1><ul>".concat(productsHtml, "</ul><h2>Precio Total: $").concat(order.total, "</h2></div>");
                 message = "Nuevo pedido de ".concat(dataUser.username, ". Email: ").concat(dataUser.gmail, ".\n                Productos: \n                ").concat(productsInCart.map(function (product) {
                     product !== undefined ? "-".concat(product.title, ".\n                -").concat(product.price) : 'there are no products';
                 }));
                 return [4 /*yield*/, cartMsgSender(dataUser, "Nuevo pedido de ".concat(dataUser.username, ". Email: ").concat(dataUser.gmail), content, message)];
-            case 3:
+            case 5:
                 done = _a.sent();
                 if (done) {
                     res.json({
                         msg: "Orden completada y envíada.",
-                        // orden : order
                     });
                 }
-                _a.label = 4;
-            case 4: return [2 /*return*/];
+                _a.label = 6;
+            case 6: return [2 /*return*/];
         }
     });
 }); };
@@ -196,6 +205,29 @@ var cartMsgSender = function (dataUser, subjectEmail, contentEmail, messageWhats
                 loggers_1.logger.error("Error: ", error_3);
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
+        }
+    });
+}); };
+var updateState = function (idOfOrder) { return __awaiter(void 0, void 0, void 0, function () {
+    var order;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!(idOfOrder.length === 24)) return [3 /*break*/, 5];
+                return [4 /*yield*/, (0, orders_1.getOrderById)(idOfOrder)];
+            case 1:
+                order = _a.sent();
+                if (!(order && order.state === "Generado")) return [3 /*break*/, 3];
+                return [4 /*yield*/, (0, orders_1.updateOrder)({ _id: idOfOrder }, { $set: { state: "Enviado" } })];
+            case 2: return [2 /*return*/, _a.sent()];
+            case 3:
+                loggers_1.logger.warn("Error: el order states es diferente a generado");
+                return [2 /*return*/, false];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                loggers_1.logger.warn("El id enviado no tiene 24.");
+                return [2 /*return*/, false];
+            case 6: return [2 /*return*/];
         }
     });
 }); };

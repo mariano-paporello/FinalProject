@@ -8,5 +8,5 @@ var cartRoute = (0, express_1.Router)();
 cartRoute.get("/", auth_1.isLogged, jws_1.checkAuth, auth_1.loggedIsNotDestroyed, cart_1.cart);
 cartRoute.post("/add/:id", auth_1.loggedIsNotDestroyed, jws_1.checkAuth, auth_1.isLogged, cart_1.productToCartController);
 cartRoute.post("/submit", auth_1.isLogged, jws_1.checkAuth, auth_1.loggedIsNotDestroyed, cart_1.cartSender);
-cartRoute;
+cartRoute.delete("/delete", auth_1.isLogged, jws_1.checkAuth, auth_1.loggedIsNotDestroyed, cart_1.deleteCartProducts);
 exports.default = cartRoute;

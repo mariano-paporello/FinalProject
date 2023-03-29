@@ -1,5 +1,6 @@
 import mongoose, { FilterQuery, Schema, UpdateQuery } from 'mongoose';
 import config from '../../../config';
+import { logger } from '../../../utils/loggers';
 import { NewOrderObject, OrderObject, OrdersBaseClass } from '../orders.interface';
 
 export class DaoMongoDB implements OrdersBaseClass {    
@@ -25,12 +26,10 @@ export class DaoMongoDB implements OrdersBaseClass {
     }
     async getOrderById(id:string) {
         try {
-            console.log("id",id)
             const orderFound = await this.collection.findOne({_id:id})
-            console.log(orderFound)
             return orderFound 
         } catch (error) {
-            console.log(error)
+            logger.error(`Error in get orderById: ${error}`)
         }
     }
     async createAnOrder(data:NewOrderObject){

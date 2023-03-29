@@ -46,12 +46,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+var messages_respository_1 = require("../models/messages/messages.respository");
 var io = require('socket.io');
-var mensajes_1 = __importDefault(require("../controller/mensajes"));
 var initWsServer = function (server) {
     var SocketServer = io(server);
     SocketServer.on('connection', function (socket, req) {
@@ -67,7 +64,7 @@ var initWsServer = function (server) {
             var dataSi;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, mensajes_1.default.nuevomensaje(data)];
+                    case 0: return [4 /*yield*/, messages_respository_1.repositoryMessage.createMessage(data)];
                     case 1:
                         dataSi = _a.sent();
                         SocketServer.emit('imprimirMensaje', dataSi);

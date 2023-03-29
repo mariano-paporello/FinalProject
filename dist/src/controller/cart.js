@@ -36,11 +36,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.productToCartController = exports.ifCartExist = exports.createCartOfUser = exports.cartSender = exports.cartGet = exports.cart = void 0;
+exports.deleteCartProducts = exports.productToCartController = exports.ifCartExist = exports.createCartOfUser = exports.cartSender = exports.cartGet = exports.cart = void 0;
 var cart_1 = require("../api/cart");
 var loggers_1 = require("../utils/loggers");
 var products_1 = require("../api/products");
 var orders_1 = require("./orders");
+var cart_repository_1 = require("../models/cart/cart.repository");
 var cart = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var productsInCart;
     return __generator(this, function (_a) {
@@ -136,16 +137,17 @@ var getProduct = function (product) { return __awaiter(void 0, void 0, void 0, f
     });
 }); };
 var modifyTheProductToLookGood = function (productFromProducts, cartOfUser) { return __awaiter(void 0, void 0, void 0, function () {
-    var title, price, thumbnail, productInCart, theProductInTheCart;
+    var title, price, thumbnail, id, productInCart, theProductInTheCart;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 if (!productFromProducts) return [3 /*break*/, 2];
                 title = productFromProducts.title, price = productFromProducts.price, thumbnail = productFromProducts.thumbnail;
+                id = productFromProducts.id;
                 return [4 /*yield*/, Promise.all(cartOfUser.cart.filter(function (productInCart) { return productFromProducts.id === productInCart.productId; }))];
             case 1:
                 productInCart = _a.sent();
-                theProductInTheCart = { title: title, price: price * productInCart[0].amount, thumbnail: thumbnail, amount: productInCart[0].amount };
+                theProductInTheCart = { id: id, title: title, priceUnit: price, price: price * productInCart[0].amount, thumbnail: thumbnail, amount: productInCart[0].amount };
                 return [2 /*return*/, theProductInTheCart];
             case 2: return [2 /*return*/];
         }
@@ -219,7 +221,6 @@ var productToCartController = function (req, res) { return __awaiter(void 0, voi
                 return [4 /*yield*/, (0, products_1.getProductById)(req.params.id)];
             case 1:
                 product = _a.sent();
-                console.log("producto loll ", product);
                 if (!(req.session.dataUser && product !== undefined && product !== null)) return [3 /*break*/, 3];
                 return [4 /*yield*/, añadirProdACart(req.session.dataUser, product)];
             case 2:
@@ -314,3 +315,78 @@ var addQuantityInCart = function (product, dataUser) { return __awaiter(void 0, 
         }
     });
 }); };
+var deleteCartProducts = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var idOfUser, _a, id_1, cuantity, carrito, index, numberOfAmountOfThatProduct, filterCarrito, newCart, product, newCart, error_2;
+    var _b, _c, _d, _e;
+    return __generator(this, function (_f) {
+        switch (_f.label) {
+            case 0:
+                _f.trys.push([0, 9, , 10]);
+                idOfUser = (_b = req.session.dataUser) === null || _b === void 0 ? void 0 : _b._id;
+                _a = req.body, id_1 = _a.id, cuantity = _a.cuantity;
+                if (!(idOfUser && id_1.length === 24 && cuantity)) return [3 /*break*/, 8];
+                return [4 /*yield*/, (0, exports.cartGet)(idOfUser)];
+            case 1:
+                carrito = _f.sent();
+                if (!carrito) return [3 /*break*/, 8];
+                index = carrito.findIndex(function (element) {
+                    return element.id === id_1;
+                });
+                if (!(index != -1 && index || index === 0)) return [3 /*break*/, 7];
+                numberOfAmountOfThatProduct = (_c = carrito[index]) === null || _c === void 0 ? void 0 : _c.amount;
+                filterCarrito = carrito.map(function (element) {
+                    var productObj = {
+                        productId: element.id !== id_1 ? element.id : false,
+                        amount: element.amount
+                    };
+                    if (productObj.productId) {
+                        return productObj;
+                    }
+                }).filter(function (element) { return element !== undefined; });
+                if (!(numberOfAmountOfThatProduct && Number(cuantity) >= numberOfAmountOfThatProduct)) return [3 /*break*/, 3];
+                return [4 /*yield*/, cart_repository_1.repositoryCart.updateCart({ userId: idOfUser }, { $set: { cart: filterCarrito } })];
+            case 2:
+                newCart = _f.sent();
+                if (newCart.acknowledged && newCart.modifiedCount > 0) {
+                    res.status(200).json({
+                        msg: "Producto en carrito borrado correctamente."
+                    });
+                }
+                return [3 /*break*/, 6];
+            case 3:
+                if (!(numberOfAmountOfThatProduct && numberOfAmountOfThatProduct > Number(cuantity))) return [3 /*break*/, 5];
+                product = {
+                    productId: (_d = carrito[index]) === null || _d === void 0 ? void 0 : _d.id,
+                    amount: Number((_e = carrito[index]) === null || _e === void 0 ? void 0 : _e.amount) - cuantity
+                };
+                filterCarrito.push(product);
+                return [4 /*yield*/, cart_repository_1.repositoryCart.updateCart({ userId: idOfUser }, { $set: { cart: filterCarrito } })];
+            case 4:
+                newCart = _f.sent();
+                if (newCart.acknowledged && newCart.modifiedCount > 0) {
+                    res.status(200).json({
+                        msg: "Producto en carrito actualizado"
+                    });
+                }
+                return [3 /*break*/, 6];
+            case 5:
+                res.status(400).json({
+                    Error: "Error al revisar que cantidad se quiere borrar"
+                });
+                _f.label = 6;
+            case 6: return [3 /*break*/, 8];
+            case 7:
+                res.status(400).json({
+                    Error: "Producto no encontrado en su carrito"
+                });
+                _f.label = 8;
+            case 8: return [3 /*break*/, 10];
+            case 9:
+                error_2 = _f.sent();
+                loggers_1.logger.error(error_2);
+                return [3 /*break*/, 10];
+            case 10: return [2 /*return*/];
+        }
+    });
+}); };
+exports.deleteCartProducts = deleteCartProducts;

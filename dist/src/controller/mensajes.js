@@ -35,65 +35,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var messages_1 = __importDefault(require("../models/messages/messages"));
-var loggers_1 = require("../utils/loggers");
-var mensajeController = /** @class */ (function () {
-    function mensajeController() {
-    }
-    mensajeController.prototype.list = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var getAll, err_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, messages_1.default.find({})];
-                    case 1:
-                        getAll = _a.sent();
-                        return [2 /*return*/, getAll];
-                    case 2:
-                        err_1 = _a.sent();
-                        return [2 /*return*/, loggers_1.logger.error(err_1)];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    mensajeController.prototype.nuevomensaje = function (data) {
-        return __awaiter(this, void 0, void 0, function () {
-            var dataCompleta, res, err_2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        dataCompleta = {
-                            author: {
-                                id: data.id,
-                                nombre: data.author.nombre,
-                                apellido: data.author.apellido,
-                                edad: Number(data.author.edad),
-                                alias: data.author.alias,
-                                avatar: data.author.avatar,
-                            },
-                            text: data.text,
-                        };
-                        return [4 /*yield*/, messages_1.default.create(dataCompleta)];
-                    case 1:
-                        res = _a.sent();
-                        return [2 /*return*/, res];
-                    case 2:
-                        err_2 = _a.sent();
-                        return [2 /*return*/, loggers_1.logger.error(err_2)];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    return mensajeController;
-}());
-var menssageController = new mensajeController();
-exports.default = menssageController;
+exports.chatById = exports.chat = void 0;
+var messages_1 = require("../api/messages");
+var chat = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        res.render('main', { data: req.session.dataUser });
+        return [2 /*return*/];
+    });
+}); };
+exports.chat = chat;
+var chatById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, messagesOfUser;
+    var _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                id = (_a = req.session.dataUser) === null || _a === void 0 ? void 0 : _a._id;
+                if (!id) return [3 /*break*/, 2];
+                return [4 /*yield*/, (0, messages_1.getMessages)(id)];
+            case 1:
+                messagesOfUser = _b.sent();
+                res.status(200).json({
+                    messages: messagesOfUser
+                });
+                _b.label = 2;
+            case 2: return [2 /*return*/];
+        }
+    });
+}); };
+exports.chatById = chatById;

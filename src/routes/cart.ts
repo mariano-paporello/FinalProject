@@ -1,6 +1,6 @@
 import {Router} from "express"
 import { isLogged, loggedIsNotDestroyed } from "../controller/auth"
-import { cart, cartSender, productToCartController } from "../controller/cart"
+import { cart, cartSender, deleteCartProducts, productToCartController } from "../controller/cart"
 import { checkAuth } from "../api/jws"
 
 
@@ -12,7 +12,7 @@ cartRoute.post("/add/:id",loggedIsNotDestroyed, checkAuth, isLogged, productToCa
 
 cartRoute.post("/submit",isLogged, checkAuth,  loggedIsNotDestroyed, cartSender )
 
-cartRoute
+cartRoute.delete("/delete", isLogged, checkAuth, loggedIsNotDestroyed, deleteCartProducts)
 
 
 export default cartRoute

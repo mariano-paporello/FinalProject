@@ -25,7 +25,7 @@ class Email {
             },
         })
         if(!args.testing){
-          this.transporter.verify().then(()=>{console.log("emailSenderREADY")})
+          this.transporter.verify().then(()=>{console.log("EmailSenderReady")})
         }
         
     }

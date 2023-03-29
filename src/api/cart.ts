@@ -28,4 +28,7 @@ export const checkCart = async (id:string) =>{
     logger.error("Error: ", error)
 }
 }
+export const deleteCartProduct = async (idProduct: string, cuantity: number)=>{
+
+}
 

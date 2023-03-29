@@ -1,11 +1,13 @@
 import {emptyCartCreator, checkCart, getCartByQuery, getCartByUserId, updateCart } from "../api/cart"
 import { logger } from "../utils/loggers"
-import {finalProductForm, User} from "../../Public/types"
+import {finalProductForm, singlePorduct, updatedProduct, User} from "../../Public/types"
 import { Request, Response } from "express"
 import { ProductObject } from "../models/products/products.interface"
 import { CartObject, DocumentMongoGet, productInCartObject } from "../models/cart/cart.interface"
-import { getProductById } from "../api/products"
+import { getProductById, updateProduct } from "../api/products"
 import { CreateOrder } from "./orders"
+import { repositoryCart } from "../models/cart/cart.repository"
+import { filter } from "compression"
 
 
 export const cart = async(req:Request, res:Response)=>{
@@ -57,8 +59,9 @@ const getProduct =async (product:productInCartObject): Promise<ProductObject | u
 const modifyTheProductToLookGood = async(productFromProducts: ProductObject  , cartOfUser: CartObject)=>{
     if(productFromProducts){
         const {title, price, thumbnail}= productFromProducts
+        const id = productFromProducts.id
     const productInCart = await Promise.all(cartOfUser.cart.filter((productInCart:productInCartObject)=>productFromProducts.id===productInCart.productId))
-    const theProductInTheCart = {title, price: price*productInCart[0].amount, thumbnail, amount: productInCart[0].amount}
+    const theProductInTheCart = {id, title, priceUnit:price, price: price*productInCart[0].amount, thumbnail, amount: productInCart[0].amount}
     return theProductInTheCart
     }
 }
@@ -105,7 +108,6 @@ export const ifCartExist = async(dataUser:User) =>{
 export const productToCartController = async(req:Request, res:Response)=>{
     try{
         const product  = await getProductById(req.params.id)
-        console.log("producto loll ", product)
         if(req.session.dataUser && product !== undefined && product !== null){
             await añadirProdACart(req.session.dataUser, product)
         }
@@ -159,5 +161,67 @@ const addQuantityInCart = async (product: ProductObject | DocumentMongoGet, data
         }
     }catch(err){
         logger.error("Error: ", err)
+    }
+}
+
+
+export const deleteCartProducts = async(req:Request, res:Response) =>{
+    try {
+        const idOfUser = req.session.dataUser?._id
+        const {id, cuantity} = req.body
+        
+        if(idOfUser && id.length === 24 && cuantity){ 
+            const carrito = await cartGet(idOfUser)
+            if(carrito){
+                const index = carrito.findIndex((element:singlePorduct)=>{
+                return element.id === id
+                })
+                
+                if( index != -1 && index || index===0){
+                    const numberOfAmountOfThatProduct = carrito[index]?.amount
+                    const filterCarrito = carrito.map((element:singlePorduct)=> {
+                        const productObj = {
+                            productId: element.id !== id? element.id : false,
+                            amount: element.amount
+                        }
+                        if(productObj.productId ){
+                            return productObj
+                        }}).filter((element:any)=>element !== undefined)
+
+                        if(numberOfAmountOfThatProduct && Number(cuantity) >= numberOfAmountOfThatProduct){
+                        const newCart = await repositoryCart.updateCart({userId:idOfUser}, {$set:{cart: filterCarrito }})
+
+                        if(newCart.acknowledged && newCart.modifiedCount > 0){
+                            res.status(200).json({
+                                msg: "Producto en carrito borrado correctamente."
+                            })
+                        }
+                        }else if(numberOfAmountOfThatProduct && numberOfAmountOfThatProduct > Number(cuantity)){
+                        const product: any = {
+                            productId: carrito[index]?.id,
+                            amount: Number(carrito[index]?.amount) - cuantity
+                        } 
+                        filterCarrito.push(product)
+                        const newCart = await repositoryCart.updateCart({userId:idOfUser}, {$set:{cart:filterCarrito }})
+
+                        if(newCart.acknowledged && newCart.modifiedCount>0){
+                            res.status(200).json({
+                                msg: "Producto en carrito actualizado"
+                            })}
+                    }else{
+                        res.status(400).json({
+                            Error: "Error al revisar que cantidad se quiere borrar"
+                        })
+                    }
+                }
+                else{
+                    res.status(400).json({
+                        Error: "Producto no encontrado en su carrito"
+                    })
+                }
+            }
+        }
+    }catch (error) {
+        logger.error(error)
     }
 }

@@ -42,9 +42,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DaoMongoDB = void 0;
 var mongoose_1 = __importDefault(require("mongoose"));
 var config_1 = __importDefault(require("../../../config"));
-var loggers_1 = require("../../../utils/loggers");
-mongoose_1.default.set('strictQuery', true);
-// ARREGLAR LOS ANY
 var DaoMongoDB = /** @class */ (function () {
     function DaoMongoDB(collection, schema) {
         this.collection = mongoose_1.default.model(collection, schema);
@@ -57,112 +54,32 @@ var DaoMongoDB = /** @class */ (function () {
             });
         });
     };
-    DaoMongoDB.prototype.getAllProd = function () {
+    DaoMongoDB.prototype.getAllTheMessagesOfThisUser = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var products;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.find({})];
-                    case 1:
-                        products = _a.sent();
-                        return [2 /*return*/, products];
+                    case 0: return [4 /*yield*/, this.collection.find({ userId: id })];
+                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    DaoMongoDB.prototype.getProductById = function (id) {
+    DaoMongoDB.prototype.createMessage = function (data) {
         return __awaiter(this, void 0, void 0, function () {
-            var productFound, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, this.collection.findById(id)];
-                    case 1:
-                        productFound = _a.sent();
-                        return [2 /*return*/, productFound];
-                    case 2:
-                        error_1 = _a.sent();
-                        loggers_1.logger.info("Error in getProductById: ".concat(error_1));
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    DaoMongoDB.prototype.getOneProductByQuery = function (query) {
-        return __awaiter(this, void 0, void 0, function () {
-            var productFound;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.findOne(query)];
-                    case 1:
-                        productFound = _a.sent();
-                        return [2 /*return*/, productFound];
-                }
-            });
-        });
-    };
-    DaoMongoDB.prototype.getProductsByQuery = function (query) {
-        return __awaiter(this, void 0, void 0, function () {
-            var productFound;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.find(query)];
-                    case 1:
-                        productFound = _a.sent();
-                        return [2 /*return*/, productFound];
-                }
-            });
-        });
-    };
-    DaoMongoDB.prototype.postProductToProducts = function (data) {
-        return __awaiter(this, void 0, void 0, function () {
-            var productAdded;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.collection.create(data)];
-                    case 1:
-                        productAdded = _a.sent();
-                        return [2 /*return*/, productAdded];
+                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    DaoMongoDB.prototype.updateProduct = function (query, update) {
+    DaoMongoDB.prototype.updateMessage = function (query, update) {
         return __awaiter(this, void 0, void 0, function () {
-            var result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.collection.updateOne(query, update)];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, result];
-                }
-            });
-        });
-    };
-    DaoMongoDB.prototype.deleteById = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            var deleting;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.deleteOne({ _id: id })];
-                    case 1:
-                        deleting = _a.sent();
-                        return [2 /*return*/, deleting];
-                }
-            });
-        });
-    };
-    DaoMongoDB.prototype.deleteAll = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.deleteMany()];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/, true];
+                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });

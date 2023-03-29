@@ -32,7 +32,6 @@ export const getOrdersOfUser = async(req:Request, res:Response)=>{
 
 export const CreateOrder = async (data: finalProductForm, userData: User | undefined)=>{
     try {
-        console.log( getTotal(data))
         if(data && userData){ 
             const total =  getTotal(data)
         if(total){
@@ -55,7 +54,6 @@ export const CreateOrder = async (data: finalProductForm, userData: User | undef
         logger.error(`Error: ${error}`)
         return error
     }
-    
 }
 
  const getTotal = (data:finalProductForm): number | undefined=>{
@@ -78,15 +76,22 @@ export const CreateOrder = async (data: finalProductForm, userData: User | undef
 export const sendMessages = async(req:Request, res:Response)=>{
     // HACER LA PARTE DE QUE MODIFIQUE LA ORDEN A COMPLETADA
     const dataUser = req.session.dataUser
-    if(dataUser){  
+    const idOfOrder = req.body.id
+    if(dataUser&& idOfOrder){  
         const productsInCart:finalProductForm | undefined = await cartGet(dataUser._id) 
         if(productsInCart!== undefined){
-            const orderUpdated = await  updateOrder({}, {})
+            const orderUpdated = await updateState(idOfOrder)
+            const order = await getOrderById(idOfOrder)
+            if(!orderUpdated ){
+                res.status(400).json({
+                    Error: "Orden no encontrada o en estado no generado"
+                })
+            }else if(order){
             const productsHtml = productsInCart?.map(product=>{
                 if(product!==undefined)
                 return `<li>Producto:<ul><li>Nombre del Producto:${product.title}</li><li>Precio total: $${product.price}</li><li>Imagen del producto: <img src=${product.thumbnail} alt="Image Not Found"></li><li>Cantidad del producto: ${product.amount}</li></ul></li>`}
                 ) 
-            const content = `<div><h1>Productos:</h1><ul>${productsHtml}</ul></div>`
+            const content = `<div><h1>Productos:</h1><ul>${productsHtml}</ul><h2>Precio Total: $${order.total}</h2></div>`
             const message = `Nuevo pedido de ${dataUser.username}. Email: ${dataUser.gmail}.
                 Productos: 
                 ${productsInCart.map((product) =>{ product !== undefined? `-${product.title}.
@@ -95,21 +100,17 @@ export const sendMessages = async(req:Request, res:Response)=>{
             if(done){
                 res.json({
                     msg: "Orden completada y envíada.",
-                    // orden : order
                 })
             }
+        }
     }
 }
 }
-
-
-
 
 const cartMsgSender = async(dataUser:User, subjectEmail:string, contentEmail:string, messageWhatsApp: string)=>{
     try{
         if(subjectEmail&&contentEmail&&messageWhatsApp){
             const enviarEmail = await sendTheCartWithEmail(dataUser.gmail, subjectEmail, contentEmail)
-        
         const sendWhatsAppResponse = await sendTheCartWithWhatsApp(`+${dataUser.phoneNumber}`, messageWhatsApp)
         if(enviarEmail && sendWhatsAppResponse){
             return true
@@ -118,4 +119,21 @@ const cartMsgSender = async(dataUser:User, subjectEmail:string, contentEmail:str
     }catch(error){
         logger.error("Error: ", error)
     }
+}
+
+const updateState= async(idOfOrder:string)=>{
+    if(idOfOrder.length === 24){
+       const order = await getOrderById(idOfOrder)
+       if(order && order.state === "Generado"){
+       return await  updateOrder({_id:idOfOrder}, {$set:{state: "Enviado"}})
+       }else{
+        logger.warn("Error: el order states es diferente a generado")
+        return false
+       }
+    }
+    else{
+        logger.warn("El id enviado no tiene 24.")
+        return false
+    }
+
 }

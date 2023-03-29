@@ -35,92 +35,52 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DaoMongoDB = void 0;
-var mongoose_1 = __importDefault(require("mongoose"));
-var config_1 = __importDefault(require("../../../config"));
-var loggers_1 = require("../../../utils/loggers");
-var DaoMongoDB = /** @class */ (function () {
-    function DaoMongoDB(collection, schema) {
-        this.collection = mongoose_1.default.model(collection, schema);
-        this.initDB = mongoose_1.default.connect(config_1.default.MONGO_ATLAS_URL);
+exports.repositoryMessage = void 0;
+var mesages_factory_1 = require("./mesages.factory");
+var MessageRepository = /** @class */ (function () {
+    function MessageRepository() {
+        this.dao = (0, mesages_factory_1.getDao)();
     }
-    DaoMongoDB.prototype.initMongoDB = function () {
+    MessageRepository.prototype.getAllTheMessagesOfThisUser = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.initDB];
-            });
-        });
-    };
-    DaoMongoDB.prototype.getNumberOfOrder = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var OrdersLength;
+            var ordersOfUser;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.find()];
+                    case 0: return [4 /*yield*/, this.dao.getAllTheMessagesOfThisUser(id)];
                     case 1:
-                        OrdersLength = (_a.sent()).length;
-                        return [2 /*return*/, OrdersLength];
+                        ordersOfUser = _a.sent();
+                        return [2 /*return*/, ordersOfUser];
                 }
             });
         });
     };
-    DaoMongoDB.prototype.getOrders = function (userId) {
+    MessageRepository.prototype.createMessage = function (data) {
         return __awaiter(this, void 0, void 0, function () {
-            var ordersOfTheUser;
+            var createdOrder;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.find({ userId: userId })];
+                    case 0: return [4 /*yield*/, this.dao.createMessage(data)];
                     case 1:
-                        ordersOfTheUser = _a.sent();
-                        return [2 /*return*/, ordersOfTheUser];
+                        createdOrder = _a.sent();
+                        return [2 /*return*/, createdOrder];
                 }
             });
         });
     };
-    DaoMongoDB.prototype.getOrderById = function (id) {
+    MessageRepository.prototype.updateMessage = function (query, update) {
         return __awaiter(this, void 0, void 0, function () {
-            var orderFound, error_1;
+            var updateResult;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, this.collection.findOne({ _id: id })];
+                    case 0: return [4 /*yield*/, this.dao.updateMessage(query, update)];
                     case 1:
-                        orderFound = _a.sent();
-                        return [2 /*return*/, orderFound];
-                    case 2:
-                        error_1 = _a.sent();
-                        loggers_1.logger.error("Error in get orderById: ".concat(error_1));
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+                        updateResult = _a.sent();
+                        return [2 /*return*/, updateResult];
                 }
             });
         });
     };
-    DaoMongoDB.prototype.createAnOrder = function (data) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.create(data)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    DaoMongoDB.prototype.updateOrder = function (query, update) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.collection.updateOne(query, update)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    return DaoMongoDB;
+    return MessageRepository;
 }());
-exports.DaoMongoDB = DaoMongoDB;
+exports.repositoryMessage = new MessageRepository();

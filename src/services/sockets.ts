@@ -1,5 +1,6 @@
+import { repositoryMessage } from "../models/messages/messages.respository"
+
 const io = require('socket.io')
-import mjController from "../controller/mensajes"
 
 
 const initWsServer =  (server:unknown) =>  {
@@ -20,7 +21,7 @@ const initWsServer =  (server:unknown) =>  {
         })
         socket.on('enviarMensaje', async(data:any)=>{
             
-                const dataSi = await mjController.nuevomensaje(data)
+            const dataSi = await repositoryMessage.createMessage(data)
             SocketServer.emit('imprimirMensaje', dataSi)
             
             

@@ -62,35 +62,44 @@ var checkAuth = function (req, res, next) { return __awaiter(void 0, void 0, voi
     return __generator(this, function (_a) {
         try {
             authHeader = req.headers["authorization"];
-            console.log("AAAAA", authHeader);
             if (authHeader) {
                 token = authHeader && authHeader.split(' ')[1];
-                console.log("CACACA DE TOKEN: ", token);
                 if (!token) {
                     return [2 /*return*/, res.status(401).json({ msg: "NO AUTORIZADO " })];
                 }
                 else if (!Array.isArray(token)) {
                     try {
                         jsonwebtoken_1.default.verify(token, index_1.default.JWT_SECRET_KEY, function (err, user) {
-                            if (err)
-                                return res.status(403);
-                            req.user = user;
-                            console.log("PASAMOS EL JWT ");
-                            next();
+                            if (err) {
+                                res.status(403).json({
+                                    Error: err
+                                });
+                                return err;
+                            }
+                            else if (user) {
+                                req.user = user;
+                                next();
+                                return user;
+                            }
                         });
                     }
                     catch (err) {
                         loggers_1.logger.error(err);
                         console.log(err);
-                        return [2 /*return*/, res.status(401).json({
-                                err: err
-                            })];
+                        res.status(401).json({
+                            error: err
+                        });
                     }
                 }
             }
+            else {
+                res.status(401).json({
+                    Error: "No estas autorizado"
+                });
+            }
         }
         catch (err) {
-            return [2 /*return*/, res.status(401).json({ msg: ' NO AUTORIZADO' })];
+            return [2 /*return*/, res.status(401).json({ msg: "Error: ".concat(err, " NO AUTORIZADO") })];
         }
         return [2 /*return*/];
     });

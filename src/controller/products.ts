@@ -8,7 +8,6 @@ import {logger} from "../utils/loggers"
 
 export const productsGetController = async (req:Request, res:Response)=>{
     try{
-        console.log(req.params)
         if(req.params.id){
            const productoBuscado = await getProducts(req.params.id)
            if(productoBuscado!== null && productoBuscado){
@@ -29,7 +28,6 @@ export const productsGetController = async (req:Request, res:Response)=>{
         }
         else if(req.params.category){
             const productosBuscados = await getProducts(undefined,req.params.category)
-            console.log(productosBuscados)
             if(productosBuscados && Array.isArray(productosBuscados) && productosBuscados.length >= 1 ){
                 res.json({
                     productosBuscados: productosBuscados
@@ -50,7 +48,6 @@ export const productsGetController = async (req:Request, res:Response)=>{
 } 
 export const newProductController = async (req: Request, res:Response)=>{
     try {
-        console.log(req.session.admin)
         if(req.session.admin){
             const productCreated = await newProductToDB(req.body)
             res.status(200).json({
@@ -75,9 +72,7 @@ export const newProductController = async (req: Request, res:Response)=>{
 export const modifyAProduct = async (req:Request, res:Response) => {
     const {id} = req.params
     const data: ProductObject = req.body
-    console.log(data)
     const changedProduct = await updateProduct({_id: id},{$set: data})
-    console.log(changedProduct)
     if(changedProduct.acknowledged && changedProduct.modifiedCount>0){
         res.status(200).json({
             msg: "Modificacion realizada de forma correcta"

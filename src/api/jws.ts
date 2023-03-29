@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken"
+import jwt, { verify } from "jsonwebtoken"
 import { User } from "../../Public/types";
 import config from '../config/index';
 import { logger } from "../utils/loggers";
@@ -22,32 +22,39 @@ export const createAuthToken = async (user:User)=> {
 
       try{
         const authHeader = req.headers["authorization"];
-        console.log("AAAAA", authHeader)
         if(authHeader){
         const token = authHeader && authHeader.split(' ')[1]
-        console.log("CACACA DE TOKEN: ",token)
-        if(!token){
+        if(!token ){
           return res.status(401).json({msg:"NO AUTORIZADO "}) 
         }else if(!Array.isArray(token)){
           try{ 
-          jwt.verify(token, config.JWT_SECRET_KEY, (err, user)=>{
-              if(err) return res.status(403)
-              req.user = user
-              console.log("PASAMOS EL JWT ")
-              next()
+            jwt.verify(token, config.JWT_SECRET_KEY, (err, user)=>{
+              if(err){ 
+                res.status(403).json({
+                  Error: err
+                })
+                return err
+              }else if(user){
+                req.user = user
+                next()
+                return user
+              }
             }
           )
         }catch(err){
           logger.error(err)
           console.log(err)
-          return res.status(401).json({
-            err
+          res.status(401).json({
+            error: err
           })
         }
       }
+    }else{
+          res.status(401).json({
+            Error: "No estas autorizado"
+         })
     }
-      }catch(err){
-        
-        return res.status(401).json({msg:' NO AUTORIZADO'})
-      }
+  }catch(err){
+    return res.status(401).json({msg:`Error: ${err} NO AUTORIZADO`})
   }
+}

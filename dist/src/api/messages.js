@@ -35,55 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EmailService = void 0;
-var config_1 = __importDefault(require("../config"));
-var nodemailer_1 = __importDefault(require("nodemailer"));
-var minimist_1 = __importDefault(require("minimist"));
-var args = (0, minimist_1.default)(process.argv);
-var Email = /** @class */ (function () {
-    function Email() {
-        this.owner = {
-            name: config_1.default.GMAIL_NAME,
-            address: config_1.default.GMAIL_ADDRESS,
-        };
-        this.transporter = nodemailer_1.default.createTransport({
-            host: 'smtp.gmail.com',
-            service: 'gmail',
-            port: 465,
-            secure: true,
-            auth: {
-                user: config_1.default.GMAIL_ADDRESS,
-                pass: config_1.default.GMAIL_PASSWORD,
-            },
-        });
-        if (!args.testing) {
-            this.transporter.verify().then(function () { console.log("EmailSenderReady"); });
+exports.getMessages = void 0;
+var messages_respository_1 = require("../models/messages/messages.respository");
+var getMessages = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, messages_respository_1.repositoryMessage.getAllTheMessagesOfThisUser(id)];
+            case 1: return [2 /*return*/, _a.sent()];
         }
-    }
-    Email.prototype.sendEmail = function (dest, subject, content) {
-        return __awaiter(this, void 0, void 0, function () {
-            var mailOptions, response;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        mailOptions = {
-                            from: config_1.default.GMAIL_ADDRESS,
-                            to: dest,
-                            subject: subject,
-                            html: content,
-                        };
-                        return [4 /*yield*/, this.transporter.sendMail(mailOptions)];
-                    case 1:
-                        response = _a.sent();
-                        return [2 /*return*/, response];
-                }
-            });
-        });
-    };
-    return Email;
-}());
-exports.EmailService = new Email();
+    });
+}); };
+exports.getMessages = getMessages;

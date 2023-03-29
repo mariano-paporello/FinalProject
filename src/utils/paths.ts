@@ -1,6 +1,6 @@
 import path from "path"
 
-export const viewPath = path.resolve(__dirname, '../../views')
+export const viewPath = path.resolve(__dirname, '../views')
 const layoutsPath = `${viewPath}/layouts`
 const partialsPath = `${viewPath}/partials`
 const defaultLayoutPath = `${layoutsPath}/index.hbs`;

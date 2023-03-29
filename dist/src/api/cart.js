@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkCart = exports.emptyCartCreator = exports.updateCart = exports.getCartByUserId = exports.getCartByQuery = void 0;
+exports.deleteCartProduct = exports.checkCart = exports.emptyCartCreator = exports.updateCart = exports.getCartByUserId = exports.getCartByQuery = void 0;
 var loggers_1 = require("../utils/loggers");
 var cart_repository_1 = require("../models/cart/cart.repository");
 var getCartByQuery = function (query) { return __awaiter(void 0, void 0, void 0, function () {
@@ -104,3 +104,9 @@ var checkCart = function (id) { return __awaiter(void 0, void 0, void 0, functio
     });
 }); };
 exports.checkCart = checkCart;
+var deleteCartProduct = function (idProduct, cuantity) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        return [2 /*return*/];
+    });
+}); };
+exports.deleteCartProduct = deleteCartProduct;

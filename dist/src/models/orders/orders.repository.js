@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.repositoryOrders = void 0;
+var loggers_1 = require("../../utils/loggers");
 var orders_factory_1 = require("./orders.factory");
 var OrdersRepository = /** @class */ (function () {
     function OrdersRepository() {
@@ -81,7 +82,7 @@ var OrdersRepository = /** @class */ (function () {
                         return [2 /*return*/, orderFound];
                     case 2:
                         error_1 = _a.sent();
-                        console.log(error_1);
+                        loggers_1.logger.error("Error in get orderById: ".concat(error_1));
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }

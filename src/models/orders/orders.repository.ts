@@ -1,4 +1,5 @@
 import { FilterQuery, UpdateQuery } from 'mongoose';
+import { logger } from '../../utils/loggers';
 import { getDao } from "./orders.factory";
 import { NewOrderObject, OrderObject } from './orders.interface';
 
@@ -24,7 +25,7 @@ import { NewOrderObject, OrderObject } from './orders.interface';
             const orderFound = await this.dao.getOrderById(id)
             return orderFound
         } catch (error) {
-            console.log(error)
+            logger.error(`Error in get orderById: ${error}`)
         }
     }
     async createAnOrder(data: NewOrderObject){

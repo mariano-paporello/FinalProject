@@ -1,5 +1,6 @@
 import mongoose, { FilterQuery, Schema, UpdateQuery } from 'mongoose';
 import config from '../../../config';
+import { logger } from '../../../utils/loggers';
 import { AddProductObject, ProductBaseClass, ProductObject } from '../products.interface';
 
 mongoose.set('strictQuery', true);
@@ -27,7 +28,7 @@ export class DaoMongoDB implements ProductBaseClass{
             const productFound: ProductObject | null  = await this.collection.findById(id)
             return productFound 
         } catch (error) {
-            console.log(error)
+            logger.info(`Error in getProductById: ${error}`)
         }
     }
     async getOneProductByQuery(query:FilterQuery<ProductObject>){

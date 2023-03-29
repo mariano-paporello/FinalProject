@@ -1,37 +1,17 @@
-import { NewMessage } from "../../Public/types"
-import menssagesMetodos from "../models/messages/messages"
-import {logger} from "../utils/loggers"
+import { Request, Response } from "express";
+import { getMessages } from "../api/messages";
 
-class mensajeController{
 
-    async list(){
-     try{
-         const getAll = await menssagesMetodos.find({})
-         return getAll
-     }catch(err){
-         return logger.error(err)
-     }}
- 
- 
-    async nuevomensaje(data:NewMessage){
-        try{
-            const dataCompleta = {
-                author:{
-                    id: data.id,
-                    nombre: data.author.nombre,
-                    apellido: data.author.apellido,
-                    edad: Number(data.author.edad),
-                    alias: data.author.alias,
-                    avatar: data.author.avatar,
-                    },
-                text: data.text ,
-            }
-           const res=  await menssagesMetodos.create(dataCompleta)
-            return res
-        }catch(err){
-           return logger.error(err)
-        }  
-     }
- }
- const menssageController = new mensajeController()
- export default menssageController
+export const chat =async(req:Request, res:Response)=>{
+    res.render('main', {data: req.session.dataUser})
+}
+
+export const chatById = async ( req: Request, res:Response)=>{
+    const id = req.session.dataUser?._id
+    if(id){
+        const messagesOfUser = await getMessages(id)
+        res.status(200).json({
+            messages: messagesOfUser
+        })
+    }
+}
