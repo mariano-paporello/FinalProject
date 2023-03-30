@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.newProductToDB = exports.updateProduct = exports.deleteProduct = exports.getProducts = exports.getProductById = void 0;
-var products_repository_1 = require("../models/products/products.repository");
+var products_repository_1 = require("../src/models/products/products.repository");
 var loggers_1 = require("../utils/loggers");
 var getProductById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {

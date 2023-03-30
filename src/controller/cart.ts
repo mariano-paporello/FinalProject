@@ -1,13 +1,11 @@
-import {emptyCartCreator, checkCart, getCartByQuery, getCartByUserId, updateCart } from "../api/cart"
+import {emptyCartCreator, checkCart, getCartByQuery, getCartByUserId, updateCart, emptyCart } from "../api/cart"
 import { logger } from "../utils/loggers"
-import {finalProductForm, singlePorduct, updatedProduct, User} from "../../Public/types"
+import {finalProductForm, singlePorduct, User} from "../../Public/types"
 import { Request, Response } from "express"
 import { ProductObject } from "../models/products/products.interface"
 import { CartObject, DocumentMongoGet, productInCartObject } from "../models/cart/cart.interface"
 import { getProductById, updateProduct } from "../api/products"
 import { CreateOrder } from "./orders"
-import { repositoryCart } from "../models/cart/cart.repository"
-import { filter } from "compression"
 
 
 export const cart = async(req:Request, res:Response)=>{
@@ -24,7 +22,6 @@ export const cart = async(req:Request, res:Response)=>{
 
 export const cartGet = async(id:string): Promise<finalProductForm | undefined> =>{
     try{
-        
         const cartOfUser = await getCartByQuery({userId:id})
         if(cartOfUser !== null){
             const products = await cartTransformer(cartOfUser)
@@ -76,6 +73,7 @@ export const cartSender = async(req:Request, res:Response)=>{
             if(productsInCart!== undefined){
                 const order = await CreateOrder(productsInCart, req.session.dataUser)
                 if(order){
+                await emptyCart(dataUser._id)
                 res.status(201).json({
                     order: order
                 })}
@@ -189,7 +187,7 @@ export const deleteCartProducts = async(req:Request, res:Response) =>{
                         }}).filter((element:any)=>element !== undefined)
 
                         if(numberOfAmountOfThatProduct && Number(cuantity) >= numberOfAmountOfThatProduct){
-                        const newCart = await repositoryCart.updateCart({userId:idOfUser}, {$set:{cart: filterCarrito }})
+                        const newCart = await updateCart({userId:idOfUser}, {$set:{cart: filterCarrito }})
 
                         if(newCart.acknowledged && newCart.modifiedCount > 0){
                             res.status(200).json({
@@ -202,7 +200,7 @@ export const deleteCartProducts = async(req:Request, res:Response) =>{
                             amount: Number(carrito[index]?.amount) - cuantity
                         } 
                         filterCarrito.push(product)
-                        const newCart = await repositoryCart.updateCart({userId:idOfUser}, {$set:{cart:filterCarrito }})
+                        const newCart = await updateCart({userId:idOfUser}, {$set:{cart:filterCarrito }})
 
                         if(newCart.acknowledged && newCart.modifiedCount>0){
                             res.status(200).json({

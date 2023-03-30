@@ -42,7 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DaoMongoDB = void 0;
 var mongoose_1 = __importDefault(require("mongoose"));
 var config_1 = __importDefault(require("../../../config"));
-var loggers_1 = require("../../../utils/loggers");
+var loggers_1 = require("../../../../utils/loggers");
 mongoose_1.default.set('strictQuery', true);
 // ARREGLAR LOS ANY
 var DaoMongoDB = /** @class */ (function () {

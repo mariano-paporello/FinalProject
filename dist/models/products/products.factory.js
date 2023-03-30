@@ -7,7 +7,7 @@ exports.getDao = void 0;
 var mongodb_1 = require("./daos/mongodb");
 var products_schema_1 = require("./schema/products.schema");
 var minimist_1 = __importDefault(require("minimist"));
-var loggers_1 = require("../../utils/loggers");
+var loggers_1 = require("../../../utils/loggers");
 var dao;
 var args = (0, minimist_1.default)(process.argv);
 switch (args.database.toLowerCase()) {

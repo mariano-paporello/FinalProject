@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCartProduct = exports.checkCart = exports.emptyCartCreator = exports.updateCart = exports.getCartByUserId = exports.getCartByQuery = void 0;
+exports.deleteCartProduct = exports.checkCart = exports.emptyCart = exports.emptyCartCreator = exports.updateCart = exports.getCartByUserId = exports.getCartByQuery = void 0;
 var loggers_1 = require("../utils/loggers");
 var cart_repository_1 = require("../models/cart/cart.repository");
 var getCartByQuery = function (query) { return __awaiter(void 0, void 0, void 0, function () {
@@ -67,15 +67,15 @@ var updateCart = function (query, update) { return __awaiter(void 0, void 0, voi
 }); };
 exports.updateCart = updateCart;
 var emptyCartCreator = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var emptyCart, error_1;
+    var emptyCart_1, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, cart_repository_1.repositoryCart.createCart({ userId: id, cart: [] })];
             case 1:
-                emptyCart = _a.sent();
-                return [2 /*return*/, emptyCart];
+                emptyCart_1 = _a.sent();
+                return [2 /*return*/, emptyCart_1];
             case 2:
                 error_1 = _a.sent();
                 loggers_1.logger.error("Error: ", error_1);
@@ -85,6 +85,18 @@ var emptyCartCreator = function (id) { return __awaiter(void 0, void 0, void 0, 
     });
 }); };
 exports.emptyCartCreator = emptyCartCreator;
+var emptyCart = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+    var emptyCart;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, cart_repository_1.repositoryCart.updateCart({ userId: id }, { $set: { cart: [] } })];
+            case 1:
+                emptyCart = _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.emptyCart = emptyCart;
 var checkCart = function (id) { return __awaiter(void 0, void 0, void 0, function () {
     var cartFound, error_2;
     return __generator(this, function (_a) {

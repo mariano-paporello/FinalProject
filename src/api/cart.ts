@@ -20,6 +20,10 @@ export const emptyCartCreator =async (id:string) => {
         logger.error("Error: ", error)
     }
 }
+
+export const emptyCart = async(id:string) => {
+    const emptyCart = await repositoryCart.updateCart({userId:id}, {$set:{cart:[]}})
+}
 export const checkCart = async (id:string) =>{
     try {
    const cartFound = await  repositoryCart.getCartByQuery({userId: id})

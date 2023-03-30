@@ -41,7 +41,6 @@ var cart_1 = require("../api/cart");
 var loggers_1 = require("../utils/loggers");
 var products_1 = require("../api/products");
 var orders_1 = require("./orders");
-var cart_repository_1 = require("../models/cart/cart.repository");
 var cart = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var productsInCart;
     return __generator(this, function (_a) {
@@ -158,37 +157,39 @@ var cartSender = function (req, res) { return __awaiter(void 0, void 0, void 0, 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 4, , 5]);
+                _a.trys.push([0, 6, , 7]);
                 dataUser = req.session.dataUser;
-                if (!dataUser) return [3 /*break*/, 3];
+                if (!dataUser) return [3 /*break*/, 5];
                 return [4 /*yield*/, (0, exports.cartGet)(dataUser._id)];
             case 1:
                 productsInCart = _a.sent();
-                if (!(productsInCart !== undefined)) return [3 /*break*/, 3];
+                if (!(productsInCart !== undefined)) return [3 /*break*/, 5];
                 return [4 /*yield*/, (0, orders_1.CreateOrder)(productsInCart, req.session.dataUser)];
             case 2:
                 order = _a.sent();
-                if (order) {
-                    res.status(201).json({
-                        order: order
-                    });
-                }
-                else {
-                    loggers_1.logger.error("Error: Error al crear orden de compra");
-                    res.status(400).json({
-                        error: "Error al crear orden de compra"
-                    });
-                }
-                _a.label = 3;
-            case 3: return [3 /*break*/, 5];
+                if (!order) return [3 /*break*/, 4];
+                return [4 /*yield*/, (0, cart_1.emptyCart)(dataUser._id)];
+            case 3:
+                _a.sent();
+                res.status(201).json({
+                    order: order
+                });
+                return [3 /*break*/, 5];
             case 4:
+                loggers_1.logger.error("Error: Error al crear orden de compra");
+                res.status(400).json({
+                    error: "Error al crear orden de compra"
+                });
+                _a.label = 5;
+            case 5: return [3 /*break*/, 7];
+            case 6:
                 err_1 = _a.sent();
                 loggers_1.logger.error("Error: ", err_1);
                 res.status(400).json({
                     error: err_1
                 });
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 7];
+            case 7: return [2 /*return*/];
         }
     });
 }); };
@@ -344,7 +345,7 @@ var deleteCartProducts = function (req, res) { return __awaiter(void 0, void 0, 
                     }
                 }).filter(function (element) { return element !== undefined; });
                 if (!(numberOfAmountOfThatProduct && Number(cuantity) >= numberOfAmountOfThatProduct)) return [3 /*break*/, 3];
-                return [4 /*yield*/, cart_repository_1.repositoryCart.updateCart({ userId: idOfUser }, { $set: { cart: filterCarrito } })];
+                return [4 /*yield*/, (0, cart_1.updateCart)({ userId: idOfUser }, { $set: { cart: filterCarrito } })];
             case 2:
                 newCart = _f.sent();
                 if (newCart.acknowledged && newCart.modifiedCount > 0) {
@@ -360,7 +361,7 @@ var deleteCartProducts = function (req, res) { return __awaiter(void 0, void 0, 
                     amount: Number((_e = carrito[index]) === null || _e === void 0 ? void 0 : _e.amount) - cuantity
                 };
                 filterCarrito.push(product);
-                return [4 /*yield*/, cart_repository_1.repositoryCart.updateCart({ userId: idOfUser }, { $set: { cart: filterCarrito } })];
+                return [4 /*yield*/, (0, cart_1.updateCart)({ userId: idOfUser }, { $set: { cart: filterCarrito } })];
             case 4:
                 newCart = _f.sent();
                 if (newCart.acknowledged && newCart.modifiedCount > 0) {

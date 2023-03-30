@@ -42,54 +42,136 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var io = require("socket.io");
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var messages_1 = require("../api/messages");
+var cart_1 = require("../controller/cart");
 var config_1 = __importDefault(require("../config"));
 var messages_interface_1 = require("../models/messages/messages.interface");
 var loggers_1 = require("../utils/loggers");
+var orders_1 = require("../api/orders");
+var products_1 = require("../api/products");
 var initWsServer = function (server) {
     var SocketServer = io(server);
     SocketServer.on("connection", function (socket, req) {
         socket.emit("bienvenidaAUsuario", {
             Bienvenida: "hola",
         });
-        socket.on("recibimosTokenYmensaje", function (data) { return __awaiter(void 0, void 0, void 0, function () {
-            var token, message, jwtObject, user, newMessage, messageComplete;
+        socket.on("resp-message", function (data) { return __awaiter(void 0, void 0, void 0, function () {
+            var token, message, jwtObject_1, user, newMessage, messageComplete;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         token = data.token, message = data.message;
+                        if (!(token && message)) return [3 /*break*/, 3];
                         user = jsonwebtoken_1.default.verify(token, config_1.default.JWT_SECRET_KEY, function (err, user) {
                             if (err) {
                                 console.log(err);
                                 return false;
                             }
                             else if (user) {
-                                jwtObject = user;
+                                jwtObject_1 = user;
                                 return user;
                             }
                         });
-                        if (!(typeof user === "object" && jwtObject)) return [3 /*break*/, 2];
-                        console.log(jwtObject.useriD);
+                        if (!(typeof user === "object" && jwtObject_1)) return [3 /*break*/, 2];
                         newMessage = {
-                            userId: jwtObject.userId,
+                            userId: jwtObject_1.userId,
                             type: messages_interface_1.tipos.Usuario,
-                            message: message
+                            message: message,
                         };
                         return [4 /*yield*/, (0, messages_1.createMessage)(newMessage)];
                     case 1:
                         messageComplete = _a.sent();
-                        socket.emit('imprimirMensaje', messageComplete);
+                        socket.emit("imprimirMensaje", messageComplete);
                         return [3 /*break*/, 3];
                     case 2:
-                        loggers_1.logger.error("NO authorizado");
-                        socket.emit('errorNoAutorizado', user);
+                        loggers_1.logger.error("No authorizado");
+                        socket.emit("errorNoAutorizado", user);
                         _a.label = 3;
                     case 3: return [2 /*return*/];
                 }
             });
         }); });
-        socket.on("enviarUserLoginName", function (data) {
-            socket.emit("userSaved", data);
-        });
+        socket.on("mensajeYaImpreso", function (data) { return __awaiter(void 0, void 0, void 0, function () {
+            var _a, productos, response, messageFromSistem, messageComplete, ordenes, response, messageFromSistem, messageComplete, cart, response, messageFromSistem, messageComplete, response, messageFromSistem, messageComplete;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = data.message;
+                        switch (_a) {
+                            case "Stock": return [3 /*break*/, 1];
+                            case "Orden": return [3 /*break*/, 5];
+                            case "Carrito": return [3 /*break*/, 9];
+                        }
+                        return [3 /*break*/, 12];
+                    case 1: return [4 /*yield*/, (0, products_1.getProducts)()];
+                    case 2:
+                        productos = _b.sent();
+                        if (!Array.isArray(productos)) return [3 /*break*/, 4];
+                        response = productos.map(function (element) {
+                            return "||Producto: ".concat(element.title, ".\n              Precio: ").concat(element.price, ".\n              Stock: ").concat(element.stock, ".\n              Category: ").concat(element.category, "\n              Imagen: <img src=").concat(element.thumbnail, " alt=").concat(element.thumbnail, ">.");
+                        }).join("    ");
+                        if (!response) return [3 /*break*/, 4];
+                        messageFromSistem = {
+                            userId: data.userId,
+                            type: messages_interface_1.tipos.Sistema,
+                            message: response
+                        };
+                        return [4 /*yield*/, (0, messages_1.createMessage)(messageFromSistem)];
+                    case 3:
+                        messageComplete = _b.sent();
+                        socket.emit("sistemResponse", messageComplete);
+                        return [3 /*break*/, 14];
+                    case 4: return [3 /*break*/, 14];
+                    case 5: return [4 /*yield*/, (0, orders_1.getOrders)(data.userId)];
+                    case 6:
+                        ordenes = _b.sent();
+                        response = ordenes.map(function (element) {
+                            return "||Id de orden: ".concat(element._id, ".\n            Estado: ").concat(element.state, ".\n            Total: $").concat(element.total, ".");
+                        }).join("    ");
+                        if (!response) return [3 /*break*/, 8];
+                        messageFromSistem = {
+                            userId: data.userId,
+                            type: messages_interface_1.tipos.Sistema,
+                            message: response
+                        };
+                        return [4 /*yield*/, (0, messages_1.createMessage)(messageFromSistem)];
+                    case 7:
+                        messageComplete = _b.sent();
+                        socket.emit("sistemResponse", messageComplete);
+                        return [3 /*break*/, 14];
+                    case 8: return [3 /*break*/, 14];
+                    case 9: return [4 /*yield*/, (0, cart_1.cartGet)(data.userId)];
+                    case 10:
+                        cart = _b.sent();
+                        response = cart === null || cart === void 0 ? void 0 : cart.map(function (element) {
+                            return "||Producto en Carrito: \n            Nomber: ".concat(element === null || element === void 0 ? void 0 : element.title, ".\n            Precio total: ").concat(element === null || element === void 0 ? void 0 : element.price, ".\n            Cantidad: ").concat(element === null || element === void 0 ? void 0 : element.amount, ".");
+                        });
+                        if (!response) return [3 /*break*/, 12];
+                        messageFromSistem = {
+                            userId: data.userId,
+                            type: messages_interface_1.tipos.Sistema,
+                            message: response.join("    ")
+                        };
+                        return [4 /*yield*/, (0, messages_1.createMessage)(messageFromSistem)];
+                    case 11:
+                        messageComplete = _b.sent();
+                        socket.emit("sistemResponse", messageComplete);
+                        return [3 /*break*/, 14];
+                    case 12:
+                        response = "/------------------------------------------------------------------------------------------/\n          / Hola! No he podido comprender tu mensaje. Profavor ingresa una de las siguentes opciones /\n          /     - Stock: Para conocer nuestro stock actual.                                          /\n          /     - Orden: Para conocer la informacion de tu ultima orden.                             /\n          /     - Carrito: Para conocer el estado actual de tu carrito.                              /\n          /------------------------------------------------------------------------------------------/";
+                        messageFromSistem = {
+                            userId: data.userId,
+                            type: messages_interface_1.tipos.Sistema,
+                            message: response
+                        };
+                        return [4 /*yield*/, (0, messages_1.createMessage)(messageFromSistem)];
+                    case 13:
+                        messageComplete = _b.sent();
+                        socket.emit("sistemResponse", messageComplete);
+                        _b.label = 14;
+                    case 14: return [2 /*return*/];
+                }
+            });
+        }); });
     });
     return SocketServer;
 };
