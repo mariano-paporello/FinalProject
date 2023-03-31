@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { logIn, logInGet, logout, register, registerGet } from "../controller/auth";
+import { checkAuth } from "../api/jws";
+import { isLogged, loggedIsNotDestroyed, logIn, logInGet, logout, register, registerGet } from "../controller/auth";
 
 const logInRoute = Router()
 
@@ -10,7 +11,7 @@ logInRoute.get('/', logInGet)
 
 const logOutRoute = Router()
 
-logOutRoute.get("/", logout)
+logOutRoute.get("/", isLogged, checkAuth, loggedIsNotDestroyed,  logout)
 
 const registerRoute = Router()
 

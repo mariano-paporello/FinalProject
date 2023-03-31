@@ -7,6 +7,8 @@ import { tipos } from "../models/messages/messages.interface";
 import { logger } from "../utils/loggers";
 import { getOrders } from "../api/orders"
 import { getProducts } from "../api/products";
+import { repositoryUser } from "../models/users/user.repository";
+import { generateToken } from "../controller/user";
 
 const initWsServer = (server: unknown) => {
   const SocketServer = io(server);
@@ -15,6 +17,16 @@ const initWsServer = (server: unknown) => {
     socket.emit("bienvenidaAUsuario", {
       Bienvenida: "hola",
     });
+    socket.on("sendUserPassword", async(data:{username: string, password: string})=>{
+      console.log("data:", data)
+     const user =  await repositoryUser.logIn(data.username, data.password)
+
+     console.log("User encontrado: ",user)
+     if(user){
+      const token = await  generateToken(user)
+      socket.emit("devuelvoToken", token)
+     }
+    })
     socket.on("resp-message", async (data: { token: string; message: string }) => {
         const { token, message } = data;
         if (token && message) {

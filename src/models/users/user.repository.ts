@@ -1,7 +1,6 @@
 // import { asDto } from "./dto/users-dto";
 import { AddUserObject, UserBaseClass, UserObject } from "./user.interface";
 import { getDao } from "./users.factory";
-import { User } from "../../../Public/types";
 
 
 

@@ -89,7 +89,7 @@
         "image": "randomImage",
         "__v": 0
     },
-    "productosDisponibles": [
+    "productsDisponibles": [
         {
             "_id": "639879b18557f55e96e749d7",
             "title": "Mochila",
@@ -135,7 +135,7 @@
 ### Response: 200
 ```json
 {
-    "productos": [
+    "products": [
         {
             "_id": "639879b18557f55e96e749d7",
             "title": "Mochila",

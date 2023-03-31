@@ -439,7 +439,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"data\": {\n        \"_id\": \"63e120d20d103ec3ae453e13\",\n        \"gmail\": \"mariano.paporello@gmail.com\",\n        \"password\": \"$2b$10$q5V4uBSeeQvaIDXjZQPaGO22fldFBsP/qu82OWaaodq40a8rquYGa\",\n        \"age\": \"32\",\n        \"username\": \"perengano\",\n        \"phoneNumber\": \"5491165551861\",\n        \"image\": \"randomImage\",\n        \"__v\": 0\n    },\n    \"productosDisponibles\": [\n        {\n            \"_id\": \"639879b18557f55e96e749d7\",\n            \"title\": \"Mochila\",\n            \"price\": 800,\n            \"thumbnail\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU\",\n            \"createdAt\": \"2022-12-13T13:10:09.386Z\",\n            \"updatedAt\": \"2022-12-13T13:10:09.386Z\",\n            \"__v\": 0,\n            \"category\": \"school\",\n            \"stock\": 4\n        },\n        {\n            \"_id\": \"63ddae228da2e37041195d4a\",\n            \"title\": \"Remera de Boca\",\n            \"price\": 2000,\n            \"thumbnail\": \"ImagenRandom\",\n            \"category\": \"sport\",\n            \"stock\": 7\n        },\n        {\n            \"_id\": \"6407aa019d552a6e826fa998\",\n            \"title\": \"bolsa de cemento\",\n            \"price\": 300,\n            \"thumbnail\": \"null\",\n            \"stock\": 200,\n            \"category\": \"albañileria\",\n            \"createdAt\": \"2023-03-07T21:17:53.848Z\",\n            \"updatedAt\": \"2023-03-07T21:17:53.848Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+					"body": "{\n    \"data\": {\n        \"_id\": \"63e120d20d103ec3ae453e13\",\n        \"gmail\": \"mariano.paporello@gmail.com\",\n        \"password\": \"$2b$10$q5V4uBSeeQvaIDXjZQPaGO22fldFBsP/qu82OWaaodq40a8rquYGa\",\n        \"age\": \"32\",\n        \"username\": \"perengano\",\n        \"phoneNumber\": \"5491165551861\",\n        \"image\": \"randomImage\",\n        \"__v\": 0\n    },\n    \"productsDisponibles\": [\n        {\n            \"_id\": \"639879b18557f55e96e749d7\",\n            \"title\": \"Mochila\",\n            \"price\": 800,\n            \"thumbnail\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU\",\n            \"createdAt\": \"2022-12-13T13:10:09.386Z\",\n            \"updatedAt\": \"2022-12-13T13:10:09.386Z\",\n            \"__v\": 0,\n            \"category\": \"school\",\n            \"stock\": 4\n        },\n        {\n            \"_id\": \"63ddae228da2e37041195d4a\",\n            \"title\": \"Remera de Boca\",\n            \"price\": 2000,\n            \"thumbnail\": \"ImagenRandom\",\n            \"category\": \"sport\",\n            \"stock\": 7\n        },\n        {\n            \"_id\": \"6407aa019d552a6e826fa998\",\n            \"title\": \"bolsa de cemento\",\n            \"price\": 300,\n            \"thumbnail\": \"null\",\n            \"stock\": 200,\n            \"category\": \"albañileria\",\n            \"createdAt\": \"2023-03-07T21:17:53.848Z\",\n            \"updatedAt\": \"2023-03-07T21:17:53.848Z\",\n            \"__v\": 0\n        }\n    ]\n}"
 				}
 			]
 		},
@@ -457,18 +457,18 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Products array in json\", function() {\r",
-							"    pm.expect(jsonData).to.have.property(\"productos\");\r",
-							"    pm.expect(jsonData.productos).to.be.an(\"array\");\r",
-							"    pm.expect(jsonData.productos.length).to.be.greaterThan(0);\r",
+							"    pm.expect(jsonData).to.have.property(\"products\");\r",
+							"    pm.expect(jsonData.products).to.be.an(\"array\");\r",
+							"    pm.expect(jsonData.products.length).to.be.greaterThan(0);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Products Array has keys\", function() {\r",
-							"    pm.expect(jsonData.productos[0]).to.have.property(\"_id\");\r",
-							"    pm.expect(jsonData.productos[0]._id).to.be.an(\"string\");\r",
-							"    pm.expect(jsonData.productos[0]).to.have.property(\"title\");\r",
-							"    pm.expect(jsonData.productos[0].title).to.be.an(\"string\");\r",
-							"    pm.expect(jsonData.productos[0]).to.have.property(\"price\");\r",
-							"    pm.expect(jsonData.productos[0].price).to.be.an(\"number\");\r",
+							"    pm.expect(jsonData.products[0]).to.have.property(\"_id\");\r",
+							"    pm.expect(jsonData.products[0]._id).to.be.an(\"string\");\r",
+							"    pm.expect(jsonData.products[0]).to.have.property(\"title\");\r",
+							"    pm.expect(jsonData.products[0].title).to.be.an(\"string\");\r",
+							"    pm.expect(jsonData.products[0]).to.have.property(\"price\");\r",
+							"    pm.expect(jsonData.products[0].price).to.be.an(\"number\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -548,7 +548,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"productos\": [\n        {\n            \"_id\": \"639879b18557f55e96e749d7\",\n            \"title\": \"Mochila\",\n            \"price\": 800,\n            \"thumbnail\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU\",\n            \"createdAt\": \"2022-12-13T13:10:09.386Z\",\n            \"updatedAt\": \"2022-12-13T13:10:09.386Z\",\n            \"__v\": 0,\n            \"category\": \"school\",\n            \"stock\": 4\n        },\n        {\n            \"_id\": \"63ddae228da2e37041195d4a\",\n            \"title\": \"Remera de Boca\",\n            \"price\": 2000,\n            \"thumbnail\": \"ImagenRandom\",\n            \"category\": \"sport\",\n            \"stock\": 7\n        },\n        {\n            \"_id\": \"6407aa019d552a6e826fa998\",\n            \"title\": \"bolsa de cemento\",\n            \"price\": 300,\n            \"thumbnail\": \"null\",\n            \"stock\": 200,\n            \"category\": \"albañileria\",\n            \"createdAt\": \"2023-03-07T21:17:53.848Z\",\n            \"updatedAt\": \"2023-03-07T21:17:53.848Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+					"body": "{\n    \"products\": [\n        {\n            \"_id\": \"639879b18557f55e96e749d7\",\n            \"title\": \"Mochila\",\n            \"price\": 800,\n            \"thumbnail\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU\",\n            \"createdAt\": \"2022-12-13T13:10:09.386Z\",\n            \"updatedAt\": \"2022-12-13T13:10:09.386Z\",\n            \"__v\": 0,\n            \"category\": \"school\",\n            \"stock\": 4\n        },\n        {\n            \"_id\": \"63ddae228da2e37041195d4a\",\n            \"title\": \"Remera de Boca\",\n            \"price\": 2000,\n            \"thumbnail\": \"ImagenRandom\",\n            \"category\": \"sport\",\n            \"stock\": 7\n        },\n        {\n            \"_id\": \"6407aa019d552a6e826fa998\",\n            \"title\": \"bolsa de cemento\",\n            \"price\": 300,\n            \"thumbnail\": \"null\",\n            \"stock\": 200,\n            \"category\": \"albañileria\",\n            \"createdAt\": \"2023-03-07T21:17:53.848Z\",\n            \"updatedAt\": \"2023-03-07T21:17:53.848Z\",\n            \"__v\": 0\n        }\n    ]\n}"
 				}
 			]
 		},

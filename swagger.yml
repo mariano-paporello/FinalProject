@@ -1,0 +1,2935 @@
+openapi: 3.0.0
+info:
+  title: Documentacion Proyecto Final
+  description: >-
+    Esta es la documentación en swagger del proyecto en el cual se pueden probar
+    la mayoría de los endpoints.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8088
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+tags:
+  - name: Auth
+    description: >-
+      ### **Rutas de ingreso de usuario.**
+
+
+      - Registro de datos del usuario en la base de datos y creación de carrito
+      correspondiente.
+
+      - Logeo de el usuario ya anteriormente registrado.
+  - name: Products
+    description: >-
+      ### **Rutas de manejo de productos.**
+
+
+      - Obtencion de todos los productos o por id
+
+      - Obtencio de productos determinados por su categoria.
+
+      - Creación de productos por usuarios administradores.
+
+      - Modificacion de productos de la base de datos por usuarios
+      administradores.
+
+      - Borrado de porductos de la base de datos por usuarios administradores.
+  - name: Cart
+    description: >-
+      ### **Ruta del manejo del carrito.**
+
+
+      - Añadir productos a el carrito del usuario.
+
+      - Obtener el carrito vacio o con los productos adentro de él.
+
+      - Modificar la cantidad o borrar productos dentro del carrito.
+
+      - Generar una orden de compra la cual vacia el carrito de forma
+      automatica.
+  - name: Orders
+    description: >-
+      ### Ruta de manejo de ordenes**.**
+
+
+      - Obtener todas las ordenes del usuario, tanto generadas, pagadas,
+      cancelada o finalizadas.
+
+      - Obtener una orde determinada por su id.
+
+      - Finalizar una orden.
+  - name: chat
+    description: >-
+      ### Ruta que simplemente sirve para mostrar el chat en handlebars.
+
+
+      Esta ruta no se puede probar en swagger, debido a que se utiliza
+      websocket.
+
+
+      Probar en produccción ya que el logIn y todo se realiza en la view.
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      description: >-
+        Ruta de registro la cual crea el usuario en la base de datos, crea un
+        jwt , la session y un carrito.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                gmail: mariano.paporello@gmail.com
+                password: 34412
+                age: 10
+                username: Test
+                phoneNumber: 99999999
+                image: RandomImage
+                passwordConfirm: password
+                adress: camargo 822
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            authorization:
+              schema:
+                type: string
+                example: >-
+                  Bearer
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDI2NDE1YzVhNGUyZWY4MTMxYWE0NmQiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAyMjg3MDAsImV4cCI6MTY4MDIzMjMwMH0.OEHFqdMLiJHWIMi4CElgIJnB9nhIjCeyZ34fWTy5768
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '292'
+            ETag:
+              schema:
+                type: string
+                example: W/"124-bvbfLxnsYyK7GNdhxivp7ItREEY"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3A6EG_EzUS8X7yDrRhUKdWvt0mBXQ3kahz.2FRy7%2FeweG00tKx8e1UB2bH7WqQR0A7SGsghew4WeOc;
+                  Path=/; Expires=Fri, 31 Mar 2023 03:11:40 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 02:11:40 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                token: >-
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDI2NDE1YzVhNGUyZWY4MTMxYWE0NmQiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAyMjg3MDAsImV4cCI6MTY4MDIzMjMwMH0.OEHFqdMLiJHWIMi4CElgIJnB9nhIjCeyZ34fWTy5768
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '47'
+            ETag:
+              schema:
+                type: string
+                example: W/"2f-6DuDb8oXGEOmwwU5nBTd7yW8ljI"
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Thu, 09 Mar 2023 20:21:58 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 400 datos-mal-ingresados
+                  value:
+                    Error: Datos ingresados no validos o nulos
+                example-1:
+                  summary: 400 paswords-diferentes
+                  value:
+                    Error: Las contraseñas ingresadas no son iguales
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      description: >-
+        Ruta de logeo revisa con passport si el usuario existe, si existe crea
+        un jwt y la session. En caso contrario devuelve error.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: Test2
+                password: password
+                passwordConfirm: password
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Expose-Headers:
+              schema:
+                type: string
+                example: x-auth-token
+            x-auth-token:
+              schema:
+                type: string
+                example: >-
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDBhNDFiZGI3YzljNDIxNTM1N2M3ZTkiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY3ODM5Mzg2N30.wZoC7zaCsBnLAS0waY0iYjK_AxufzWJXeDlP1IOPK8w
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '18'
+            ETag:
+              schema:
+                type: string
+                example: W/"12-jQcERozjSVXhql+KLrabcEXLquU"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AK9NIyM-iLDsu81TG9PPvdeykqDV0v_NX.Xj8YnyrTW2tmSKRyf0IZ5yJ3gexD0GBNCvB3JXXYi3M;
+                  Path=/; Expires=Thu, 09 Mar 2023 21:31:07 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Thu, 09 Mar 2023 20:31:07 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                msg: login OK
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '48'
+            ETag:
+              schema:
+                type: string
+                example: W/"30-ZQWVsIU+744oqf9D+4Q+QwFuVkQ"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AK9NIyM-iLDsu81TG9PPvdeykqDV0v_NX.Xj8YnyrTW2tmSKRyf0IZ5yJ3gexD0GBNCvB3JXXYi3M;
+                  Path=/; Expires=Thu, 09 Mar 2023 21:31:59 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Thu, 09 Mar 2023 20:31:59 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 400 datos-mal-ingresados
+                  value:
+                    Error: Datos ingresados no validos o nulos.
+                example-1:
+                  summary: 400 passwords-diferentes
+                  value:
+                    Error: Las contraseñas ingresadas no son iguales
+  /products/:
+    get:
+      tags:
+        - Products
+      summary: getProducts?Id
+      description: >-
+        Ruta puede traer todos los productos disponibles o uno determinado
+        mediante el id.
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '689'
+            ETag:
+              schema:
+                type: string
+                example: W/"2b1-cCTfSyYgpdRiJLYS0w0TwPakp2o"
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Thu, 09 Mar 2023 20:26:56 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: '200'
+                  value:
+                    productos:
+                      - _id: 639879b18557f55e96e749d7
+                        title: Mochila
+                        price: 800
+                        thumbnail: >-
+                          https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU
+                        createdAt: '2022-12-13T13:10:09.386Z'
+                        updatedAt: '2022-12-13T13:10:09.386Z'
+                        __v: 0
+                        category: school
+                        stock: 4
+                      - _id: 63ddae228da2e37041195d4a
+                        title: Remera de Boca
+                        price: 2000
+                        thumbnail: ImagenRandom
+                        category: sport
+                        stock: 7
+                      - _id: 6407aa019d552a6e826fa998
+                        title: bolsa de cemento
+                        price: 300
+                        thumbnail: 'null'
+                        stock: 200
+                        category: albañileria
+                        createdAt: '2023-03-07T21:17:53.848Z'
+                        updatedAt: '2023-03-07T21:17:53.848Z'
+                        __v: 0
+                example-1:
+                  summary: 200 :id
+                  value:
+                    productoBuscado:
+                      _id: 639879b18557f55e96e749d7
+                      title: Mochila
+                      price: 800
+                      thumbnail: >-
+                        https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU
+                      createdAt: '2022-12-13T13:10:09.386Z'
+                      updatedAt: '2022-12-13T13:10:09.386Z'
+                      __v: 0
+                      category: school
+                      stock: 4
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '67'
+            ETag:
+              schema:
+                type: string
+                example: W/"43-ZA7lceqtuxeeXisjT9UBMK+N3Mk"
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 02:26:21 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: ID ingresado es incorrecto. Debe de tener 24 caracteres
+    post:
+      tags:
+        - Products
+      summary: newProductAdmin
+      description: >-
+        Ruta que crea un nuevo producto solo si el usuario es de tipo
+        administrador.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: Producto
+                price: 300
+                thumbnail: 'null'
+                stock: 200
+                category: nothing
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM0OTE3LCJleHAiOjE2ODAyMzg1MTd9.FQDpz0LF_kkwOVxgBciF-qf01KTqRAZbErJVGkSTuCs
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '222'
+            ETag:
+              schema:
+                type: string
+                example: W/"de-jBCGKQ93RMcs2SHWo4hId70Onkc"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AQyCAJAiV3s5gKinq_lhcOSqDH1-o8QGN.7P9X6OKbrUB5MxqZVB1UV4EdCNuuT5NqNVpV9vanlps;
+                  Path=/; Expires=Fri, 31 Mar 2023 03:41:19 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 02:41:19 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                productoCreado:
+                  title: Producto
+                  price: 300
+                  thumbnail: 'null'
+                  stock: 200
+                  category: nothing
+                  _id: 6426484f06bc076be88f1cc7
+                  createdAt: '2023-03-31T02:41:19.024Z'
+                  updatedAt: '2023-03-31T02:41:19.024Z'
+                  __v: 0
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '22'
+            ETag:
+              schema:
+                type: string
+                example: W/"16-IxZ799gl/2du+ei6ngGH1w1+40A"
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 02:29:56 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 400 usuario-no-ingresó
+                  value:
+                    Error: Not Logged
+                example-1:
+                  summary: 400 session-destroyed
+                  value:
+                    Error: Session destroyed
+        '403':
+          description: Forbidden
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '26'
+            ETag:
+              schema:
+                type: string
+                example: W/"1a-wvy3DlMwefauYwdXA6LXdXzKQD0"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AQyCAJAiV3s5gKinq_lhcOSqDH1-o8QGN.7P9X6OKbrUB5MxqZVB1UV4EdCNuuT5NqNVpV9vanlps;
+                  Path=/; Expires=Fri, 31 Mar 2023 03:38:24 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 02:38:24 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 403 no-autorizado
+                  value:
+                    Error: Not authorized
+                example-1:
+                  summary: 403 token vencido
+                  value:
+                    Error: Token vencido
+  /products/category/school:
+    get:
+      tags:
+        - Products
+      summary: getProductByCategory
+      description: Ruta que trae un listado de productos por medio de su categoria.
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '351'
+            ETag:
+              schema:
+                type: string
+                example: W/"15f-kibg56BN8vHh5+ixah7DRU5L7M0"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AQyCAJAiV3s5gKinq_lhcOSqDH1-o8QGN.7P9X6OKbrUB5MxqZVB1UV4EdCNuuT5NqNVpV9vanlps;
+                  Path=/; Expires=Fri, 31 Mar 2023 03:42:41 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 02:42:41 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                productosBuscados:
+                  - _id: 639879b18557f55e96e749d7
+                    title: Mochila
+                    price: 800
+                    thumbnail: >-
+                      https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU
+                    createdAt: '2022-12-13T13:10:09.386Z'
+                    updatedAt: '2022-12-13T13:10:09.386Z'
+                    __v: 0
+                    category: school
+                    stock: 4
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '66'
+            ETag:
+              schema:
+                type: string
+                example: W/"42-wH1mjjazsgtvkJsJ/IObH8+R9FI"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AQyCAJAiV3s5gKinq_lhcOSqDH1-o8QGN.7P9X6OKbrUB5MxqZVB1UV4EdCNuuT5NqNVpV9vanlps;
+                  Path=/; Expires=Fri, 31 Mar 2023 03:41:51 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 02:41:51 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: No se pudo encontrar ningun producto con esa categoria
+  /products/6407aa019d552a6e826fa998:
+    put:
+      tags:
+        - Products
+      summary: modifyProductAdminNeeded
+      description: >-
+        Ruta que modifica un producto de la base de datos solo si el usuarioes
+        de tipo administrador.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                _id: 6407aa019d552a6e826fa998
+                title: bolsa de CACA
+                price: 300
+                thumbnail: 'null'
+                stock: 200
+                category: albañileria
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDE0OGMwNzBlOWZkYjE4NDk4N2UzYjAiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY3OTg2ODU0NywiZXhwIjoxNjc5ODY5MTQ3fQ.Pp0xbFfJksN4Fx9QWiCLO19GP0XYqlM6voUO1bsRI3k
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '50'
+            ETag:
+              schema:
+                type: string
+                example: W/"32-64hiapIsZ5CbL4ahh0BGlnsOfuk"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 04:45:11 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 03:45:11 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                msg: Modificacion realizada de forma correcta
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '29'
+            ETag:
+              schema:
+                type: string
+                example: W/"1d-pYNMA+5NW/4Mv/HdkE1T61zEBB4"
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 02:50:29 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: '400'
+                  value:
+                    Error: Session destroyed
+                example-1:
+                  summary: 400 modificacion-falló
+                  value:
+                    Error: Modificacion falló
+        '401':
+          description: Unauthorized
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '22'
+            ETag:
+              schema:
+                type: string
+                example: W/"16-IxZ799gl/2du+ei6ngGH1w1+40A"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 04:42:34 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 03:42:34 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Not Logged
+        '403':
+          description: Forbidden
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '25'
+            ETag:
+              schema:
+                type: string
+                example: W/"19-5M3812ccWTSuZzrlw3uj07N7cDE"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3ALuZvjmNR-LcedvsZj0KzB941clLsWKDi.D0wXapk9ahn%2BLajuJzKU1f2s88b1Me3nHnI%2FZObABXA;
+                  Path=/; Expires=Fri, 31 Mar 2023 03:52:12 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 02:52:12 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Token vencido
+    delete:
+      tags:
+        - Products
+      summary: DeleteProduct
+      description: >-
+        Ruta que borra un producto de la base de datos solo si el usuario es de
+        tipo administrador.
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMzNzQ3LCJleHAiOjE2ODAyMzczNDd9.P3eOs2aJAHShyvWnzhtpJZT-dOKcxU1yzUZpLe87-8k
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '64'
+            ETag:
+              schema:
+                type: string
+                example: W/"40-Ea8sYTP8HOeUPsZ/Q/kaMJLqzqs"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 04:55:50 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 03:55:50 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                msg: 'Producto con id: 642659bcbd5567998e198c0f. Fue borrado'
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '147'
+            ETag:
+              schema:
+                type: string
+                example: W/"93-FJZDyWOhGqfuXh1VdCluzt2m+9E"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 04:36:02 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 03:36:02 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 400 id-mal-ingresado
+                  value:
+                    error: >-
+                      Error al intentar borrar el producto con id:
+                      6407aa019d552a6e826fa998. Debido a que el mismo no es un
+                      id posible (minimo 24 caracteres)
+                example-1:
+                  summary: 400 producto ya borrado
+                  value:
+                    error: >-
+                      Error al intentar borrar el producto con id:
+                      642659bcbd5567998e198c0f. Este no existe.
+        '401':
+          description: Unauthorized
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '22'
+            ETag:
+              schema:
+                type: string
+                example: W/"16-IxZ799gl/2du+ei6ngGH1w1+40A"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 05:02:04 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 04:02:04 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Not Logged
+        '403':
+          description: Forbidden
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '25'
+            ETag:
+              schema:
+                type: string
+                example: W/"19-5M3812ccWTSuZzrlw3uj07N7cDE"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 05:04:32 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 04:04:32 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Token vencido
+  /cart/add/{id}:
+    post:
+      tags:
+        - Cart
+      summary: ProductToCart
+      description: >-
+        Se añade el producto con el id el cual se pasa como parametro en la ruta
+        y se añade al carrito del usuario.
+      requestBody:
+        content: {}
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzQzMzAsImV4cCI6MTY4MDAzNzkzMH0._Vi05iMyURK6V76Ivt7ZlSJ34bMTdMNjBPs1VI5l25g
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '41'
+            ETag:
+              schema:
+                type: string
+                example: W/"29-MzGHUapyCIpUtFMidilCK7rXNyc"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AK9NIyM-iLDsu81TG9PPvdeykqDV0v_NX.Xj8YnyrTW2tmSKRyf0IZ5yJ3gexD0GBNCvB3JXXYi3M;
+                  Path=/; Expires=Thu, 09 Mar 2023 21:34:29 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Thu, 09 Mar 2023 20:34:29 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                msg: '👍 👍 👍 👍 TODO BIENN '
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '33'
+            ETag:
+              schema:
+                type: string
+                example: W/"21-1ELrmwrGXF377/tMAopow8VfZUU"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 04:26:18 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 03:26:18 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Id ingresado invalido
+        '401':
+          description: Unauthorized
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '22'
+            ETag:
+              schema:
+                type: string
+                example: W/"16-IxZ799gl/2du+ei6ngGH1w1+40A"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 05:08:00 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 04:08:00 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Not Logged
+        '403':
+          description: Forbidden
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '31'
+            ETag:
+              schema:
+                type: string
+                example: W/"1f-erUhpT8CvS6lmV2qXhEdCokWZhE"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 04:30:07 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 03:30:07 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 403 notAutorized
+                  value:
+                    Error: No estas autorizado
+                example-1:
+                  summary: 403  token-vencido
+                  value:
+                    Error: Token vencido
+  /cart/:
+    get:
+      tags:
+        - Cart
+      summary: SeeCartOfUser
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzE0MjAsImV4cCI6MTY4MDAzNTAyMH0.3emxXNpqZ1CLMw2JXfQ4VdZ-up7HaaAI4zHnDRJWvTI
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '210'
+            ETag:
+              schema:
+                type: string
+                example: W/"d2-f3bo6oBVRdruYEFipgu4re5TaNg"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AK9NIyM-iLDsu81TG9PPvdeykqDV0v_NX.Xj8YnyrTW2tmSKRyf0IZ5yJ3gexD0GBNCvB3JXXYi3M;
+                  Path=/; Expires=Thu, 09 Mar 2023 21:36:20 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Thu, 09 Mar 2023 20:36:20 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: '200'
+                  value:
+                    productsInCart:
+                      - title: Mochila
+                        price: 800
+                        thumbnail: >-
+                          https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU
+                        amount: 1
+                example-1:
+                  summary: 200 CART EMPTY
+                  value:
+                    productsInCart: []
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '22'
+            ETag:
+              schema:
+                type: string
+                example: W/"16-IxZ799gl/2du+ei6ngGH1w1+40A"
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Thu, 09 Mar 2023 20:26:45 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Not Logged
+        '403':
+          description: Forbidden
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '25'
+            ETag:
+              schema:
+                type: string
+                example: W/"19-5M3812ccWTSuZzrlw3uj07N7cDE"
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 03:16:14 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 403 tokenVencido
+                  value:
+                    Error: Token vencido
+                example-1:
+                  summary: 403 notautorized
+                  value:
+                    Error: No estas autorizado
+  /cart/delete:
+    delete:
+      tags:
+        - Cart
+      summary: DeleteProductsInCart
+      description: >-
+        Se pasa el id de un producto y una cantidad que se quiera quitar del
+        mismo por medio del body. Esto borra o modifica dependiendo de la
+        cantidad que se quiera borrar y la que haya en el carrito.
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM4MjM4LCJleHAiOjE2ODAyNDE4Mzh9.tws3kjkgWlahOD461SuK9GqFSTEmw_tSnaRfycwMHdU
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '52'
+            ETag:
+              schema:
+                type: string
+                example: W/"34-twTppxgWOtsungIzp8d0ob4+jbI"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 05:57:01 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 04:57:01 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 200 borro producto por sobrepasa la cantidad
+                  value:
+                    msg: Producto en carrito borrado correctamente.
+                example-1:
+                  summary: 200 disminuyo cantidad
+                  value:
+                    msg: Producto en carrito actualizado
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '48'
+            ETag:
+              schema:
+                type: string
+                example: W/"30-88zR6/fyZQimfh2YAkluBlXpqr8"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 05:51:03 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 04:51:03 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 400 productNotFound
+                  value:
+                    Error: Producto no encontrado en su carrito
+                example-1:
+                  summary: 400 datos faltantes
+                  value:
+                    Error: Cantidad o id no fue ingresado correctamente
+        '401':
+          description: Unauthorized
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '22'
+            ETag:
+              schema:
+                type: string
+                example: W/"16-IxZ799gl/2du+ei6ngGH1w1+40A"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 05:48:54 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 04:48:54 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Not Logged
+        '403':
+          description: Forbidden
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '25'
+            ETag:
+              schema:
+                type: string
+                example: W/"19-5M3812ccWTSuZzrlw3uj07N7cDE"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 04:35:19 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 03:35:19 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 403 token-vencido
+                  value:
+                    Error: Token vencido
+                example-1:
+                  summary: 403 not autorized
+                  value:
+                    Error: No estas autorizado
+  /cart/submit:
+    post:
+      tags:
+        - Cart
+      summary: createOrder
+      description: >-
+        Se genera una orden de compra basada en el carrito. El cual se vacía en
+        el momento en el cual se crea la orden.
+      requestBody:
+        content: {}
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzQzMzAsImV4cCI6MTY4MDAzNzkzMH0._Vi05iMyURK6V76Ivt7ZlSJ34bMTdMNjBPs1VI5l25g
+      responses:
+        '201':
+          description: Created
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '307'
+            ETag:
+              schema:
+                type: string
+                example: W/"133-kpHTGkUjtiU/naW5G6/2rFvOHUs"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 06:08:32 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 05:08:32 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                order:
+                  items:
+                    - amount: 1
+                      price: 800
+                      _id: 64266ad09207e8f5dbae00dd
+                  userId: 6420cad5003b03e6805fd1b9
+                  numberOrder: 3
+                  state: Generado
+                  gmail: user2@gmail.com
+                  total: 800
+                  _id: 64266ad09207e8f5dbae00dc
+                  createdAt: '2023-03-31T05:08:32.100Z'
+                  updatedAt: '2023-03-31T05:08:32.100Z'
+                  __v: 0
+        '401':
+          description: Unauthorized
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '22'
+            ETag:
+              schema:
+                type: string
+                example: W/"16-IxZ799gl/2du+ei6ngGH1w1+40A"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 06:06:59 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 05:06:59 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Not Logged
+        '403':
+          description: Forbidden
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '25'
+            ETag:
+              schema:
+                type: string
+                example: W/"19-5M3812ccWTSuZzrlw3uj07N7cDE"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3A6yYP3-EU5Wc94s1JuSXxAdcNYbeQthAs.ayCiUcACCjCyETW6JFaLmWIgZVxRvc79Zxu7vdf742A;
+                  Path=/; Expires=Fri, 31 Mar 2023 04:09:54 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 03:09:54 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 403 token vencido
+                  value:
+                    Error: Token vencido
+                example-1:
+                  summary: 403 notAutorized
+                  value:
+                    Error: No estas autorizado
+  /orders/:
+    get:
+      tags:
+        - Orders
+      summary: getOrderByOrderId
+      description: >-
+        Obtiene la orden de el usuario que se este buscando con el id que se le
+        haya pasado.
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMTIwMjYsImV4cCI6MTY4MDAxNTYyNn0.Dh-j_Z80YwTog-tCiMGSYhPtemwWZiig-O6tHj8SyYA
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '316'
+            ETag:
+              schema:
+                type: string
+                example: W/"13c-9URzKmbeKTQn6iQZicjwdZ5tW/c"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 05:46:28 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 04:46:28 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: '200'
+                  value:
+                    OrdenBuscada:
+                      _id: 64265d9067162686abd72bad
+                      items:
+                        - amount: 3
+                          price: 2400
+                          _id: 64265d9067162686abd72bae
+                      userId: 6420cad5003b03e6805fd1b9
+                      numberOrder: 2
+                      state: Generado
+                      gmail: user2@gmail.com
+                      total: 2400
+                      createdAt: '2023-03-31T04:12:00.327Z'
+                      updatedAt: '2023-03-31T04:12:00.327Z'
+                      __v: 0
+                example-1:
+                  summary: 400 no id
+                  value:
+                    OrdenBuscada: null
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '78'
+            ETag:
+              schema:
+                type: string
+                example: W/"4e-c+vx+aB63JnVoXfUqQ5xAoBLJfc"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 05:41:06 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 04:41:06 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 400 id Erroneo
+                  value:
+                    Error: >-
+                      Id ingresado es inexistente debido a que es menor a 24
+                      caracteres.
+                example-1:
+                  summary: 400 id de orden no existe
+                  value:
+                    Error: id de orden buscado no existe
+        '401':
+          description: Unauthorized
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '22'
+            ETag:
+              schema:
+                type: string
+                example: W/"16-IxZ799gl/2du+ei6ngGH1w1+40A"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 05:21:05 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 04:21:05 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Not Logged
+        '403':
+          description: Forbidden
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '25'
+            ETag:
+              schema:
+                type: string
+                example: W/"19-5M3812ccWTSuZzrlw3uj07N7cDE"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 05:21:54 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 04:21:54 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 403 token vencido
+                  value:
+                    Error: Token vencido
+                example-1:
+                  summary: 403 no autorizado
+                  value:
+                    Error: No estas autorizado
+  /orders/complete:
+    post:
+      tags:
+        - Orders
+      summary: CompleteTheOrder
+      description: >-
+        Se modifica el estado de la orden , que tenga el id pasado, a
+        finalizada/completada y se envía la misma al gmail del usuario.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id: 642209c501f354d5ac3c09f0
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMTIwMjYsImV4cCI6MTY4MDAxNTYyNn0.Dh-j_Z80YwTog-tCiMGSYhPtemwWZiig-O6tHj8SyYA
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '38'
+            ETag:
+              schema:
+                type: string
+                example: W/"26-mQ9SiBYEFYMkLZ0BfeR9aMqT704"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 06:19:28 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 05:19:28 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                msg: Orden completada y envíada.
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '55'
+            ETag:
+              schema:
+                type: string
+                example: W/"37-t62V9HhCSIug6WPTT4R8dGXF7r8"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 06:18:18 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 05:18:18 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Orden no encontrada o en estado no generado
+        '401':
+          description: Unauthorized
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '22'
+            ETag:
+              schema:
+                type: string
+                example: W/"16-IxZ799gl/2du+ei6ngGH1w1+40A"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 06:20:15 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 05:20:15 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Not Logged
+        '403':
+          description: Forbidden
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '25'
+            ETag:
+              schema:
+                type: string
+                example: W/"19-5M3812ccWTSuZzrlw3uj07N7cDE"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM;
+                  Path=/; Expires=Fri, 31 Mar 2023 06:16:15 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 05:16:15 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 403 tokenVencido
+                  value:
+                    Error: Token vencido
+                example-1:
+                  summary: 403 notAutorized
+                  value:
+                    Error: No estas autorizado
+  /chat/:
+    get:
+      tags:
+        - chat
+      summary: chat
+      description: Trae el html de este endpoint.
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAxMDAyNzQsImV4cCI6MTY4MDEwMzg3NH0.qJhKvdK_YGgSUApcRmZmGgGL5XKiK6eXUfiXh87ne0k
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: text/html; charset=utf-8
+            ETag:
+              schema:
+                type: string
+                example: W/"f68-zozrPX240Gejvgq0oNlEDDORZrk"
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Content-Encoding:
+              schema:
+                type: string
+                example: gzip
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 03:04:31 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\" />\n        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n        <title>Pagina Prueba</title>\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, viewport-fit=cover\" />\n        <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">\n        <link rel=\"icon\" href=\"carritoIcon.png\" />\n        <style>\r\n      th, td{\r\n        border: 1px solid black;\r\n        text-align: center;\r\n        height: min-content;\r\n        font-weight: bold;\r\n      }\r\n      table{\r\n        width: 100%;\r\n        justify-content: center;\r\n        }\r\n        li{\r\n          list-style: none;\r\n        }\r\n      .image-table{\r\n        max-width: 100px;\r\n        min-width: 40px;\r\n        min-height: 40px;\r\n      }\r\n      .importantDiv{\r\n        flex-direction: column;\r\n        padding: 5px;\r\n        text-align: center;\r\n      }\r\n      body{\r\n        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\r\n      }\r\n    </style>\n    </head>\n    <body class=\"container-fluid pt-3 bg-dark text-dark d-flex justify-content-center flex-column \">\n        <div>\n            <nav class=\"navbar navbar-expand-lg navbar-light bg-secondary mb-3\">\n                <a class=\"navbar-brand\" href=\"/\">¡Hola !</a>\n                <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavDropdown\" aria-controls=\"navbarNavDropdown\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n                    <span class=\"navbar-toggler-icon\"></span>\n                </button>\n                <div class=\"collapse navbar-collapse text-light\" id=\"navbarNavDropdown\">\n                    <ul class=\"navbar-nav\">\n                        <li class=\"nav-item active\">\n                            <a class=\"nav-link\" href=\"/\">Home \n                                <span class=\"sr-only\">(current)</span>\n                            </a>\n                        </li>\n                    </li>\n                </ul>\n            </div>\n        </nav>\n        <div class=\"m-5 p-3 text-center bg-secondary d-flex flex-column rounded\">\n            <form id='logIn' action=\"\">\n                <label for=\"username\">Nombre de usuario:</label>\n                <input type=\"text\" id=\"username\" name=\"username\" value=\"...\">\n                <br>\n                <label for=\"constraseña\">Contraseña</label>\n                <input type=\"password\" id=\"contraseña\" name=\"contraseña\" value=\"...\">\n                <br>\n                <input type=\"submit\" value=\"Enviar\">\r\n        \n            </form>\n            <div class=\"p-2  text-break\" id=\"tokenDiv\">\r\n        </div>\n        </div>\n        <div class=\"my-5 p-3  text-center bg-secondary  d-flex justify-content-center flex-column rounded\">\n            <div id=\"chat\" class=\"esconder\" >\n                <form id='chat' action=\"\">\n                    <label for=\"token\">Token aquí</label>\n                    <br>\n                    <input type=\"text\" id=\"token\" name=\"token\" value=\"token\">\n                    <br>\n                    <label for=\"fgen\">Escribe aquí</label>\n                    <br>\n                    <input type=\"text\" id=\"fgen\" name=\"fgen\" value=\"Hola\">\n                    <input type=\"submit\" value=\"Enviar\">\n                    <div id=\"mensajesDiv\">\n                        <h4> Mensajes:</h4>\n                    </div>\n                </form>\n            </div>\n        </div>\n    </div>\n    <script src=\"/socket.io/socket.io.js\"></script>\n    <script src=\"/cliente.js\"></script>\n    <script src=\"https://code.jquery.com/jquery-3.2.1.slim.min.js\" integrity=\"sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN\" crossorigin=\"anonymous\"></script>\n    <script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js\" integrity=\"sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q\" crossorigin=\"anonymous\"></script>\n    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js\" integrity=\"sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl\" crossorigin=\"anonymous\"></script>\n</body>\n</html>"
+  /:
+    get:
+      tags:
+        - default
+      summary: MainPage
+      description: >-
+        Ruta que muestra todos los productos y en caso de que el usuario este
+        logeado muestra la data del mismo
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '927'
+            ETag:
+              schema:
+                type: string
+                example: W/"39f-0h+JHAP5g9ZC9QGlSqbSq+IXy+4"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3ALuZvjmNR-LcedvsZj0KzB941clLsWKDi.D0wXapk9ahn%2BLajuJzKU1f2s88b1Me3nHnI%2FZObABXA;
+                  Path=/; Expires=Fri, 31 Mar 2023 03:53:33 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 02:53:33 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: 200 user-logged
+                  value:
+                    data:
+                      _id: 6420cad5003b03e6805fd1b9
+                      gmail: user2@gmail.com
+                      password: >-
+                        $2b$10$c18Q7NETSCxdqc8XsYugw.ctD5jxY6Ev7hDK/twpJ48F8j6b48VwK
+                      age: '10'
+                      username: Test2
+                      phoneNumber: '99999999'
+                      image: RandomImage
+                      admin: true
+                      __v: 0
+                    productosDisponibles:
+                      - _id: 639879b18557f55e96e749d7
+                        title: Mochila
+                        price: 800
+                        thumbnail: >-
+                          https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU
+                        createdAt: '2022-12-13T13:10:09.386Z'
+                        updatedAt: '2022-12-13T13:10:09.386Z'
+                        __v: 0
+                        category: school
+                        stock: 4
+                      - _id: 63ddae228da2e37041195d4a
+                        title: Remera de Boca
+                        price: 2000
+                        thumbnail: ImagenRandom
+                        category: sport
+                        stock: 7
+                      - _id: 6426484f06bc076be88f1cc7
+                        title: Producto
+                        price: 300
+                        thumbnail: 'null'
+                        stock: 200
+                        category: nothing
+                        createdAt: '2023-03-31T02:41:19.024Z'
+                        updatedAt: '2023-03-31T02:41:19.024Z'
+                        __v: 0
+                example-1:
+                  summary: 200 user-not-logged
+                  value:
+                    productosDisponibles:
+                      - _id: 639879b18557f55e96e749d7
+                        title: Mochila
+                        price: 800
+                        thumbnail: >-
+                          https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU
+                        createdAt: '2022-12-13T13:10:09.386Z'
+                        updatedAt: '2022-12-13T13:10:09.386Z'
+                        __v: 0
+                        category: school
+                        stock: 4
+                      - _id: 63ddae228da2e37041195d4a
+                        title: Remera de Boca
+                        price: 2000
+                        thumbnail: ImagenRandom
+                        category: sport
+                        stock: 7
+                      - _id: 6426484f06bc076be88f1cc7
+                        title: Producto
+                        price: 300
+                        thumbnail: 'null'
+                        stock: 200
+                        category: nothing
+                        createdAt: '2023-03-31T02:41:19.024Z'
+                        updatedAt: '2023-03-31T02:41:19.024Z'
+                        __v: 0
+  /profile/:
+    get:
+      tags:
+        - default
+      summary: Profile
+      description: Ruta que muestra la informacion del usuario.
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInRcCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMwNzExLCJleHAiOjE2ODAyMzQzMTF9.pwwMouxL3RQnTRD0OEb5TVWD0fTyJlsY6pV5tfmIgE4
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '226'
+            ETag:
+              schema:
+                type: string
+                example: W/"e2-kwnCRUGn2GEGn6N5ccWRoy6Ll80"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AK9NIyM-iLDsu81TG9PPvdeykqDV0v_NX.Xj8YnyrTW2tmSKRyf0IZ5yJ3gexD0GBNCvB3JXXYi3M;
+                  Path=/; Expires=Thu, 09 Mar 2023 21:32:27 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Thu, 09 Mar 2023 20:32:27 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  _id: 640a41bdb7c9c4215357c7e9
+                  gmail: user@gmail.com
+                  password: $2b$10$37TA9iWrGVmZYv3aTm8cUuyZgeLbUPBBi27BDditPDN6ErFHw5wjy
+                  age: '10'
+                  username: Test
+                  phoneNumber: '99999999'
+                  image: RandomImage
+                  __v: 0
+        '400':
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '22'
+            ETag:
+              schema:
+                type: string
+                example: W/"16-IxZ799gl/2du+ei6ngGH1w1+40A"
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Thu, 09 Mar 2023 20:26:26 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Not Logged
+        '403':
+          description: Forbidden
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '31'
+            ETag:
+              schema:
+                type: string
+                example: W/"1f-erUhpT8CvS6lmV2qXhEdCokWZhE"
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 02:21:42 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: '403'
+                  value:
+                    Error: No estas autorizado
+                example-1:
+                  summary: 403 token-vencido
+                  value:
+                    Error: Token vencido
+  /auth/logout:
+    get:
+      tags:
+        - default
+      summary: Logout
+      description: Ruta que deslogea al usuario.
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '29'
+            ETag:
+              schema:
+                type: string
+                example: W/"1d-7dQhxpNqt4KuUTfFP+eics63dy0"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3AK9NIyM-iLDsu81TG9PPvdeykqDV0v_NX.Xj8YnyrTW2tmSKRyf0IZ5yJ3gexD0GBNCvB3JXXYi3M;
+                  Path=/; Expires=Thu, 09 Mar 2023 21:30:23 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Thu, 09 Mar 2023 20:30:23 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: '200'
+                  value:
+                    logoutFromThisUser: Test
+                example-1:
+                  summary: 400 not-data-of-user
+                  value:
+                    err: No hay data del usuario
+        '401':
+          description: Unauthorized
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '22'
+            ETag:
+              schema:
+                type: string
+                example: W/"16-IxZ799gl/2du+ei6ngGH1w1+40A"
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 03:03:07 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Not Logged
+        '403':
+          description: Forbidden
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '31'
+            ETag:
+              schema:
+                type: string
+                example: W/"1f-erUhpT8CvS6lmV2qXhEdCokWZhE"
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  connect.sid=s%3A6yYP3-EU5Wc94s1JuSXxAdcNYbeQthAs.ayCiUcACCjCyETW6JFaLmWIgZVxRvc79Zxu7vdf742A;
+                  Path=/; Expires=Fri, 31 Mar 2023 04:07:01 GMT; HttpOnly
+            Vary:
+              schema:
+                type: string
+                example: Accept-Encoding
+            Date:
+              schema:
+                type: string
+                example: Fri, 31 Mar 2023 03:07:01 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: No estas autorizado

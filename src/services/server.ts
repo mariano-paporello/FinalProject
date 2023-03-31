@@ -1,5 +1,6 @@
 import express from 'express'
 import http from 'http'
+import path from "path"
 import {engine} from 'express-handlebars'
 import compression from "compression"
 import {logger}from "../utils/loggers"
@@ -9,6 +10,8 @@ import cookieParser from "cookie-parser";
 import session from 'express-session';
 import { storeOptions } from "../api/storeOptions";
 import passport from "passport";
+import swaggerUi from "swagger-ui-express";
+import YAML from "yamljs";
 import { User } from '../../Public/types'
 
 declare module 'express-session' {
@@ -35,6 +38,11 @@ app.use("/", index)
 app.set('view engine', 'hbs')
 app.set('views', viewPath)
 app.engine('hbs', engine(paths))
+
+const swaggerPath = path.resolve(process.cwd(), './swagger.yml');
+const swaggerDoc = YAML.load(swaggerPath)
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
 
 app.get('*', (req, res)=>{

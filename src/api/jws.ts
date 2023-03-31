@@ -25,36 +25,41 @@ export const createAuthToken = async (user:User)=> {
         if(authHeader){
         const token = authHeader && authHeader.split(' ')[1]
         if(!token ){
-          return res.status(401).json({msg:"NO AUTORIZADO "}) 
+          return res.status(403).json({msg:"NO AUTORIZADO "}) 
         }else if(!Array.isArray(token)){
           try{ 
-            jwt.verify(token, config.JWT_SECRET_KEY, (err, user)=>{
+          const tokenReturned = jwt.verify(token, config.JWT_SECRET_KEY, (err, user)=>{
               if(err){ 
-                res.status(403).json({
-                  Error: err
-                })
-                return err
+                
+                return false
               }else if(user){
-                req.user = user
-                next()
+                req.user = user 
                 return user
               }
             }
           )
+          if(typeof tokenReturned === "object"){
+            next()
+          }
+          else{
+            res.status(403).json({
+              Error: "Token vencido"
+            })
+          }
         }catch(err){
           logger.error(err)
           console.log(err)
-          res.status(401).json({
+          res.status(403).json({
             error: err
           })
         }
       }
     }else{
-          res.status(401).json({
+          res.status(403).json({
             Error: "No estas autorizado"
          })
     }
   }catch(err){
-    return res.status(401).json({msg:`Error: ${err} NO AUTORIZADO`})
+    return res.status(403).json({msg:`Error: ${err} NO AUTORIZADO`})
   }
 }

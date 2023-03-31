@@ -95,6 +95,7 @@ export const registerGet = (req:Request, res:Response) => {
 
 export const logout = (req:Request, res:Response) => {
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
+    console.log(req.session.gmail, req.session)
     if (req.session.gmail) {
         res.json({
             logoutFromThisUser: req.session.dataUser?.username
@@ -117,7 +118,7 @@ next()
 else{
     logger.error("METODO:"+req.method + " RUTA:"+ req.url+ "User is Nos logged");
     
-    res.status(400).json({
+    res.status(401).json({
         Error: "Not Logged"
     })
 }
@@ -138,7 +139,7 @@ export const isAdmin = (req:Request, res:Response, next: NextFunction)=>{
     }
     else{
         logger.error("METODO:"+req.method + " RUTA:"+ req.url + " User is not type Admin")
-        res.status(401).json({
+        res.status(403).json({
             Error: "Not authorized"
         })
     }

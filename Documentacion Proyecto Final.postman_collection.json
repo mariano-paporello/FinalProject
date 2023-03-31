@@ -1,0 +1,5905 @@
+{
+	"info": {
+		"_postman_id": "2892f4f8-af04-4da4-9b5b-cddb4c676166",
+		"name": "Documentacion Proyecto Final",
+		"description": "Esta es la documentación en swagger del proyecto en el cual se pueden probar la mayoría de los endpoints.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23742310"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"gmail\": \"mariano.paporello@gmail.com\",\r\n    \"password\": 34412,\r\n    \"age\": 10,\r\n    \"username\": \"Test\",\r\n    \"phoneNumber\": 99999999,\r\n    \"image\": \"RandomImage\",\r\n    \"passwordConfirm\": \"password\",\r\n    \"adress\": \"camargo 822\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "Ruta de registro la cual crea el usuario en la base de datos, crea un jwt , la session y un carrito."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"gmail\": \"mariano.paporello@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"age\": 10,\r\n    \"username\": \"Test\",\r\n    \"phoneNumber\": 99999999,\r\n    \"image\": \"RandomImage\",\r\n    \"passwordConfirm\": \"password\",\r\n    \"adress\": \"camargo 822\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/auth/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "authorization",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDI2NDE1YzVhNGUyZWY4MTMxYWE0NmQiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAyMjg3MDAsImV4cCI6MTY4MDIzMjMwMH0.OEHFqdMLiJHWIMi4CElgIJnB9nhIjCeyZ34fWTy5768"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "292"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"124-bvbfLxnsYyK7GNdhxivp7ItREEY\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3A6EG_EzUS8X7yDrRhUKdWvt0mBXQ3kahz.2FRy7%2FeweG00tKx8e1UB2bH7WqQR0A7SGsghew4WeOc; Path=/; Expires=Fri, 31 Mar 2023 03:11:40 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 02:11:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDI2NDE1YzVhNGUyZWY4MTMxYWE0NmQiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAyMjg3MDAsImV4cCI6MTY4MDIzMjMwMH0.OEHFqdMLiJHWIMi4CElgIJnB9nhIjCeyZ34fWTy5768\"\n}"
+						},
+						{
+							"name": "400 datos-mal-ingresados",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"gmail\": \"user@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"age\": 10,\r\n    \"username\": \"Test\",\r\n    \"phoneNumber\": 99999999\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/auth/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "47"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2f-6DuDb8oXGEOmwwU5nBTd7yW8ljI\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 09 Mar 2023 20:21:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Datos ingresados no validos o nulos\"\n}"
+						},
+						{
+							"name": "400 paswords-diferentes",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"gmail\": \"mariano.paporello@gmail.com\",\r\n    \"password\": 34412,\r\n    \"age\": 10,\r\n    \"username\": \"Test\",\r\n    \"phoneNumber\": 99999999,\r\n    \"image\": \"RandomImage\",\r\n    \"passwordConfirm\": \"password\",\r\n    \"adress\": \"camargo 822\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/auth/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "54"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"36-Yhl66TykNaTqWmtp7iKV3he6YaY\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3A6EG_EzUS8X7yDrRhUKdWvt0mBXQ3kahz.2FRy7%2FeweG00tKx8e1UB2bH7WqQR0A7SGsghew4WeOc; Path=/; Expires=Fri, 31 Mar 2023 03:14:43 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 02:14:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Las contraseñas ingresadas no son iguales\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Test2\",\r\n    \"password\": \"password\",\r\n    \"passwordConfirm\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Ruta de logeo revisa con passport si el usuario existe, si existe crea un jwt y la session. En caso contrario devuelve error."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"Test\",\r\n    \"password\": \"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "x-auth-token"
+								},
+								{
+									"key": "x-auth-token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDBhNDFiZGI3YzljNDIxNTM1N2M3ZTkiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY3ODM5Mzg2N30.wZoC7zaCsBnLAS0waY0iYjK_AxufzWJXeDlP1IOPK8w"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "18"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"12-jQcERozjSVXhql+KLrabcEXLquU\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AK9NIyM-iLDsu81TG9PPvdeykqDV0v_NX.Xj8YnyrTW2tmSKRyf0IZ5yJ3gexD0GBNCvB3JXXYi3M; Path=/; Expires=Thu, 09 Mar 2023 21:31:07 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 09 Mar 2023 20:31:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"login OK\"\n}"
+						},
+						{
+							"name": "400 datos-mal-ingresados",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"WrongUsername\",\r\n    \"password\": \"WrongPassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "48"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"30-ZQWVsIU+744oqf9D+4Q+QwFuVkQ\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AK9NIyM-iLDsu81TG9PPvdeykqDV0v_NX.Xj8YnyrTW2tmSKRyf0IZ5yJ3gexD0GBNCvB3JXXYi3M; Path=/; Expires=Thu, 09 Mar 2023 21:31:59 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 09 Mar 2023 20:31:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Datos ingresados no validos o nulos.\"\n}"
+						},
+						{
+							"name": "400 passwords-diferentes",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"Test\",\r\n    \"password\": \"passwor\",\r\n    \"passwordConfirm\": \"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "54"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"36-Yhl66TykNaTqWmtp7iKV3he6YaY\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 02:22:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Las contraseñas ingresadas no son iguales\"\n}"
+						}
+					]
+				}
+			],
+			"description": "### **Rutas de ingreso de usuario.**\n\n- Registro de datos del usuario en la base de datos y creación de carrito correspondiente.\n- Logeo de el usuario ya anteriormente registrado."
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "getProducts?Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Products array in json\", function() {\r",
+									"    pm.expect(jsonData).to.have.property(\"productos\");\r",
+									"    pm.expect(jsonData.productos).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData.productos.length).to.be.greaterThan(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Products Array has keys\", function() {\r",
+									"    pm.expect(jsonData.productos[0]).to.have.property(\"_id\");\r",
+									"    pm.expect(jsonData.productos[0]._id).to.be.an(\"string\");\r",
+									"    pm.expect(jsonData.productos[0]).to.have.property(\"title\");\r",
+									"    pm.expect(jsonData.productos[0].title).to.be.an(\"string\");\r",
+									"    pm.expect(jsonData.productos[0]).to.have.property(\"price\");\r",
+									"    pm.expect(jsonData.productos[0].price).to.be.an(\"number\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDE0OGMwNzBlOWZkYjE4NDk4N2UzYjAiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY3OTY4ODk0NywiZXhwIjoxNjc5Njg5NTQ3fQ.CHaXgQ_EwJ3bXBmcOEyefh1eE4gCWuBA1I3ytRz2s2E",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8088/products/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"products",
+								""
+							]
+						},
+						"description": "Ruta puede traer todos los productos disponibles o uno determinado mediante el id."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8088/products/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "689"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2b1-cCTfSyYgpdRiJLYS0w0TwPakp2o\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 09 Mar 2023 20:26:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"productos\": [\n        {\n            \"_id\": \"639879b18557f55e96e749d7\",\n            \"title\": \"Mochila\",\n            \"price\": 800,\n            \"thumbnail\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU\",\n            \"createdAt\": \"2022-12-13T13:10:09.386Z\",\n            \"updatedAt\": \"2022-12-13T13:10:09.386Z\",\n            \"__v\": 0,\n            \"category\": \"school\",\n            \"stock\": 4\n        },\n        {\n            \"_id\": \"63ddae228da2e37041195d4a\",\n            \"title\": \"Remera de Boca\",\n            \"price\": 2000,\n            \"thumbnail\": \"ImagenRandom\",\n            \"category\": \"sport\",\n            \"stock\": 7\n        },\n        {\n            \"_id\": \"6407aa019d552a6e826fa998\",\n            \"title\": \"bolsa de cemento\",\n            \"price\": 300,\n            \"thumbnail\": \"null\",\n            \"stock\": 200,\n            \"category\": \"albañileria\",\n            \"createdAt\": \"2023-03-07T21:17:53.848Z\",\n            \"updatedAt\": \"2023-03-07T21:17:53.848Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+						},
+						{
+							"name": "200 :id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDE0OGMwNzBlOWZkYjE4NDk4N2UzYjAiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY3OTY4ODk0NywiZXhwIjoxNjc5Njg5NTQ3fQ.CHaXgQ_EwJ3bXBmcOEyefh1eE4gCWuBA1I3ytRz2s2E",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/products/639879b18557f55e96e749d7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"639879b18557f55e96e749d7"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "347"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15b-2gaOLCKG4e9vVcnU4mG8zt3hZDo\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 02:24:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"productoBuscado\": {\n        \"_id\": \"639879b18557f55e96e749d7\",\n        \"title\": \"Mochila\",\n        \"price\": 800,\n        \"thumbnail\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU\",\n        \"createdAt\": \"2022-12-13T13:10:09.386Z\",\n        \"updatedAt\": \"2022-12-13T13:10:09.386Z\",\n        \"__v\": 0,\n        \"category\": \"school\",\n        \"stock\": 4\n    }\n}"
+						},
+						{
+							"name": "400 id-inexistente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDE0OGMwNzBlOWZkYjE4NDk4N2UzYjAiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY3OTY4ODk0NywiZXhwIjoxNjc5Njg5NTQ3fQ.CHaXgQ_EwJ3bXBmcOEyefh1eE4gCWuBA1I3ytRz2s2E",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/products/error",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"error"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-ZA7lceqtuxeeXisjT9UBMK+N3Mk\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 02:26:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"ID ingresado es incorrecto. Debe de tener 24 caracteres\"\n}"
+						}
+					]
+				},
+				{
+					"name": "getProductByCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/products/category/school",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"products",
+								"category",
+								"school"
+							]
+						},
+						"description": "Ruta que trae un listado de productos por medio de su categoria."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8088/products/category/school",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"category",
+										"school"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "351"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15f-kibg56BN8vHh5+ixah7DRU5L7M0\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AQyCAJAiV3s5gKinq_lhcOSqDH1-o8QGN.7P9X6OKbrUB5MxqZVB1UV4EdCNuuT5NqNVpV9vanlps; Path=/; Expires=Fri, 31 Mar 2023 03:42:41 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 02:42:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"productosBuscados\": [\n        {\n            \"_id\": \"639879b18557f55e96e749d7\",\n            \"title\": \"Mochila\",\n            \"price\": 800,\n            \"thumbnail\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU\",\n            \"createdAt\": \"2022-12-13T13:10:09.386Z\",\n            \"updatedAt\": \"2022-12-13T13:10:09.386Z\",\n            \"__v\": 0,\n            \"category\": \"school\",\n            \"stock\": 4\n        }\n    ]\n}"
+						},
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8088/products/category/albañileria",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"category",
+										"albañileria"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "66"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"42-wH1mjjazsgtvkJsJ/IObH8+R9FI\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AQyCAJAiV3s5gKinq_lhcOSqDH1-o8QGN.7P9X6OKbrUB5MxqZVB1UV4EdCNuuT5NqNVpV9vanlps; Path=/; Expires=Fri, 31 Mar 2023 03:41:51 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 02:41:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"No se pudo encontrar ningun producto con esa categoria\"\n}"
+						}
+					]
+				},
+				{
+					"name": "newProductAdmin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM0OTE3LCJleHAiOjE2ODAyMzg1MTd9.FQDpz0LF_kkwOVxgBciF-qf01KTqRAZbErJVGkSTuCs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"title\":\"Producto\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"nothing\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/products/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"products",
+								""
+							]
+						},
+						"description": "Ruta que crea un nuevo producto solo si el usuario es de tipo administrador."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMwNDU0LCJleHAiOjE2ODAyMzQwNTR9.Pi9cJGDLnjGztnj4LJVIxGogcG9uk5LQI65Rcx3I6kY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"title\":\"Producto\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"nothing\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "222"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"de-jBCGKQ93RMcs2SHWo4hId70Onkc\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AQyCAJAiV3s5gKinq_lhcOSqDH1-o8QGN.7P9X6OKbrUB5MxqZVB1UV4EdCNuuT5NqNVpV9vanlps; Path=/; Expires=Fri, 31 Mar 2023 03:41:19 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 02:41:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"productoCreado\": {\n        \"title\": \"Producto\",\n        \"price\": 300,\n        \"thumbnail\": \"null\",\n        \"stock\": 200,\n        \"category\": \"nothing\",\n        \"_id\": \"6426484f06bc076be88f1cc7\",\n        \"createdAt\": \"2023-03-31T02:41:19.024Z\",\n        \"updatedAt\": \"2023-03-31T02:41:19.024Z\",\n        \"__v\": 0\n    }\n}"
+						},
+						{
+							"name": "400 usuario-no-ingresó",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDE0OGMwNzBlOWZkYjE4NDk4N2UzYjAiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY3OTg3MjE0NCwiZXhwIjoxNjc5ODcyNzQ0fQ.VT_YmvFdS18lHe9BcLGQLDEWbegiMf8Zjut5PhCJDJI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"title\":\"Producto\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"nothing\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16-IxZ799gl/2du+ei6ngGH1w1+40A\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 02:29:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Not Logged\"\n}"
+						},
+						{
+							"name": "400 session-destroyed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDE0OGMwNzBlOWZkYjE4NDk4N2UzYjAiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY3OTg3MjE0NCwiZXhwIjoxNjc5ODcyNzQ0fQ.VT_YmvFdS18lHe9BcLGQLDEWbegiMf8Zjut5PhCJDJI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"title\":\"Producto\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"nothing\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "29"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1d-pYNMA+5NW/4Mv/HdkE1T61zEBB4\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 02:57:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Session destroyed\"\n}"
+						},
+						{
+							"name": "403 no-autorizado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDE0OGMwNzBlOWZkYjE4NDk4N2UzYjAiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY3OTg3MjE0NCwiZXhwIjoxNjc5ODcyNzQ0fQ.VT_YmvFdS18lHe9BcLGQLDEWbegiMf8Zjut5PhCJDJI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"title\":\"Producto\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"nothing\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										""
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "26"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1a-wvy3DlMwefauYwdXA6LXdXzKQD0\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AQyCAJAiV3s5gKinq_lhcOSqDH1-o8QGN.7P9X6OKbrUB5MxqZVB1UV4EdCNuuT5NqNVpV9vanlps; Path=/; Expires=Fri, 31 Mar 2023 03:38:24 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 02:38:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Not authorized\"\n}"
+						},
+						{
+							"name": "403 token vencido",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer .eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM0OTE3LCJleHAiOjE2ODAyMzg1MTd9.FQDpz0LF_kkwOVxgBciF-qf01KTqRAZbErJVGkSTuCs",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"title\":\"Producto\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"nothing\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										""
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19-5M3812ccWTSuZzrlw3uj07N7cDE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:03:53 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:03:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Token vencido\"\n}"
+						}
+					]
+				},
+				{
+					"name": "modifyProductAdminNeeded",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDE0OGMwNzBlOWZkYjE4NDk4N2UzYjAiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY3OTg2ODU0NywiZXhwIjoxNjc5ODY5MTQ3fQ.Pp0xbFfJksN4Fx9QWiCLO19GP0XYqlM6voUO1bsRI3k",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"bolsa de CACA\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/products/6407aa019d552a6e826fa998",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"products",
+								"6407aa019d552a6e826fa998"
+							]
+						},
+						"description": "Ruta que modifica un producto de la base de datos solo si el usuarioes de tipo administrador."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMzNzQ3LCJleHAiOjE2ODAyMzczNDd9.P3eOs2aJAHShyvWnzhtpJZT-dOKcxU1yzUZpLe87-8k",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"title\":\"bolsa de CACA\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/6426484f06bc076be88f1cc7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"6426484f06bc076be88f1cc7"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"32-64hiapIsZ5CbL4ahh0BGlnsOfuk\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 04:45:11 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 03:45:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Modificacion realizada de forma correcta\"\n}"
+						},
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDE0OGMwNzBlOWZkYjE4NDk4N2UzYjAiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY3OTg2ODU0NywiZXhwIjoxNjc5ODY5MTQ3fQ.Pp0xbFfJksN4Fx9QWiCLO19GP0XYqlM6voUO1bsRI3k",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"bolsa de CACA\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/6407aa019d552a6e826fa998",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"6407aa019d552a6e826fa998"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "29"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1d-pYNMA+5NW/4Mv/HdkE1T61zEBB4\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 02:50:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Session destroyed\"\n}"
+						},
+						{
+							"name": "403 token-vencido",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDE0OGMwNzBlOWZkYjE4NDk4N2UzYjAiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTY3OTg2ODU0NywiZXhwIjoxNjc5ODY5MTQ3fQ.Pp0xbFfJksN4Fx9QWiCLO19GP0XYqlM6voUO1bsRI3k",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"bolsa de CACA\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/6407aa019d552a6e826fa998",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"6407aa019d552a6e826fa998"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19-5M3812ccWTSuZzrlw3uj07N7cDE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3ALuZvjmNR-LcedvsZj0KzB941clLsWKDi.D0wXapk9ahn%2BLajuJzKU1f2s88b1Me3nHnI%2FZObABXA; Path=/; Expires=Fri, 31 Mar 2023 03:52:12 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 02:52:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Token vencido\"\n}"
+						},
+						{
+							"name": "400 modificacion-falló",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMzNzQ3LCJleHAiOjE2ODAyMzczNDd9.P3eOs2aJAHShyvWnzhtpJZT-dOKcxU1yzUZpLe87-8k",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"bolsa de CACA\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/6407aa019d552a6e826fa998",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"6407aa019d552a6e826fa998"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f-a/6QH5TpxL4apGr3/VzuuMT7h1c\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 04:39:33 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 03:39:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Modificacion falló\"\n}"
+						},
+						{
+							"name": "400 Not-loged",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMzNzQ3LCJleHAiOjE2ODAyMzczNDd9.P3eOs2aJAHShyvWnzhtpJZT-dOKcxU1yzUZpLe87-8k",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"bolsa de CACA\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/6426484f06bc076be88f1cc7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"6426484f06bc076be88f1cc7"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16-IxZ799gl/2du+ei6ngGH1w1+40A\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 04:42:34 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 03:42:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Not Logged\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DeleteProduct",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMzNzQ3LCJleHAiOjE2ODAyMzczNDd9.P3eOs2aJAHShyvWnzhtpJZT-dOKcxU1yzUZpLe87-8k",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8088/products/6407aa019d552a6e826fa998",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"products",
+								"6407aa019d552a6e826fa998"
+							]
+						},
+						"description": "Ruta que borra un producto de la base de datos solo si el usuario es de tipo administrador."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMzNzQ3LCJleHAiOjE2ODAyMzczNDd9.P3eOs2aJAHShyvWnzhtpJZT-dOKcxU1yzUZpLe87-8k",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/642659bcbd5567998e198c0f",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"642659bcbd5567998e198c0f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "64"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"40-Ea8sYTP8HOeUPsZ/Q/kaMJLqzqs\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 04:55:50 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 03:55:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Producto con id: 642659bcbd5567998e198c0f. Fue borrado\"\n}"
+						},
+						{
+							"name": "400 id-mal-ingresado",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMzNzQ3LCJleHAiOjE2ODAyMzczNDd9.P3eOs2aJAHShyvWnzhtpJZT-dOKcxU1yzUZpLe87-8k",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/products/6407aa",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"6407aa"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "147"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"93-FJZDyWOhGqfuXh1VdCluzt2m+9E\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 04:36:02 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 03:36:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Error al intentar borrar el producto con id: 6407aa019d552a6e826fa998. Debido a que el mismo no es un id posible (minimo 24 caracteres)\"\n}"
+						},
+						{
+							"name": "401 not logged",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMzNzQ3LCJleHAiOjE2ODAyMzczNDd9.P3eOs2aJAHShyvWnzhtpJZT-dOKcxU1yzUZpLe87-8k",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/642659bcbd5567998e198c0f",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"642659bcbd5567998e198c0f"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16-IxZ799gl/2du+ei6ngGH1w1+40A\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:02:04 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:02:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Not Logged\"\n}"
+						},
+						{
+							"name": "400 producto ya borrado",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMzNzQ3LCJleHAiOjE2ODAyMzczNDd9.P3eOs2aJAHShyvWnzhtpJZT-dOKcxU1yzUZpLe87-8k",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/642659bcbd5567998e198c0f",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"642659bcbd5567998e198c0f"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "98"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"62-fZG+3q6PIq+IMb1m6x8WrKl2mCU\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:02:43 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:02:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Error al intentar borrar el producto con id: 642659bcbd5567998e198c0f. Este no existe.\"\n}"
+						},
+						{
+							"name": "403 token vencido",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer .eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMzNzQ3LCJleHAiOjE2ODAyMzczNDd9.P3eOs2aJAHShyvWnzhtpJZT-dOKcxU1yzUZpLe87-8k",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8088/products/642659bcbd5567998e198c0f",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"642659bcbd5567998e198c0f"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19-5M3812ccWTSuZzrlw3uj07N7cDE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:04:32 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:04:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Token vencido\"\n}"
+						}
+					]
+				}
+			],
+			"description": "### **Rutas de manejo de productos.**\n\n- Obtencion de todos los productos o por id\n- Obtencio de productos determinados por su categoria.\n- Creación de productos por usuarios administradores.\n- Modificacion de productos de la base de datos por usuarios administradores.\n- Borrado de porductos de la base de datos por usuarios administradores."
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "ProductToCart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzQzMzAsImV4cCI6MTY4MDAzNzkzMH0._Vi05iMyURK6V76Ivt7ZlSJ34bMTdMNjBPs1VI5l25g",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8088/cart/add/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"cart",
+								"add",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						},
+						"description": "Se añade el producto con el id el cual se pasa como parametro en la ruta y se añade al carrito del usuario."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8088/products/639879b18557f55e96e749d7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"products",
+										"639879b18557f55e96e749d7"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-MzGHUapyCIpUtFMidilCK7rXNyc\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AK9NIyM-iLDsu81TG9PPvdeykqDV0v_NX.Xj8YnyrTW2tmSKRyf0IZ5yJ3gexD0GBNCvB3JXXYi3M; Path=/; Expires=Thu, 09 Mar 2023 21:34:29 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 09 Mar 2023 20:34:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"👍 👍 👍 👍 TODO BIENN \"\n}"
+						},
+						{
+							"name": "400 id-invalido",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAyMzI0NzEsImV4cCI6MTY4MDIzNjA3MX0.A3G2lY3cz4OQmjDPwjaSRhr71AQH7X4V7w4xDpQzvTw",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/cart/add/639879b18557f55e96e749d",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"add",
+										"639879b18557f55e96e749d"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-1ELrmwrGXF377/tMAopow8VfZUU\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 04:26:18 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 03:26:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Id ingresado invalido\"\n}"
+						},
+						{
+							"name": "401 not logged",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM1MzYwLCJleHAiOjE2ODAyMzg5NjB9.9UzIs6baEsLFLDdJukiZnEG25fxpJxQqoqNTS5M3Pdo",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/cart/add/639879b18557f55e96e749d7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"add",
+										"639879b18557f55e96e749d7"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16-IxZ799gl/2du+ei6ngGH1w1+40A\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:08:00 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:08:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Not Logged\"\n}"
+						},
+						{
+							"name": "403 notAutorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAyMzI0NzEsImV4cCI6MTY4MDIzNjA3MX0.A3G2lY3cz4OQmjDPwjaSRhr71AQH7X4V7w4xDpQzvTw",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/cart/add/639879b18557f55e96e749d7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"add",
+										"639879b18557f55e96e749d7"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f-erUhpT8CvS6lmV2qXhEdCokWZhE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 04:30:07 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 03:30:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"No estas autorizado\"\n}"
+						},
+						{
+							"name": "403  token-vencido",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAyMzI0NzEsImV4cCI6MTY4MDIzNjA3MX0.A3G2lY3cz4OQmjDPwjaSRhr71AQH7X4V7w4xDpQzvTw",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/cart/add/639879b18557f55e96e749d7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"add",
+										"639879b18557f55e96e749d7"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19-5M3812ccWTSuZzrlw3uj07N7cDE\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 03:17:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Token vencido\"\n}"
+						}
+					]
+				},
+				{
+					"name": "SeeCartOfUser",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzE0MjAsImV4cCI6MTY4MDAzNTAyMH0.3emxXNpqZ1CLMw2JXfQ4VdZ-up7HaaAI4zHnDRJWvTI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8088/cart/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"cart",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8088/cart/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "210"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d2-f3bo6oBVRdruYEFipgu4re5TaNg\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AK9NIyM-iLDsu81TG9PPvdeykqDV0v_NX.Xj8YnyrTW2tmSKRyf0IZ5yJ3gexD0GBNCvB3JXXYi3M; Path=/; Expires=Thu, 09 Mar 2023 21:36:20 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 09 Mar 2023 20:36:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"productsInCart\": [\n        {\n            \"title\": \"Mochila\",\n            \"price\": 800,\n            \"thumbnail\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU\",\n            \"amount\": 1\n        }\n    ]\n}"
+						},
+						{
+							"name": "200 CART EMPTY",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8088/cart/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "21"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15-3Gh9VYbDhnegB5fvzhiJCH3EZSk\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AK9NIyM-iLDsu81TG9PPvdeykqDV0v_NX.Xj8YnyrTW2tmSKRyf0IZ5yJ3gexD0GBNCvB3JXXYi3M; Path=/; Expires=Thu, 09 Mar 2023 21:33:29 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 09 Mar 2023 20:33:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"productsInCart\": []\n}"
+						},
+						{
+							"name": "400 user-not-logged",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8088/cart/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16-IxZ799gl/2du+ei6ngGH1w1+40A\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 09 Mar 2023 20:26:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Not Logged\"\n}"
+						},
+						{
+							"name": "403 tokenVencido",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzE0MjAsImV4cCI6MTY4MDAzNTAyMH0.3emxXNpqZ1CLMw2JXfQ4VdZ-up7HaaAI4zHnDRJWvTI",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/cart/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										""
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19-5M3812ccWTSuZzrlw3uj07N7cDE\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 03:16:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Token vencido\"\n}"
+						},
+						{
+							"name": "403 notautorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzE0MjAsImV4cCI6MTY4MDAzNTAyMH0.3emxXNpqZ1CLMw2JXfQ4VdZ-up7HaaAI4zHnDRJWvTI",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/cart/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										""
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f-erUhpT8CvS6lmV2qXhEdCokWZhE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 04:31:48 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 03:31:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"No estas autorizado\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DeleteProductsInCart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM4MjM4LCJleHAiOjE2ODAyNDE4Mzh9.tws3kjkgWlahOD461SuK9GqFSTEmw_tSnaRfycwMHdU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"639879b18557f55e96e749d7\",\r\n    \"cuantity\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/cart/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"cart",
+								"delete"
+							]
+						},
+						"description": "Se pasa el id de un producto y una cantidad que se quiera quitar del mismo por medio del body. Esto borra o modifica dependiendo de la cantidad que se quiera borrar y la que haya en el carrito."
+					},
+					"response": [
+						{
+							"name": "200 borro producto por sobrepasa la cantidad",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM4MjM4LCJleHAiOjE2ODAyNDE4Mzh9.tws3kjkgWlahOD461SuK9GqFSTEmw_tSnaRfycwMHdU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"639879b18557f55e96e749d7\",\r\n    \"cuantity\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/cart/delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"delete"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"34-twTppxgWOtsungIzp8d0ob4+jbI\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:57:01 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:57:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Producto en carrito borrado correctamente.\"\n}"
+						},
+						{
+							"name": "200 disminuyo cantidad",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM4MjM4LCJleHAiOjE2ODAyNDE4Mzh9.tws3kjkgWlahOD461SuK9GqFSTEmw_tSnaRfycwMHdU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"639879b18557f55e96e749d7\",\r\n    \"cuantity\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/cart/delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"delete"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-bJ6SsDSlloaOznQ1acr3uOipIqg\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:59:11 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:59:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Producto en carrito actualizado\"\n}"
+						},
+						{
+							"name": "401 not logged",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzE0MjAsImV4cCI6MTY4MDAzNTAyMH0.3emxXNpqZ1CLMw2JXfQ4VdZ-up7HaaAI4zHnDRJWvTI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"63ddae228da2e37041195d4a\",\r\n    \"cuantity\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/cart/delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"delete"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16-IxZ799gl/2du+ei6ngGH1w1+40A\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:48:54 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:48:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Not Logged\"\n}"
+						},
+						{
+							"name": "403 token-vencido",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzE0MjAsImV4cCI6MTY4MDAzNTAyMH0.3emxXNpqZ1CLMw2JXfQ4VdZ-up7HaaAI4zHnDRJWvTI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"63ddae228da2e37041195d4a\",\r\n    \"cuantity\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/cart/delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"delete"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19-5M3812ccWTSuZzrlw3uj07N7cDE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 04:35:19 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 03:35:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Token vencido\"\n}"
+						},
+						{
+							"name": "400 productNotFound",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM4MjM4LCJleHAiOjE2ODAyNDE4Mzh9.tws3kjkgWlahOD461SuK9GqFSTEmw_tSnaRfycwMHdU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"63ddae228da2e37041195d4a\",\r\n    \"cuantity\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/cart/delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"delete"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "48"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"30-88zR6/fyZQimfh2YAkluBlXpqr8\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:51:03 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:51:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Producto no encontrado en su carrito\"\n}"
+						},
+						{
+							"name": "403 not autorized",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM4MjM4LCJleHAiOjE2ODAyNDE4Mzh9.tws3kjkgWlahOD461SuK9GqFSTEmw_tSnaRfycwMHdU",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"63ddae228da2e37041195d4a\",\r\n    \"cuantity\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/cart/delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"delete"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f-erUhpT8CvS6lmV2qXhEdCokWZhE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:51:49 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:51:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"No estas autorizado\"\n}"
+						},
+						{
+							"name": "400 datos faltantes",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM4MjM4LCJleHAiOjE2ODAyNDE4Mzh9.tws3kjkgWlahOD461SuK9GqFSTEmw_tSnaRfycwMHdU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"639879b18557f55e96e749d7\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/cart/delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"delete"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "56"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"38-0+IB0HsXA2mDE98bxKxW6KwN1/s\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 06:03:11 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 05:03:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Cantidad o id no fue ingresado correctamente\"\n}"
+						}
+					]
+				},
+				{
+					"name": "createOrder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzQzMzAsImV4cCI6MTY4MDAzNzkzMH0._Vi05iMyURK6V76Ivt7ZlSJ34bMTdMNjBPs1VI5l25g",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8088/cart/submit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"cart",
+								"submit"
+							]
+						},
+						"description": "Se genera una orden de compra basada en el carrito. El cual se vacía en el momento en el cual se crea la orden."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM4OTg4LCJleHAiOjE2ODAyNDI1ODh9.R_oJvjAAZqeCWHjGFDXQONNp0Snmkz-KehnIMfHS0Sg",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/cart/submit",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"submit"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "307"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"133-kpHTGkUjtiU/naW5G6/2rFvOHUs\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 06:08:32 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 05:08:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"order\": {\n        \"items\": [\n            {\n                \"amount\": 1,\n                \"price\": 800,\n                \"_id\": \"64266ad09207e8f5dbae00dd\"\n            }\n        ],\n        \"userId\": \"6420cad5003b03e6805fd1b9\",\n        \"numberOrder\": 3,\n        \"state\": \"Generado\",\n        \"gmail\": \"user2@gmail.com\",\n        \"total\": 800,\n        \"_id\": \"64266ad09207e8f5dbae00dc\",\n        \"createdAt\": \"2023-03-31T05:08:32.100Z\",\n        \"updatedAt\": \"2023-03-31T05:08:32.100Z\",\n        \"__v\": 0\n    }\n}"
+						},
+						{
+							"name": "401 not logged",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzQzMzAsImV4cCI6MTY4MDAzNzkzMH0._Vi05iMyURK6V76Ivt7ZlSJ34bMTdMNjBPs1VI5l25g",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/cart/submit",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"submit"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16-IxZ799gl/2du+ei6ngGH1w1+40A\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 06:06:59 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 05:06:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Not Logged\"\n}"
+						},
+						{
+							"name": "403 token vencido",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzQzMzAsImV4cCI6MTY4MDAzNzkzMH0._Vi05iMyURK6V76Ivt7ZlSJ34bMTdMNjBPs1VI5l25g",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/cart/submit",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"submit"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19-5M3812ccWTSuZzrlw3uj07N7cDE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3A6yYP3-EU5Wc94s1JuSXxAdcNYbeQthAs.ayCiUcACCjCyETW6JFaLmWIgZVxRvc79Zxu7vdf742A; Path=/; Expires=Fri, 31 Mar 2023 04:09:54 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 03:09:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Token vencido\"\n}"
+						},
+						{
+							"name": "403 notAutorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM4OTg4LCJleHAiOjE2ODAyNDI1ODh9.R_oJvjAAZqeCWHjGFDXQONNp0Snmkz-KehnIMfHS0Sg",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/cart/submit",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"cart",
+										"submit"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f-erUhpT8CvS6lmV2qXhEdCokWZhE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 06:08:54 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 05:08:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"No estas autorizado\"\n}"
+						}
+					]
+				}
+			],
+			"description": "### **Ruta del manejo del carrito.**\n\n- Añadir productos a el carrito del usuario.\n- Obtener el carrito vacio o con los productos adentro de él.\n- Modificar la cantidad o borrar productos dentro del carrito.\n- Generar una orden de compra la cual vacia el carrito de forma automatica."
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "getOrdersOfUser",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzQzMzAsImV4cCI6MTY4MDAzNzkzMH0._Vi05iMyURK6V76Ivt7ZlSJ34bMTdMNjBPs1VI5l25g",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8088/orders/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"orders",
+								""
+							]
+						},
+						"description": "Obtiene todas las ordenes del usuario de la base de datos y las lista."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM1NzY2LCJleHAiOjE2ODAyMzkzNjZ9.McwP-JDgJeme2k_bh9kBJuVnKLZt22TKbU7btwAbHro",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/orders/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "321"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"141-pn7w6N3cE15VGKsT2KACqyHoLHQ\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:12:05 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:12:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ordersOfTheUser\": [\n        {\n            \"_id\": \"64265d9067162686abd72bad\",\n            \"items\": [\n                {\n                    \"amount\": 3,\n                    \"price\": 2400,\n                    \"_id\": \"64265d9067162686abd72bae\"\n                }\n            ],\n            \"userId\": \"6420cad5003b03e6805fd1b9\",\n            \"numberOrder\": 2,\n            \"state\": \"Generado\",\n            \"gmail\": \"user2@gmail.com\",\n            \"total\": 2400,\n            \"createdAt\": \"2023-03-31T04:12:00.327Z\",\n            \"updatedAt\": \"2023-03-31T04:12:00.327Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+						},
+						{
+							"name": "200 ordenVacia",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM1NzY2LCJleHAiOjE2ODAyMzkzNjZ9.McwP-JDgJeme2k_bh9kBJuVnKLZt22TKbU7btwAbHro",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/orders/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16-3dM7FthBN+zkUJOL7Biu22fEQD4\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:10:27 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:10:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"ordersOfTheUser\": []\n}"
+						},
+						{
+							"name": "401 no logged",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzQzMzAsImV4cCI6MTY4MDAzNzkzMH0._Vi05iMyURK6V76Ivt7ZlSJ34bMTdMNjBPs1VI5l25g",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/orders/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										""
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16-IxZ799gl/2du+ei6ngGH1w1+40A\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:09:06 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:09:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Not Logged\"\n}"
+						},
+						{
+							"name": "403 tokenVencido",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMzQzMzAsImV4cCI6MTY4MDAzNzkzMH0._Vi05iMyURK6V76Ivt7ZlSJ34bMTdMNjBPs1VI5l25g",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/orders/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										""
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19-5M3812ccWTSuZzrlw3uj07N7cDE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:09:32 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:09:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Token vencido\"\n}"
+						},
+						{
+							"name": "403 not autorized",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM1NzY2LCJleHAiOjE2ODAyMzkzNjZ9.McwP-JDgJeme2k_bh9kBJuVnKLZt22TKbU7btwAbHro",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/orders/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										""
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f-erUhpT8CvS6lmV2qXhEdCokWZhE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:14:28 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:14:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"No estas autorizado\"\n}"
+						}
+					]
+				},
+				{
+					"name": "getOrderByOrderId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMTIwMjYsImV4cCI6MTY4MDAxNTYyNn0.Dh-j_Z80YwTog-tCiMGSYhPtemwWZiig-O6tHj8SyYA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"6421f259b287a2a2a69fdacc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/orders/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"orders",
+								""
+							]
+						},
+						"description": "Obtiene la orden de el usuario que se este buscando con el id que se le haya pasado."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM2OTc0LCJleHAiOjE2ODAyNDA1NzR9.DlPRbE8bBRwqQKymCnUPFInfHTWd0HyTEbAi5aqFXj8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"64265d9067162686abd72bad\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/orders/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "316"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"13c-9URzKmbeKTQn6iQZicjwdZ5tW/c\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:46:28 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:46:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"OrdenBuscada\": {\n        \"_id\": \"64265d9067162686abd72bad\",\n        \"items\": [\n            {\n                \"amount\": 3,\n                \"price\": 2400,\n                \"_id\": \"64265d9067162686abd72bae\"\n            }\n        ],\n        \"userId\": \"6420cad5003b03e6805fd1b9\",\n        \"numberOrder\": 2,\n        \"state\": \"Generado\",\n        \"gmail\": \"user2@gmail.com\",\n        \"total\": 2400,\n        \"createdAt\": \"2023-03-31T04:12:00.327Z\",\n        \"updatedAt\": \"2023-03-31T04:12:00.327Z\",\n        \"__v\": 0\n    }\n}"
+						},
+						{
+							"name": "401 not logged",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMTIwMjYsImV4cCI6MTY4MDAxNTYyNn0.Dh-j_Z80YwTog-tCiMGSYhPtemwWZiig-O6tHj8SyYA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"6421f259b287a2a2a69fdacc\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/orders/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										""
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16-IxZ799gl/2du+ei6ngGH1w1+40A\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:21:05 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:21:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Not Logged\"\n}"
+						},
+						{
+							"name": "400 no id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM2OTc0LCJleHAiOjE2ODAyNDA1NzR9.DlPRbE8bBRwqQKymCnUPFInfHTWd0HyTEbAi5aqFXj8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"6421f259b287a2a2a69fdacc\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/orders/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "21"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15-stSrc7a7iaREydfAOtC7xRipvm4\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:30:04 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:30:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"OrdenBuscada\": null\n}"
+						},
+						{
+							"name": "400 id Erroneo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM2OTc0LCJleHAiOjE2ODAyNDA1NzR9.DlPRbE8bBRwqQKymCnUPFInfHTWd0HyTEbAi5aqFXj8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"awdsawd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/orders/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-c+vx+aB63JnVoXfUqQ5xAoBLJfc\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:41:06 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:41:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Id ingresado es inexistente debido a que es menor a 24 caracteres.\"\n}"
+						},
+						{
+							"name": "400 id de orden no existe",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM2OTc0LCJleHAiOjE2ODAyNDA1NzR9.DlPRbE8bBRwqQKymCnUPFInfHTWd0HyTEbAi5aqFXj8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"6421f259b287a2a2a69fdacc\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/orders/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-Sp15qDpfhv2iGU1PYkK7P4nl+Q4\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:41:32 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:41:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"id de orden buscado no existe\"\n}"
+						},
+						{
+							"name": "403 token vencido",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMTIwMjYsImV4cCI6MTY4MDAxNTYyNn0.Dh-j_Z80YwTog-tCiMGSYhPtemwWZiig-O6tHj8SyYA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"6421f259b287a2a2a69fdacc\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/orders/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										""
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19-5M3812ccWTSuZzrlw3uj07N7cDE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:21:54 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:21:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Token vencido\"\n}"
+						},
+						{
+							"name": "403 no autorizado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM2OTc0LCJleHAiOjE2ODAyNDA1NzR9.DlPRbE8bBRwqQKymCnUPFInfHTWd0HyTEbAi5aqFXj8",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"6421f259b287a2a2a69fdacc\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/orders/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										""
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f-erUhpT8CvS6lmV2qXhEdCokWZhE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 05:43:06 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 04:43:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"No estas autorizado\"\n}"
+						}
+					]
+				},
+				{
+					"name": "CompleteTheOrder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMTIwMjYsImV4cCI6MTY4MDAxNTYyNn0.Dh-j_Z80YwTog-tCiMGSYhPtemwWZiig-O6tHj8SyYA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"642209c501f354d5ac3c09f0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/orders/complete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"orders",
+								"complete"
+							]
+						},
+						"description": "Se modifica el estado de la orden , que tenga el id pasado, a finalizada/completada y se envía la misma al gmail del usuario."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM5MzEwLCJleHAiOjE2ODAyNDI5MTB9.W9xXbtCTKkrf6nW8Q_PVwT7K8QiykosMUarQM99o5F4",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"64265d9067162686abd72bad\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/orders/complete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										"complete"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "38"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"26-mQ9SiBYEFYMkLZ0BfeR9aMqT704\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 06:19:28 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 05:19:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Orden completada y envíada.\"\n}"
+						},
+						{
+							"name": "400 ordenNoEncontrada",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM5MzEwLCJleHAiOjE2ODAyNDI5MTB9.W9xXbtCTKkrf6nW8Q_PVwT7K8QiykosMUarQM99o5F4",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"642209c501f354d5ac3c09f0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/orders/complete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										"complete"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"37-t62V9HhCSIug6WPTT4R8dGXF7r8\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 06:18:18 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 05:18:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Orden no encontrada o en estado no generado\"\n}"
+						},
+						{
+							"name": "401 not logged",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM5MzEwLCJleHAiOjE2ODAyNDI5MTB9.W9xXbtCTKkrf6nW8Q_PVwT7K8QiykosMUarQM99o5F4",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"64265d9067162686abd72bad\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/orders/complete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										"complete"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16-IxZ799gl/2du+ei6ngGH1w1+40A\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 06:20:15 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 05:20:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Not Logged\"\n}"
+						},
+						{
+							"name": "403 tokenVencido",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAwMTIwMjYsImV4cCI6MTY4MDAxNTYyNn0.Dh-j_Z80YwTog-tCiMGSYhPtemwWZiig-O6tHj8SyYA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"642209c501f354d5ac3c09f\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/orders/complete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										"complete"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19-5M3812ccWTSuZzrlw3uj07N7cDE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 06:16:15 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 05:16:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"Token vencido\"\n}"
+						},
+						{
+							"name": "403 notAutorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjM5MzEwLCJleHAiOjE2ODAyNDI5MTB9.W9xXbtCTKkrf6nW8Q_PVwT7K8QiykosMUarQM99o5F4",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"64265d9067162686abd72bad\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8088/orders/complete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"orders",
+										"complete"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f-erUhpT8CvS6lmV2qXhEdCokWZhE\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXDc40UeXJug95BlrKm8LPDkqcppTE_lS.0HSKGjFowNUUzpISWZONc4DNfl5GC%2BX6Y40B%2BtP7faM; Path=/; Expires=Fri, 31 Mar 2023 06:22:19 GMT; HttpOnly"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 05:22:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"Error\": \"No estas autorizado\"\n}"
+						}
+					]
+				}
+			],
+			"description": "### Ruta de manejo de ordenes**.**\n\n- Obtener todas las ordenes del usuario, tanto generadas, pagadas, cancelada o finalizadas.\n- Obtener una orde determinada por su id.\n- Finalizar una orden."
+		},
+		{
+			"name": "chat",
+			"item": [
+				{
+					"name": "chat",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAxMDAyNzQsImV4cCI6MTY4MDEwMzg3NH0.qJhKvdK_YGgSUApcRmZmGgGL5XKiK6eXUfiXh87ne0k",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8088/chat/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"chat",
+								""
+							]
+						},
+						"description": "Trae el html de este endpoint."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VkSWQiOiI2NDIxYjYzNDZmOWZmNGJjNWQ5Nzk2ODYiLCJ1c2VybmFtZSI6IlRlc3QiLCJpbWFnZSI6IlJhbmRvbUltYWdlIiwiZ21haWwiOiJtYXJpYW5vLnBhcG9yZWxsb0BnbWFpbC5jb20iLCJpYXQiOjE2ODAxMDAyNzQsImV4cCI6MTY4MDEwMzg3NH0.qJhKvdK_YGgSUApcRmZmGgGL5XKiK6eXUfiXh87ne0k",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8088/chat/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8088",
+									"path": [
+										"chat",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"f68-zozrPX240Gejvgq0oNlEDDORZrk\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 31 Mar 2023 03:04:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\" />\n        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n        <title>Pagina Prueba</title>\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, viewport-fit=cover\" />\n        <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">\n        <link rel=\"icon\" href=\"carritoIcon.png\" />\n        <style>\r\n      th, td{\r\n        border: 1px solid black;\r\n        text-align: center;\r\n        height: min-content;\r\n        font-weight: bold;\r\n      }\r\n      table{\r\n        width: 100%;\r\n        justify-content: center;\r\n        }\r\n        li{\r\n          list-style: none;\r\n        }\r\n      .image-table{\r\n        max-width: 100px;\r\n        min-width: 40px;\r\n        min-height: 40px;\r\n      }\r\n      .importantDiv{\r\n        flex-direction: column;\r\n        padding: 5px;\r\n        text-align: center;\r\n      }\r\n      body{\r\n        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\r\n      }\r\n    </style>\n    </head>\n    <body class=\"container-fluid pt-3 bg-dark text-dark d-flex justify-content-center flex-column \">\n        <div>\n            <nav class=\"navbar navbar-expand-lg navbar-light bg-secondary mb-3\">\n                <a class=\"navbar-brand\" href=\"/\">¡Hola !</a>\n                <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavDropdown\" aria-controls=\"navbarNavDropdown\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n                    <span class=\"navbar-toggler-icon\"></span>\n                </button>\n                <div class=\"collapse navbar-collapse text-light\" id=\"navbarNavDropdown\">\n                    <ul class=\"navbar-nav\">\n                        <li class=\"nav-item active\">\n                            <a class=\"nav-link\" href=\"/\">Home \n                                <span class=\"sr-only\">(current)</span>\n                            </a>\n                        </li>\n                    </li>\n                </ul>\n            </div>\n        </nav>\n        <div class=\"m-5 p-3 text-center bg-secondary d-flex flex-column rounded\">\n            <form id='logIn' action=\"\">\n                <label for=\"username\">Nombre de usuario:</label>\n                <input type=\"text\" id=\"username\" name=\"username\" value=\"...\">\n                <br>\n                <label for=\"constraseña\">Contraseña</label>\n                <input type=\"password\" id=\"contraseña\" name=\"contraseña\" value=\"...\">\n                <br>\n                <input type=\"submit\" value=\"Enviar\">\r\n        \n            </form>\n            <div class=\"p-2  text-break\" id=\"tokenDiv\">\r\n        </div>\n        </div>\n        <div class=\"my-5 p-3  text-center bg-secondary  d-flex justify-content-center flex-column rounded\">\n            <div id=\"chat\" class=\"esconder\" >\n                <form id='chat' action=\"\">\n                    <label for=\"token\">Token aquí</label>\n                    <br>\n                    <input type=\"text\" id=\"token\" name=\"token\" value=\"token\">\n                    <br>\n                    <label for=\"fgen\">Escribe aquí</label>\n                    <br>\n                    <input type=\"text\" id=\"fgen\" name=\"fgen\" value=\"Hola\">\n                    <input type=\"submit\" value=\"Enviar\">\n                    <div id=\"mensajesDiv\">\n                        <h4> Mensajes:</h4>\n                    </div>\n                </form>\n            </div>\n        </div>\n    </div>\n    <script src=\"/socket.io/socket.io.js\"></script>\n    <script src=\"/cliente.js\"></script>\n    <script src=\"https://code.jquery.com/jquery-3.2.1.slim.min.js\" integrity=\"sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN\" crossorigin=\"anonymous\"></script>\n    <script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js\" integrity=\"sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q\" crossorigin=\"anonymous\"></script>\n    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js\" integrity=\"sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl\" crossorigin=\"anonymous\"></script>\n</body>\n</html>"
+						}
+					]
+				}
+			],
+			"description": "### Ruta que simplemente sirve para mostrar el chat en handlebars.\n\nEsta ruta no se puede probar en swagger, debido a que se utiliza websocket.\n\nProbar en produccción ya que el logIn y todo se realiza en la view."
+		},
+		{
+			"name": "MainPage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						""
+					]
+				},
+				"description": "Ruta que muestra todos los productos y en caso de que el usuario este logeado muestra la data del mismo"
+			},
+			"response": [
+				{
+					"name": "200 user-logged",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "927"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"39f-0h+JHAP5g9ZC9QGlSqbSq+IXy+4\""
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "connect.sid=s%3ALuZvjmNR-LcedvsZj0KzB941clLsWKDi.D0wXapk9ahn%2BLajuJzKU1f2s88b1Me3nHnI%2FZObABXA; Path=/; Expires=Fri, 31 Mar 2023 03:53:33 GMT; HttpOnly"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 02:53:33 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"_id\": \"6420cad5003b03e6805fd1b9\",\n        \"gmail\": \"user2@gmail.com\",\n        \"password\": \"$2b$10$c18Q7NETSCxdqc8XsYugw.ctD5jxY6Ev7hDK/twpJ48F8j6b48VwK\",\n        \"age\": \"10\",\n        \"username\": \"Test2\",\n        \"phoneNumber\": \"99999999\",\n        \"image\": \"RandomImage\",\n        \"admin\": true,\n        \"__v\": 0\n    },\n    \"productosDisponibles\": [\n        {\n            \"_id\": \"639879b18557f55e96e749d7\",\n            \"title\": \"Mochila\",\n            \"price\": 800,\n            \"thumbnail\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU\",\n            \"createdAt\": \"2022-12-13T13:10:09.386Z\",\n            \"updatedAt\": \"2022-12-13T13:10:09.386Z\",\n            \"__v\": 0,\n            \"category\": \"school\",\n            \"stock\": 4\n        },\n        {\n            \"_id\": \"63ddae228da2e37041195d4a\",\n            \"title\": \"Remera de Boca\",\n            \"price\": 2000,\n            \"thumbnail\": \"ImagenRandom\",\n            \"category\": \"sport\",\n            \"stock\": 7\n        },\n        {\n            \"_id\": \"6426484f06bc076be88f1cc7\",\n            \"title\": \"Producto\",\n            \"price\": 300,\n            \"thumbnail\": \"null\",\n            \"stock\": 200,\n            \"category\": \"nothing\",\n            \"createdAt\": \"2023-03-31T02:41:19.024Z\",\n            \"updatedAt\": \"2023-03-31T02:41:19.024Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+				},
+				{
+					"name": "200 user-not-logged",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "687"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2af-COwq/VqpwlHBYYTh7r+UX23RSX8\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 02:54:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"productosDisponibles\": [\n        {\n            \"_id\": \"639879b18557f55e96e749d7\",\n            \"title\": \"Mochila\",\n            \"price\": 800,\n            \"thumbnail\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPTV7LVsKrZowJoTIn5SadPs_qQ1YjtHykgYChLb1GZ4C8TpU94pQ13gQuwNZz6v399iA&usqp=CAU\",\n            \"createdAt\": \"2022-12-13T13:10:09.386Z\",\n            \"updatedAt\": \"2022-12-13T13:10:09.386Z\",\n            \"__v\": 0,\n            \"category\": \"school\",\n            \"stock\": 4\n        },\n        {\n            \"_id\": \"63ddae228da2e37041195d4a\",\n            \"title\": \"Remera de Boca\",\n            \"price\": 2000,\n            \"thumbnail\": \"ImagenRandom\",\n            \"category\": \"sport\",\n            \"stock\": 7\n        },\n        {\n            \"_id\": \"6426484f06bc076be88f1cc7\",\n            \"title\": \"Producto\",\n            \"price\": 300,\n            \"thumbnail\": \"null\",\n            \"stock\": 200,\n            \"category\": \"nothing\",\n            \"createdAt\": \"2023-03-31T02:41:19.024Z\",\n            \"updatedAt\": \"2023-03-31T02:41:19.024Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInRcCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMwNzExLCJleHAiOjE2ODAyMzQzMTF9.pwwMouxL3RQnTRD0OEb5TVWD0fTyJlsY6pV5tfmIgE4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8088/profile/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"profile",
+						""
+					]
+				},
+				"description": "Ruta que muestra la informacion del usuario."
+			},
+			"response": [
+				{
+					"name": "200",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/profile/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"profile",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "226"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"e2-kwnCRUGn2GEGn6N5ccWRoy6Ll80\""
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "connect.sid=s%3AK9NIyM-iLDsu81TG9PPvdeykqDV0v_NX.Xj8YnyrTW2tmSKRyf0IZ5yJ3gexD0GBNCvB3JXXYi3M; Path=/; Expires=Thu, 09 Mar 2023 21:32:27 GMT; HttpOnly"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 09 Mar 2023 20:32:27 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"_id\": \"640a41bdb7c9c4215357c7e9\",\n        \"gmail\": \"user@gmail.com\",\n        \"password\": \"$2b$10$37TA9iWrGVmZYv3aTm8cUuyZgeLbUPBBi27BDditPDN6ErFHw5wjy\",\n        \"age\": \"10\",\n        \"username\": \"Test\",\n        \"phoneNumber\": \"99999999\",\n        \"image\": \"RandomImage\",\n        \"__v\": 0\n    }\n}"
+				},
+				{
+					"name": "400 user-not-logged",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/profile/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"profile",
+								""
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "22"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"16-IxZ799gl/2du+ei6ngGH1w1+40A\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 09 Mar 2023 20:26:26 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Not Logged\"\n}"
+				},
+				{
+					"name": "403",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/profile/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"profile",
+								""
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "31"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1f-erUhpT8CvS6lmV2qXhEdCokWZhE\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 02:21:42 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"No estas autorizado\"\n}"
+				},
+				{
+					"name": "403 token-vencido",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInRcCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIwY2FkNTAwM2IwM2U2ODA1ZmQxYjkiLCJ1c2VybmFtZSI6IlRlc3QyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidXNlcjJAZ21haWwuY29tIiwiaWF0IjoxNjgwMjMwNzExLCJleHAiOjE2ODAyMzQzMTF9.pwwMouxL3RQnTRD0OEb5TVWD0fTyJlsY6pV5tfmIgE4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8088/profile/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"profile",
+								""
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "25"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"19-5M3812ccWTSuZzrlw3uj07N7cDE\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 02:49:36 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Token vencido\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"auth",
+						"logout"
+					]
+				},
+				"description": "Ruta que deslogea al usuario."
+			},
+			"response": [
+				{
+					"name": "200",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "29"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1d-7dQhxpNqt4KuUTfFP+eics63dy0\""
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "connect.sid=s%3AK9NIyM-iLDsu81TG9PPvdeykqDV0v_NX.Xj8YnyrTW2tmSKRyf0IZ5yJ3gexD0GBNCvB3JXXYi3M; Path=/; Expires=Thu, 09 Mar 2023 21:30:23 GMT; HttpOnly"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 09 Mar 2023 20:30:23 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"logoutFromThisUser\": \"Test\"\n}"
+				},
+				{
+					"name": "400 not-data-of-user",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "33"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"21-7VT3SdGxaLTeD2L+PiffyoI9WFg\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 09 Mar 2023 20:16:46 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"err\": \"No hay data del usuario\"\n}"
+				},
+				{
+					"name": "401 user-not-logged",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "22"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"16-IxZ799gl/2du+ei6ngGH1w1+40A\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 03:03:07 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"Not Logged\"\n}"
+				},
+				{
+					"name": "403 default",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "31"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1f-erUhpT8CvS6lmV2qXhEdCokWZhE\""
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "connect.sid=s%3A6yYP3-EU5Wc94s1JuSXxAdcNYbeQthAs.ayCiUcACCjCyETW6JFaLmWIgZVxRvc79Zxu7vdf742A; Path=/; Expires=Fri, 31 Mar 2023 04:07:01 GMT; HttpOnly"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 31 Mar 2023 03:07:01 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Error\": \"No estas autorizado\"\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

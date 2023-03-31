@@ -38,7 +38,6 @@ export default class DaoMongoDB implements UserBaseClass {
             for(let i=0;i<=usersfound.length;i++ ){
             const logUser = await byCript.compare(candidatePassword, usersfound[i].password)
             if(logUser){
-                
                 return usersfound[i]
             }
             else{ 
