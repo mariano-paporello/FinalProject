@@ -1,6 +1,6 @@
 import path from "path"
 
-export const viewPath = path.resolve('/views')
+export const viewPath = path.resolve('../views')
 console.log(viewPath)
 const layoutsPath = `${viewPath}/layouts`
 const partialsPath = `${viewPath}/partials`
