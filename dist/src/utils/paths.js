@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.paths = exports.viewPath = void 0;
 var path_1 = __importDefault(require("path"));
-exports.viewPath = path_1.default.resolve(__dirname, '../views');
+exports.viewPath = path_1.default.resolve(__dirname, '../../views');
 var layoutsPath = "".concat(exports.viewPath, "/layouts");
 var partialsPath = "".concat(exports.viewPath, "/partials");
 var defaultLayoutPath = "".concat(layoutsPath, "/index.hbs");

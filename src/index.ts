@@ -14,7 +14,7 @@ const numCPUs = os.cpus().length
 
 initWsServer(server);
 if (args.modo === "CLUSTER" && cluster.isPrimary ) {
-    logger.info("💡💡💡 TIPO CLUSTER")
+    logger.info("TIPO CLUSTER")
     for (let i=0;i < numCPUs; i++) {
         cluster.fork()
     }
@@ -23,7 +23,7 @@ if (args.modo === "CLUSTER" && cluster.isPrimary ) {
         cluster.fork();
     })
 }else{
-    logger.info("💩💩💩 TIPO FORK")
+    logger.info("TIPO FORK")
         server.listen(port, () => {
             logger.info(`Server is up in ${port}`);
         });
