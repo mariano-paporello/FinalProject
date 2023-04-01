@@ -5,14 +5,14 @@ import {engine} from 'express-handlebars'
 import compression from "compression"
 import {logger}from "../utils/loggers"
 import index from '../routes/index'
-import { paths, viewPath } from '../paths'
+import { paths, viewPath } from '../utils/paths'
 import cookieParser from "cookie-parser";
 import session from 'express-session';
 import { storeOptions } from "../api/storeOptions";
 import passport from "passport";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
-import { User } from '../../public/types'
+import { User } from '../../Public/types'
 
 declare module 'express-session' {
     interface SessionData {
@@ -28,7 +28,7 @@ const app = express()
 app.use(compression())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
-app.use(express.static('public'))
+app.use(express.static('Public'))
 app.use(cookieParser());
 app.use(session(storeOptions));
 app.use(passport.initialize());

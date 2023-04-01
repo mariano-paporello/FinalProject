@@ -3,7 +3,7 @@ import { logger } from "../utils/loggers"
 import { generateToken } from "./user"
 import { logged } from "../utils/logged"
 import { Response, Request, NextFunction } from "express"
-import { User } from "../../public/types"
+import { User } from "../../Public/types"
 
 
 

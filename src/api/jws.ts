@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken"
-import { User } from "../../public/types";
+import { User } from "../../Public/types";
 import config from '../config/index';
 import { logger } from "../utils/loggers";
 
