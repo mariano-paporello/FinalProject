@@ -3,14 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js --database= mongo",
-    "startDev": "nodemon src/index.ts",
-    "startDevMongo": "nodemon src/index.ts --database=MOngo",
-    "jest": "jest --detectOpenHandles",
+    "start": "node dist/src/index.js --database= mongo",
+    "dev": "nodemon src/index.ts --database=MOngo",
+    "test": "jest --detectOpenHandles",
     "build": "tsc",
-    "watch": "tsc -w",
-    "dev": "nodemon ",
-    "test": "jest"
+    "watch": "tsc -w"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +25,7 @@
     "@types/nodemailer": "^6.4.7",
     "@types/passport": "^1.0.12",
     "@types/passport-local": "^1.0.35",
+    "@types/supertest": "^2.0.12",
     "compression": "^1.7.4",
     "minimist": "^1.2.8",
     "moment": "^2.29.4",

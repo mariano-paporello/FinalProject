@@ -7,7 +7,10 @@ import usersSchema  from "./schema/users.schema";
 let dao:DaoMongoDB;
 
 const args = minimist(process.argv)
-switch(args.database.toLowerCase()) {
+
+if(args.database){
+const database = args.database.toLowerCase()
+switch(database) {
     // agregar mÁs DB
     case 'mongo':
         dao = new DaoMongoDB('users', usersSchema);
@@ -18,7 +21,10 @@ switch(args.database.toLowerCase()) {
         dao = new DaoMongoDB('users', usersSchema);
         dao.initMongoDB();
         break;
-};
+}}else{
+    dao = new DaoMongoDB('users', usersSchema);
+    dao.initMongoDB();
+}
 
 
 export function getDao(){

@@ -5,9 +5,9 @@ import { messagesSchema } from "./schema/message.schema";
 
 let dao : DaoMongoDB;
 const args = minimist(process.argv)
-
-
-switch(args.database.toLowerCase()) {
+if(args.database){
+const database = args.database.toLowerCase()
+switch(database) {
     case 'mongo':
         if(args){
             dao = new DaoMongoDB('menssages', messagesSchema);
@@ -16,11 +16,14 @@ switch(args.database.toLowerCase()) {
         }
             
     default:
-        logger.error("Error en factory de messages al seleccionar Db (inicinado con la default)")
+        logger.info(" inicinado con la default")
         dao = new DaoMongoDB('menssages', messagesSchema);
         dao.initMongoDB();
         break;
-};
+}}else{
+    dao = new DaoMongoDB('menssages', messagesSchema);
+    dao.initMongoDB();
+}
 
 export function getDao(){
     return dao;

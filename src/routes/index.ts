@@ -7,7 +7,6 @@ import productsRoute from "./products";
 import cors from "cors"
 import cartRoute from "./cart";
 import authRoute from "./auth";
-import { homeview } from "../controller/viewController";
 import orderRoute from "./orders";
 import chatRoute from "./message";
 
@@ -25,6 +24,8 @@ mainRoute.use("/orders", orderRoute)
 mainRoute.use("/chat", chatRoute)
 mainRoute.use(cors());
 
-mainRoute.get('/', homeview)
+mainRoute.get('/', (req, res)=>{
+    res.render("main")
+})
 
 export default mainRoute;

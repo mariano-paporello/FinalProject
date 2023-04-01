@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var auth_1 = require("../controller/auth");
+var jws_1 = require("../api/jws");
+var mensajes_1 = require("../controller/mensajes");
+var chatRoute = (0, express_1.Router)();
+chatRoute.get("/", mensajes_1.chat);
+chatRoute.get("/:id", auth_1.isLogged, jws_1.checkAuth, auth_1.loggedIsNotDestroyed, mensajes_1.chatById);
+exports.default = chatRoute;

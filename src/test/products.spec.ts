@@ -6,7 +6,7 @@ import supertest from "supertest"
 
 
 describe("Test products", ()=>{
-    let request
+    let request: any
     beforeAll(async()=>{
         request = supertest(server)
     })

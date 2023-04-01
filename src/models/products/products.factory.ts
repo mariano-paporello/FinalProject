@@ -7,8 +7,9 @@ import { AddProductObject } from "./products.interface";
 let dao : DaoMongoDB;
 const args = minimist(process.argv)
 
-
-switch(args.database.toLowerCase()) {
+if(args.database){
+const database = args.database.toLowerCase()
+switch(database) {
     // agregar mÁs DB
     case 'mongo':
         if(args.testing){
@@ -26,7 +27,10 @@ switch(args.database.toLowerCase()) {
         dao = new DaoMongoDB('productos', productoSchema);
         dao.initMongoDB();
         break;
-};
+}}else{
+    dao = new DaoMongoDB('productos', productoSchema);
+    dao.initMongoDB();
+}
 
 export function getDao(){
     return dao;

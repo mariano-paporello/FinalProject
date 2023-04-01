@@ -5,9 +5,9 @@ import { logger } from "../../utils/loggers";
 
 let dao:DaoMongoDB;
 const args = minimist(process.argv)
-
-
-switch(args.database.toLowerCase()) {
+if(args.database){
+const database = args.database.toLowerCase()
+switch(database) {
     // agregar mÁs DB
     case 'mongo':
         dao = new DaoMongoDB('carts', cartSchema);
@@ -18,7 +18,10 @@ switch(args.database.toLowerCase()) {
         dao = new DaoMongoDB('carts', cartSchema);
         dao.initMongoDB();
         break;
-};
+};}else{
+    dao = new DaoMongoDB('carts', cartSchema);
+    dao.initMongoDB();
+}
 
 
 export function getDao(){

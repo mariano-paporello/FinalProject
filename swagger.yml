@@ -1004,7 +1004,7 @@ paths:
   /chat/:
     get:
       tags:
-        - chat
+        - Chat
       summary: chat
       description: Brings the HTML of this endpoint.
       responses:
@@ -1022,8 +1022,8 @@ paths:
   /:
     get:
       tags:
-        - default
-      summary: MainPage
+        - Documentation
+      summary: Home
       description: >-
         Route that show the Documentation of the proyect.
       responses:
@@ -1107,7 +1107,7 @@ paths:
   /profile/:
     get:
       tags:
-        - default
+        - Profile
       summary: Profile
       security:
         - bearerAuth: []  

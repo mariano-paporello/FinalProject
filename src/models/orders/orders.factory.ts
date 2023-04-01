@@ -6,8 +6,9 @@ import { orderSchema } from "./schema/orders.schema";
 let dao : DaoMongoDB;
 const args = minimist(process.argv)
 
-
-switch(args.database.toLowerCase()) {
+if(args.database){
+const database = args.database.toLowerCase()
+switch(database) {
     case 'mongo':
         if(args){
             dao = new DaoMongoDB('orders', orderSchema);
@@ -20,7 +21,10 @@ switch(args.database.toLowerCase()) {
         dao = new DaoMongoDB('orders', orderSchema);
         dao.initMongoDB();
         break;
-};
+}}else{
+    dao = new DaoMongoDB('orders', orderSchema);
+    dao.initMongoDB();
+}
 
 export function getDao(){
     return dao;
