@@ -1019,6 +1019,56 @@ paths:
             text/plain:
               schema:
                 type: string
+
+   /profile/:
+    get:
+      tags:
+        - Profile
+      summary: Profile
+      security:
+        - bearerAuth: []  
+      description: Route that shows the data of the user.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  _id: 640a41bdb7c9c4215357c7e9
+                  gmail: user@gmail.com
+                  password: $2b$10$37TA9iWrGVmZYv3aTm8cUuyZgeLbUPBBi27BDditPDN6ErFHw5wjy
+                  age: '10'
+                  username: Test
+                  phoneNumber: '99999999'
+                  image: RandomImage
+                  __v: 0
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                Error: Not Logged
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: '403'
+                  value:
+                    Error: Not authorized
+                example-1:
+                  summary: 403 Expired token
+                  value:
+                    Error: Expired token
+
   /:
     get:
       tags:
@@ -1104,55 +1154,7 @@ paths:
                         createdAt: '2023-03-31T02:41:19.024Z'
                         updatedAt: '2023-03-31T02:41:19.024Z'
                         __v: 0
-  /profile/:
-    get:
-      tags:
-        - Profile
-      summary: Profile
-      security:
-        - bearerAuth: []  
-      description: Route that shows the data of the user.
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-              example:
-                data:
-                  _id: 640a41bdb7c9c4215357c7e9
-                  gmail: user@gmail.com
-                  password: $2b$10$37TA9iWrGVmZYv3aTm8cUuyZgeLbUPBBi27BDditPDN6ErFHw5wjy
-                  age: '10'
-                  username: Test
-                  phoneNumber: '99999999'
-                  image: RandomImage
-                  __v: 0
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-              example:
-                Error: Not Logged
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                type: object
-              examples:
-                example-0:
-                  summary: '403'
-                  value:
-                    Error: Not authorized
-                example-1:
-                  summary: 403 Expired token
-                  value:
-                    Error: Expired token
-
+ 
 
 
 
