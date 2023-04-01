@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/src/index.js --database= mongo",
+    "start": "node dist/src/index.js --omit=dev",
     "dev": "nodemon src/index.ts --database=MOngo",
     "test": "jest --detectOpenHandles",
     "build": "tsc",
