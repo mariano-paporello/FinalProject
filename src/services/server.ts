@@ -5,14 +5,14 @@ import {engine} from 'express-handlebars'
 import compression from "compression"
 import {logger}from "../utils/loggers"
 import index from '../routes/index'
-import { paths, viewPath } from '../utils/paths'
+import { paths, viewPath } from '../paths'
 import cookieParser from "cookie-parser";
 import session from 'express-session';
 import { storeOptions } from "../api/storeOptions";
 import passport from "passport";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
-import { User } from '../../Public/types'
+import { User } from '../../public/types'
 
 declare module 'express-session' {
     interface SessionData {

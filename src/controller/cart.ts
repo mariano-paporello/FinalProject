@@ -7,7 +7,7 @@ import {
   emptyCart,
 } from "../api/cart";
 import { logger } from "../utils/loggers";
-import { finalProductForm, singlePorduct, User } from "../../Public/types";
+import { finalProductForm, singlePorduct, User } from "../../public/types";
 import { Request, Response } from "express";
 import { ProductObject } from "../models/products/products.interface";
 import {

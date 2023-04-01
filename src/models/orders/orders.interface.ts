@@ -1,5 +1,5 @@
 import { FilterQuery, UpdateQuery } from "mongoose";
-import { finalProductForm } from "../../../Public/types";
+import { finalProductForm } from "../../../public/types";
 export interface OrderObject extends NewOrderObject {
     _id: string
 }

@@ -3,7 +3,7 @@ import { repositoryUser } from "../models/users/user.repository";
 import { ifCartExist } from "./cart";
 import { UserObject } from "../models/users/user.interface";
 import { Request } from "express";
-import { User } from "../../Public/types";
+import { User } from "../../public/types";
 
 // CAMBIAR LA LOGICA PARA PODER PASARLO A CAPAS
 export const searchUser = async (

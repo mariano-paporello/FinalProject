@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { finalProductForm, User, states } from "../../Public/types";
+import { finalProductForm, User, states } from "../../public/types";
 import {
   createOrder,
   numberOfOrderCreator,

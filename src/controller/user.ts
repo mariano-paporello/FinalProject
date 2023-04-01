@@ -5,7 +5,7 @@ import { logger } from '../utils/loggers';
 import { checkAuth, createAuthToken } from '../api/jws';
 import { createUser, searchUser } from './passport';
 import { Response, Request, NextFunction } from "express"
-import {User} from "../../Public/types"
+import {User} from "../../public/types"
 
 
 // JWT PART
