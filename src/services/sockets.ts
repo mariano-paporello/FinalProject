@@ -101,6 +101,7 @@ const initWsServer = (server: unknown) => {
         }
         case "Carrito":{
           const cart = await cartGet(data.userId)
+          if(cart && cart?.length>0){
           const response = cart?.map(element=>{
             return `||Producto en Carrito: 
             Nomber: ${element?.title}.
@@ -116,6 +117,9 @@ const initWsServer = (server: unknown) => {
             const messageComplete = await createMessage(messageFromSistem)
             socket.emit("sistemResponse", messageComplete)
             break;
+          }}else{
+            const cartVacio = {message: "Carrito vacio"}
+            socket.emit("sistemResponse", cartVacio)
           }
         }
         default:{

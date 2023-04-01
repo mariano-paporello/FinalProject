@@ -47,7 +47,7 @@ socket.on("errorNoAutorizado", (error)=>{
 }
 })
 socket.on("devuelvoToken", (data)=>{
-  console.log("data",data)
+  
   if(data){
     const p = document.createElement("p");
     p.innerHTML = `<h4>Tu token para copiar: </h4> <div>${data}</div>`
