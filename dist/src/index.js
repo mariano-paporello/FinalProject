@@ -15,7 +15,7 @@ var port = args.port || config_1.default.PORT;
 var numCPUs = os_1.default.cpus().length;
 (0, sockets_1.default)(server);
 if (args.modo === "CLUSTER" && cluster_1.default.isPrimary) {
-    loggers_1.logger.info("💡💡💡 TIPO CLUSTER");
+    loggers_1.logger.info("TIPO CLUSTER");
     for (var i = 0; i < numCPUs; i++) {
         cluster_1.default.fork();
     }
@@ -25,7 +25,7 @@ if (args.modo === "CLUSTER" && cluster_1.default.isPrimary) {
     });
 }
 else {
-    loggers_1.logger.info("💩💩💩 TIPO FORK");
+    loggers_1.logger.info("TIPO FORK");
     server.listen(port, function () {
         loggers_1.logger.info("Server is up in ".concat(port));
     });

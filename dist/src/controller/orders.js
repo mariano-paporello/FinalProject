@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendMessages = exports.CreateOrder = exports.getOrdersOfUser = void 0;
-var types_1 = require("../../Public/types");
+var types_1 = require("../../public/types");
 var orders_1 = require("../api/orders");
 var loggers_1 = require("../utils/loggers");
 var cart_1 = require("./cart");

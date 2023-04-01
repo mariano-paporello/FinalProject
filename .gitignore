@@ -3,4 +3,4 @@ node_modules
 logs
 .log
 .txt
-./dist
+dist
