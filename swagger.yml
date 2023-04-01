@@ -1019,8 +1019,7 @@ paths:
             text/plain:
               schema:
                 type: string
-
-   /profile/:
+  /profile/:
     get:
       tags:
         - Profile
