@@ -6,7 +6,7 @@ import { sendMessages, getOrdersOfUser} from "../controller/orders"
 
 const orderRoute = Router()
 
-orderRoute.get("/",isLogged, checkAuth,  loggedIsNotDestroyed, getOrdersOfUser )
+orderRoute.get("/:id?",isLogged, checkAuth,  loggedIsNotDestroyed, getOrdersOfUser )
 
 orderRoute.post("/complete",isLogged, checkAuth,  loggedIsNotDestroyed, sendMessages )
 

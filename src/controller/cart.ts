@@ -116,7 +116,7 @@ export const cartSender = async (req: Request, res: Response) => {
         } else {
           logger.error("Error: Error al crear orden de compra");
           res.status(400).json({
-            error: "Error al crear orden de compra",
+            error: "Error when creating the order.",
           });
         }
       }
@@ -148,18 +148,18 @@ export const productToCartController = async (req: Request, res: Response) => {
       );
       if (productAñadido) {
         res.status(200).json({
-          msg: "👍 👍 👍 👍 TODO BIENN ",
+          msg: "Product added successfully",
         });
       }
       else{
         res.status(400).json({
-          Error: "Error al crear el producto"
+          Error: "Error when creating the product"
         })
       }
     }}
     else{
       res.status(400).json({
-        Error: "Id ingresado invalido"
+        Error: "Id  entered is invalid"
       })
     }
   } catch (err) {
@@ -270,7 +270,7 @@ export const deleteCartProducts = async (req: Request, res: Response) => {
 
             if (newCart.acknowledged && newCart.modifiedCount > 0) {
               res.status(200).json({
-                msg: "Producto en carrito borrado correctamente.",
+                msg: "Product in cart was deleted successfully.",
               });
             }
           } else if (
@@ -289,23 +289,23 @@ export const deleteCartProducts = async (req: Request, res: Response) => {
 
             if (newCart.acknowledged && newCart.modifiedCount > 0) {
               res.status(200).json({
-                msg: "Producto en carrito actualizado",
+                msg: "Product amount in cart was modify successfully.",
               });
             }
           } else {
             res.status(400).json({
-              Error: "Error al revisar que cantidad se quiere borrar",
+              Error: "Error when checking the amount that want to be deleted.",
             });
           }
         } else {
           res.status(400).json({
-            Error: "Producto no encontrado en su carrito",
+            Error: "Product not found in the cart",
           });
         }
       }
     }else{
       res.status(400).json({
-        Error: "Cantidad o id no fue ingresado correctamente"
+        Error: "The amount or ID was not entered correctly"
       })
     }
   } catch (error) {

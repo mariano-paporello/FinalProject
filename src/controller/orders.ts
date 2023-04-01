@@ -25,12 +25,12 @@ export const getOrdersOfUser = async (req: Request, res: Response) => {
                 OrdenBuscada: order,
         })}else{
             res.status(400).json({
-                Error: "id de orden buscado no existe"
+                Error: "ID of the wanted order doesn't exist."
             })    
         }
       } else {
         res.status(400).json({
-            Error: "Id ingresado es inexistente debido a que es menor a 24 caracteres."
+            Error: "ID entered doesn't exist because it is has less than 24 characters."
         })
       }
     }else{
@@ -84,10 +84,10 @@ export const CreateOrder = async (
 };
 
 const getTotal = (data: finalProductForm): number | undefined => {
-  let culo: number = 0;
+  let acumulator: number = 0;
   const precioFinal = data.map((item) => {
     if (item) {
-      return culo + item.price;
+      return acumulator + item.price;
     }
   });
   const resultado = precioFinal.reduce((prev, current) => {
@@ -113,7 +113,7 @@ export const sendMessages = async (req: Request, res: Response) => {
       const order = await getOrderById(idOfOrder);
       if (!orderUpdated) {
         res.status(400).json({
-          Error: "Orden no encontrada o en estado no generado",
+          Error: "Order not found or in a state different from generated",
         });
       } else if (order) {
         const productsHtml = productsInCart?.map((product) => {
@@ -139,7 +139,7 @@ export const sendMessages = async (req: Request, res: Response) => {
         );
         if (done) {
           res.json({
-            msg: "Orden completada y envíada.",
+            msg: "Order completed and sent.",
           });
         }
       }

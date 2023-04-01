@@ -9,7 +9,7 @@ import { User } from "../../Public/types"
 
 // LOGIN LOGIC
 export const logIn =  async (req:Request, res:Response, next:NextFunction) => {
-    if(req.body.password === req.body.passwordConfirm){
+    if(req.body.password){
         passport.authenticate('login', {}, async (err:Error, user:User, info:unknown) => {
             logger.info( "METODO:"+ req.method + " RUTA:"+ req.url )
     
@@ -20,28 +20,22 @@ export const logIn =  async (req:Request, res:Response, next:NextFunction) => {
             logged.isDestroyed= false
             const token = await generateToken(user)
 
-            res.header("Authorization", `Bearer ${token}`).status(200).json({
-                msg: 'login OK',    
+            res.status(200).json({ 
                 token: token 
             })  
             } else {
                 logger.error("Datos ingresados no validos o nulos")
                 res.status(400).json({
-                    Error: "Datos ingresados no validos o nulos."
+                    Error: "The data entered is invalid or null."
                 })
             }
         })(req, res, next)
-    }else{
-        logger.error("Contraseñas ingresadas no son iguales")
-        res.status(400).json({
-            Error: "Las contraseñas ingresadas no son iguales"
-        })
     }
 }
 export const logInGet = (req:Request, res:Response)=>{
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
     logged.isDestroyed = false
-    res.json({msg:"Estas en logIn"})
+    res.json({msg:"You are in logIn"})
 }
 
 // REGISTER LOGIC
@@ -64,7 +58,7 @@ export const register = async (req:Request, res:Response, next:NextFunction) => 
     
             if (!username || !gmail || !age || !phoneNumber || !image || !password || !passwordConfirm || address) {
                 res.status(400).json({
-                    Error: "Datos ingresados no validos o nulos"
+                    Error: "Data entered invalid or null."
                 })
             }
             const token:string | string[] | undefined = await generateToken(user) 
@@ -73,14 +67,14 @@ export const register = async (req:Request, res:Response, next:NextFunction) => 
             logged.contraseña = true
             logged.islogged = true
             logged.isDestroyed= false
-            res.header("authorization", `Bearer ${token}`).json({
+            res.status(200).json({
                 token: token
             });
         })(req, res, next);
     }else{
         logger.error("Contraseñas ingresadas no son iguales")
         res.status(400).json({
-            Error: "Las contraseñas ingresadas no son iguales"
+            Error: "The passwords entered are not the equals"
         })
     }
 }
@@ -88,7 +82,7 @@ export const register = async (req:Request, res:Response, next:NextFunction) => 
 export const registerGet = (req:Request, res:Response) => {
     logger.info( "METODO:"+req.method + " RUTA:"+ req.url )
     logged.isDestroyed = false
-    res.json({msg:"Estas en la Ruta register"})
+    res.json({msg:"You are in the register route en la Ruta register"})
 }
 
 // LOGOUT LOGIC
@@ -105,7 +99,7 @@ export const logout = (req:Request, res:Response) => {
         logged.isDestroyed = true
 
     } else {
-        res.json({err: "No hay data del usuario"})
+        res.status(400).json({err: "There isn't data of the user"})
     }
 }
 

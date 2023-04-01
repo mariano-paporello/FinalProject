@@ -17,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"gmail\": \"mariano.paporello@gmail.com\",\r\n    \"password\": 34412,\r\n    \"age\": 10,\r\n    \"username\": \"Test\",\r\n    \"phoneNumber\": 99999999,\r\n    \"image\": \"RandomImage\",\r\n    \"passwordConfirm\": \"password\",\r\n    \"adress\": \"camargo 822\"\r\n}",
+							"raw": "{\r\n    \"gmail\": \"test@gmail.com\",\r\n    \"password\": 34412,\r\n    \"passwordConfirm\": \"password\",\r\n    \"age\": 10,\r\n    \"username\": \"TestUser\",\r\n    \"phoneNumber\": 99999999,\r\n    \"image\": \"RandomImage\",\r\n    \"adress\": \"camargo 822\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1331,7 +1331,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"bolsa de CACA\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
+							"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"Bolsa de Cemento\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1366,7 +1366,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n\"title\":\"bolsa de CACA\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
+									"raw": "{\r\n\"title\":\"Bolsa de Cemento\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1443,7 +1443,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"bolsa de CACA\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
+									"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"Bolsa de Cemento\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1516,7 +1516,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"bolsa de CACA\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
+									"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"Bolsa de Cemento\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1593,7 +1593,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"bolsa de CACA\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
+									"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"Bolsa de Cemento\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1670,7 +1670,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"bolsa de CACA\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
+									"raw": "{\"_id\":\"6407aa019d552a6e826fa998\",\r\n\"title\":\"Bolsa de Cemento\",\r\n\"price\":300,\r\n\"thumbnail\":\"null\",\r\n\"stock\":200,\r\n\"category\":\"albañileria\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5880,7 +5880,14 @@
 		}
 	],
 	"auth": {
-		"type": "bearer"
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDI2ZmY5YTkzNzZmN2NkYmQ5NDJhNTYiLCJ1c2VybmFtZSI6IlRlc3RVc2VyIiwiaW1hZ2UiOiJSYW5kb21JbWFnZSIsImdtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2ODAyNzc0MDIsImV4cCI6MTcxMTgxMzQwMn0.kdzn-r5JVIDM1XEr7S7lTHh2VbPRF0yXfX00siRr8EA",
+				"type": "string"
+			}
+		]
 	},
 	"event": [
 		{

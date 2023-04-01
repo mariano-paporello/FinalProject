@@ -6,16 +6,13 @@ import {
   updateProduct,
 } from "../api/products";
 import {
-  DocumentMongoGet,
   ProductObject,
 } from "../models/products/products.interface";
-import { repositoryProduct } from "../models/products/products.repository";
-
 import { logger } from "../utils/loggers";
 
 export const productsGetController = async (req: Request, res: Response) => {
   try {
-    if (req.params.id) {
+    if (req.params.id && req.params.id.length > 1) {
       const productoBuscado = await getProducts(req.params.id);
       if (productoBuscado !== null && productoBuscado) {
         res.json({
@@ -23,12 +20,12 @@ export const productsGetController = async (req: Request, res: Response) => {
         });
       } else if (!productoBuscado) {
         res.status(400).json({
-          Error: "ID ingresado es incorrecto. Debe de tener 24 caracteres",
+          Error: "The ID received is incorrect (it needs to have 24 characters) or doesn´t exist.",
         });
       } else {
         logger.warning("EL ID DEL PRODUCTO BUSCADO NO EXISTE");
         res.status(400).json({
-          Error: "ID del producto no fue encontrado",
+          Error: "The ID of the product wasn't found.",
         });
       }
     } else if (req.params.category) {
@@ -46,7 +43,7 @@ export const productsGetController = async (req: Request, res: Response) => {
         });
       } else {
         res.status(400).json({
-          Error: "No se pudo encontrar ningun producto con esa categoria",
+          Error: "It couldn't find any products with that category.",
         });
       }
     } else {
@@ -67,7 +64,7 @@ export const newProductController = async (req: Request, res: Response) => {
       });
     } else {
       res.status(404).json({
-        Error: "User no es administrador",
+        Error: "User isn't admin",
       });
     }
   } catch (error) {
@@ -84,11 +81,11 @@ export const modifyAProduct = async (req: Request, res: Response) => {
   const changedProduct = await updateProduct({ _id: id }, { $set: data });
   if (changedProduct.acknowledged && changedProduct.modifiedCount > 0) {
     res.status(200).json({
-      msg: "Modificacion realizada de forma correcta",
+      msg: `Modification  done to product with ID: ${id}`,
     });
   } else {
     res.status(400).json({
-      Error: "Modificacion falló",
+      Error: "Modification failed",
     });
   }
 };
@@ -98,22 +95,21 @@ export const deleteAProduct = async (req: Request, res: Response) => {
   const deleteResult = await deleteProduct(id);
   if(id.length !== 24)
     res.status(400).json({
-      error: `Error al intentar borrar el producto con id: ${id}. Debido a que el mismo no es un id posible (minimo 24 caracteres)`,
-    });
+      error: `Error when trying to delete the product with ID: ${id}. Because the id hasn't got 24 caracters.`});
   if (
     deleteResult &&
     deleteResult.acknowledged &&
     deleteResult.deletedCount > 0
   ) {
     res.status(200).json({
-      msg: `Producto con id: ${id}. Fue borrado`,
+      msg: `Product with ID: ${id}. Was deleted`,
     });
   } else {
     logger.error(
-      "No se a podido borrar el producto debido a un mal ingresado id"
+      "It wasn't possible to delete the product because the ID was entered wrong"
     );
     res.status(400).json({
-      error: `Error al intentar borrar el producto con id: ${id}. Este no existe.`,
+      error: `Error when trying to delete the product with ID: ${id}. It doesn't exist.`,
     });
   }
 };

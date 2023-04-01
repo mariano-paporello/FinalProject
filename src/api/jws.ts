@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import jwt, { verify } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import { User } from "../../Public/types";
 import config from '../config/index';
 import { logger } from "../utils/loggers";
@@ -12,7 +12,6 @@ export const createAuthToken = async (user:User)=> {
       image: user.image,
       gmail: user.gmail
     };
-
     
     const token = jwt.sign(payload, config.JWT_SECRET_KEY, {expiresIn: config.TOKEN_KEEP_ALIVE});
     return token
@@ -25,7 +24,7 @@ export const createAuthToken = async (user:User)=> {
         if(authHeader){
         const token = authHeader && authHeader.split(' ')[1]
         if(!token ){
-          return res.status(403).json({msg:"NO AUTORIZADO "}) 
+          return res.status(403).json({msg:"Not authorized"}) 
         }else if(!Array.isArray(token)){
           try{ 
           const tokenReturned = jwt.verify(token, config.JWT_SECRET_KEY, (err, user)=>{
@@ -43,7 +42,7 @@ export const createAuthToken = async (user:User)=> {
           }
           else{
             res.status(403).json({
-              Error: "Token vencido"
+              Error: "Expired token"
             })
           }
         }catch(err){
@@ -56,10 +55,10 @@ export const createAuthToken = async (user:User)=> {
       }
     }else{
           res.status(403).json({
-            Error: "No estas autorizado"
+            Error: "not authorized"
          })
     }
   }catch(err){
-    return res.status(403).json({msg:`Error: ${err} NO AUTORIZADO`})
+    return res.status(403).json({msg:`Error: ${err} not authorized`})
   }
 }
