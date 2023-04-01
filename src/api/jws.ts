@@ -47,7 +47,7 @@ export const createAuthToken = async (user:User)=> {
           }
         }catch(err){
           logger.error(err)
-          console.log(err)
+          
           res.status(403).json({
             error: err
           })

@@ -18,10 +18,10 @@ const initWsServer = (server: unknown) => {
       Bienvenida: "hola",
     });
     socket.on("sendUserPassword", async(data:{username: string, password: string})=>{
-      console.log("data:", data)
+      
      const user =  await repositoryUser.logIn(data.username, data.password)
 
-     console.log("User encontrado: ",user)
+  
      if(user){
       const token = await  generateToken(user)
       socket.emit("devuelvoToken", token)
@@ -33,7 +33,7 @@ const initWsServer = (server: unknown) => {
           let jwtObject: any;
           const user = jwt.verify(token, config.JWT_SECRET_KEY, (err, user) => {
             if (err) {
-              console.log(err);
+              logger.error(err)
               return false;
             } else if (user) {
               jwtObject = user;
