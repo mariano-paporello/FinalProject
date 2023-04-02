@@ -5,9 +5,7 @@ import {
   newProductToDB,
   updateProduct,
 } from "../api/products";
-import {
-  ProductObject,
-} from "../models/products/products.interface";
+import { ProductObject } from "../models/products/products.interface";
 import { logger } from "../utils/loggers";
 
 export const productsGetController = async (req: Request, res: Response) => {
@@ -20,7 +18,8 @@ export const productsGetController = async (req: Request, res: Response) => {
         });
       } else if (!productoBuscado) {
         res.status(400).json({
-          Error: "The ID received is incorrect (it needs to have 24 characters) or doesn´t exist.",
+          Error:
+            "The ID received is incorrect (it needs to have 24 characters) or doesn´t exist.",
         });
       } else {
         logger.warning("EL ID DEL PRODUCTO BUSCADO NO EXISTE");
@@ -93,9 +92,10 @@ export const modifyAProduct = async (req: Request, res: Response) => {
 export const deleteAProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
   const deleteResult = await deleteProduct(id);
-  if(id.length !== 24)
+  if (id.length !== 24)
     res.status(400).json({
-      error: `Error when trying to delete the product with ID: ${id}. Because the id hasn't got 24 caracters.`});
+      error: `Error when trying to delete the product with ID: ${id}. Because the id hasn't got 24 caracters.`,
+    });
   if (
     deleteResult &&
     deleteResult.acknowledged &&

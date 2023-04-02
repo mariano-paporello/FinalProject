@@ -1,32 +1,30 @@
-import minimist from "minimist"
+import minimist from "minimist";
 import { logger } from "../../utils/loggers";
 import DaoMongoDB from "./daos/mongodb";
-import usersSchema  from "./schema/users.schema";
+import usersSchema from "./schema/users.schema";
 
+let dao: DaoMongoDB;
 
-let dao:DaoMongoDB;
+const args = minimist(process.argv);
 
-const args = minimist(process.argv)
-
-if(args.database){
-const database = args.database.toLowerCase()
-switch(database) {
-    // agregar mÁs DB
-    case 'mongo':
-        dao = new DaoMongoDB('users', usersSchema);
-        dao.initMongoDB();
-        break;
+if (args.database) {
+  const database = args.database.toLowerCase();
+  switch (database) {
+    case "mongo":
+      dao = new DaoMongoDB("users", usersSchema);
+      dao.initMongoDB();
+      break;
     default:
-        logger.error("Error al querer seleccionar DB en users")
-        dao = new DaoMongoDB('users', usersSchema);
-        dao.initMongoDB();
-        break;
-}}else{
-    dao = new DaoMongoDB('users', usersSchema);
-    dao.initMongoDB();
+      logger.error("Error al querer seleccionar DB en users");
+      dao = new DaoMongoDB("users", usersSchema);
+      dao.initMongoDB();
+      break;
+  }
+} else {
+  dao = new DaoMongoDB("users", usersSchema);
+  dao.initMongoDB();
 }
 
-
-export function getDao(){
-    return dao;
-};
+export function getDao() {
+  return dao;
+}

@@ -13,7 +13,6 @@ export const searchUser = async (
   done: (error: any, user?: any, info?: any) => void
 ) => {
   try {
-
     const user: UserObject | null | undefined = await repositoryUser.logIn(
       username,
       password

@@ -1,6 +1,6 @@
-import Config from '../config';
-import twilio from 'twilio';
-import { MessageListInstanceCreateOptions } from 'twilio/lib/rest/api/v2010/account/message';
+import Config from "../config";
+import twilio from "twilio";
+import { MessageListInstanceCreateOptions } from "twilio/lib/rest/api/v2010/account/message";
 
 class Twilio {
   private twilio;
@@ -9,8 +9,11 @@ class Twilio {
     this.twilio = twilio(Config.TWILIO_ID, Config.TWILIO_TOKEN);
   }
 
-  async sendWhatsAppMessage(cellphoneNumber: string, message: string, picture?: string) {
-
+  async sendWhatsAppMessage(
+    cellphoneNumber: string,
+    message: string,
+    picture?: string
+  ) {
     const params: MessageListInstanceCreateOptions = {
       body: message,
       from: `whatsapp:${Config.TWILIO_CELLPHONE}`,

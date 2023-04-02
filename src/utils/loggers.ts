@@ -1,32 +1,26 @@
-import winston from "winston"
+import winston from "winston";
 
 const { createLogger, format, transports } = winston;
 const { combine, printf, timestamp, colorize } = format;
 
 export const logger = createLogger({
-  level: 'info',
+  level: "info",
   format: combine(
     timestamp({
-    format: 'MMM-DD-YYYY HH:mm:ss',
+      format: "MMM-DD-YYYY HH:mm:ss",
     }),
     colorize(),
     printf((info) => `${info.level}|${[info.timestamp]}|${info.message}`)
-    ),
+  ),
   transports: [
-    new transports.Console({ level: 'info' }),
+    new transports.Console({ level: "info" }),
     new winston.transports.File({
-      filename: './logs/error.log',
-      level: 'error',
+      filename: "./logs/error.log",
+      level: "error",
     }),
     new winston.transports.File({
-      filename: './logs/warn.log',
-      level: "warn"
-  }),
-],})
- 
-
-   
-    
-
-
-
+      filename: "./logs/warn.log",
+      level: "warn",
+    }),
+  ],
+});

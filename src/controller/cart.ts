@@ -139,28 +139,27 @@ export const ifCartExist = async (dataUser: User) => {
 
 export const productToCartController = async (req: Request, res: Response) => {
   try {
-    if(req.params.id.length === 24){
-    const product = await getProductById(req.params.id);
-    if (req.session.dataUser && product !== undefined && product !== null) {
-      const productAñadido = await añadirProdACart(
-        req.session.dataUser,
-        product
-      );
-      if (productAñadido) {
-        res.status(200).json({
-          msg: "Product added successfully",
-        });
+    if (req.params.id.length === 24) {
+      const product = await getProductById(req.params.id);
+      if (req.session.dataUser && product !== undefined && product !== null) {
+        const productAñadido = await añadirProdACart(
+          req.session.dataUser,
+          product
+        );
+        if (productAñadido) {
+          res.status(200).json({
+            msg: "Product added successfully",
+          });
+        } else {
+          res.status(400).json({
+            Error: "Error when creating the product",
+          });
+        }
       }
-      else{
-        res.status(400).json({
-          Error: "Error when creating the product"
-        })
-      }
-    }}
-    else{
+    } else {
       res.status(400).json({
-        Error: "Id  entered is invalid"
-      })
+        Error: "Id  entered is invalid",
+      });
     }
   } catch (err) {
     logger.error("Error in productsController: ", err);
@@ -303,10 +302,10 @@ export const deleteCartProducts = async (req: Request, res: Response) => {
           });
         }
       }
-    }else{
+    } else {
       res.status(400).json({
-        Error: "The amount or ID was not entered correctly"
-      })
+        Error: "The amount or ID was not entered correctly",
+      });
     }
   } catch (error) {
     logger.error(error);

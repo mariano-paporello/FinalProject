@@ -18,22 +18,24 @@ export const getOrdersOfUser = async (req: Request, res: Response) => {
     const { id } = req.body;
     if (userId) {
       if (id) {
-        if(id.length===24){
-        const order = await getOrderById(id);
-        if(order){
+        if (id.length === 24) {
+          const order = await getOrderById(id);
+          if (order) {
             res.status(200).json({
-                OrdenBuscada: order,
-        })}else{
+              OrdenBuscada: order,
+            });
+          } else {
             res.status(400).json({
-                Error: "ID of the wanted order doesn't exist."
-            })    
+              Error: "ID of the wanted order doesn't exist.",
+            });
+          }
+        } else {
+          res.status(400).json({
+            Error:
+              "ID entered doesn't exist because it is has less than 24 characters.",
+          });
         }
       } else {
-        res.status(400).json({
-            Error: "ID entered doesn't exist because it is has less than 24 characters."
-        })
-      }
-    }else{
         const orders = await getOrders(userId);
         if (orders.length > 0) {
           res.status(200).json({
@@ -44,7 +46,7 @@ export const getOrdersOfUser = async (req: Request, res: Response) => {
             getOrdersOfUser: "None",
           });
         }
-    }
+      }
     }
   } catch (error) {
     res.status(400).json({
@@ -75,7 +77,7 @@ export const CreateOrder = async (
       }
     } else {
       logger.error("Error debido a la data pasada");
-      return null
+      return null;
     }
   } catch (error) {
     logger.error(`Error: ${error}`);

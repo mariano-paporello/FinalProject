@@ -1,24 +1,23 @@
 export interface MessageObject extends newMessageObject {
-    _id: string
+  _id: string;
 }
 
 export interface newMessageObject {
-    userId: string,
-    type: tipos,
-    message: string
+  userId: string;
+  type: tipos;
+  message: string;
 }
-
 
 export enum tipos {
-    Usuario = "Usuario",
-    Sistema = "Sistema"
+  Usuario = "Usuario",
+  Sistema = "Sistema",
 }
 
-export interface jwtObject{
-    usedId: string,
-  username: string,
-  image: string,
-  gmail: string,
-  iat: number,
-  exp: number
+export interface jwtObject {
+  usedId: string;
+  username: string;
+  image: string;
+  gmail: string;
+  iat: number;
+  exp: number;
 }
