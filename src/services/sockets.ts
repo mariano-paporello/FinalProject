@@ -56,8 +56,9 @@ const initWsServer = (server: unknown) => {
       }
     );
     socket.on("mensajeYaImpreso", async (data: any)=>{
-      switch(data.message){
-        case "Stock":{
+      const message = data.message.toLowerCase()
+      switch(message){
+        case "stock":{
           const productos = await getProducts()
           if(Array.isArray(productos)){
             const response = productos.map(element=>{
@@ -80,7 +81,7 @@ const initWsServer = (server: unknown) => {
           }
           break;
         }
-        case "Orden":{
+        case "orden":{
           const ordenes = await getOrders(data.userId)
           const response = ordenes.map(element=>{
             return `||Id de orden: ${element._id}.
@@ -99,7 +100,7 @@ const initWsServer = (server: unknown) => {
           }
           break;
         }
-        case "Carrito":{
+        case "carrito":{
           const cart = await cartGet(data.userId)
           if(cart && cart?.length>0){
           const response = cart?.map(element=>{

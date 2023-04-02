@@ -223,7 +223,6 @@ paths:
               example:
                 username: TestUser
                 password: password
-                passwordConfirm: password
       responses:
         '200':
           description: OK
